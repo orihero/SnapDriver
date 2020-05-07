@@ -77,6 +77,17 @@ target 'snapDriver' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
+  pod 'lottie-ios', :path => '../node_modules/lottie-ios'
+
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'snapDriverTests' do
     inherit! :complete
     # Pods for testing
