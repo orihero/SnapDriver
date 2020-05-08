@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ScrollView,
+} from 'react-native';
 import colors from '../../constants/colors';
 import Avatar from '../../components/common/Avatar';
 import {CONTAINER_PADDING, BUTTON_MARGIN_BOTTOM} from '../../constants/values';
@@ -9,7 +15,6 @@ import SelectAndInputCard from '../../components/cards/SelectAndInputCard';
 import SelectOrInputCard from '../../components/cards/SelectOrInputCard';
 import RectangleButton from '../../components/common/RectangleButton';
 import constStyle from '../../constants/constStyles';
-import {ScrollView} from 'react-native-gesture-handler';
 
 interface RegisterDriverProps {
     navigation: any;
@@ -61,7 +66,7 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
                     placeholder={strings.enterYourPassword || ''}
                 />
                 <View style={{flex: 1}} />
-	                <View style={styles.footerWrapper}>
+                <View style={styles.footerWrapper}>
                     <Text style={[constStyle.medium, styles.firstFooter]}>
                         {strings.privacyPoliceFirst}
                     </Text>

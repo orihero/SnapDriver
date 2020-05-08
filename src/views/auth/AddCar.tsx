@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import colors from '../../constants/colors';
 import {CONTAINER_PADDING, BUTTON_MARGIN_BOTTOM} from '../../constants/values';
 import strings from '../../locales/strings';
 import RectangleButton from '../../components/common/RectangleButton';
 import {NavigationScreenProp} from 'react-navigation';
 import SelectOrInputCard from '../../components/cards/SelectOrInputCard';
-import {ScrollView} from 'react-native-gesture-handler';
 
 interface AddCarProps {
     navigation: NavigationScreenProp<{}>;

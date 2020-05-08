@@ -6,12 +6,12 @@ import {
     StatusBar,
     LayoutAnimation,
     KeyboardAvoidingView,
+    TextInput,
 } from 'react-native';
 import constStyles from '../../constants/constStyles';
 import colors from '../../constants/colors';
 import Icon from '../../assets/icons';
 import {BORDER_RADIUS} from '../../constants/values';
-import {TextInput} from 'react-native-gesture-handler';
 
 interface SelectAndInputCardProps {
     title: string;

@@ -65,6 +65,7 @@ let strings = new LocalizedStrings({
         carForSmokers: 'Авто для курящих',
         finishDrive: 'Завершить поездку',
         finish: 'Завершить',
+        chatWithDriver: 'Чат с водителем',
     },
     uz: {},
     en: {},

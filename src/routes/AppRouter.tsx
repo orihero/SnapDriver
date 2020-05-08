@@ -11,6 +11,7 @@ import {
     MapPage,
     Map,
     Passanger,
+    Chat,
 } from '../views';
 import Header from '../components/navigation/Header';
 import {deviceWidth} from '../constants/values';
@@ -90,6 +91,18 @@ let MapStack = createStackNavigator(
                 headerShown: false,
             },
         },
+        Chat: {
+            screen: Chat,
+            navigationOptions: {
+                header: () => (
+                    <Header
+                        backArrow
+                        backColor={colors.blue}
+                        title={strings.chatWithDriver}
+                    />
+                ),
+            },
+        },
         Map: {
             screen: Map,
             navigationOptions: {
@@ -98,7 +111,7 @@ let MapStack = createStackNavigator(
         },
     },
     {
-        // initialRouteName: 'Passanger',
+        initialRouteName: 'Chat',
     },
 );
 

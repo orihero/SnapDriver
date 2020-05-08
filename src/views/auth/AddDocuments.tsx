@@ -1,12 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    ScrollView,
+} from 'react-native';
 import {BUTTON_MARGIN_BOTTOM, CONTAINER_PADDING} from '../../constants/values';
 import AttachmentCard from '../../components/cards/AttachmentCard';
 import colors from '../../constants/colors';
 import strings from '../../locales/strings';
 import constStyle from '../../constants/constStyles';
 import RectangleButton from '../../components/common/RectangleButton';
-import {ScrollView} from 'react-native-gesture-handler';
 
 interface AddDocumentsProps {
     navigation: any;

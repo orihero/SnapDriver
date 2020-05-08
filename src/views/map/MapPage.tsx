@@ -30,7 +30,7 @@ const MapPage = ({navigation}: MapPageProps) => {
     };
 
     const onChatPress = () => {
-        console.warn('message');
+        navigation.navigate('Chat');
     };
 
     const onCountDownPress = () => {

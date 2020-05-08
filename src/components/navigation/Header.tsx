@@ -1,7 +1,7 @@
-import React, {ReactNode, Children} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React, {ReactNode, useEffect, useState} from 'react';
+import {View, Text, Image, StyleSheet, Keyboard} from 'react-native';
 import images from '../../assets/images';
-import {BIG_BORDER_RADIUS} from '../../constants/values';
+import {BIG_BORDER_RADIUS, deviceHeight} from '../../constants/values';
 import Icon from '../../assets/icons';
 import colors from '../../constants/colors';
 import constStyles from '../../constants/constStyles';
@@ -10,7 +10,7 @@ import {DrawerActions} from 'react-navigation-drawer';
 import Touchable from '../common/Touchable';
 
 interface HeaderProps {
-    navigation: any;
+    navigation?: any;
     bigPoster?: boolean;
     backArrow?: boolean;
     title?: string;
@@ -47,6 +47,28 @@ const Header = ({
         // navigation.toggleDrawer();
     };
 
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    //functions
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardVisible(true); // or some other action
+            },
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false); // or some other action
+            },
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
+
     let HeaderView = () => {
         return (
             <View
@@ -65,7 +87,12 @@ const Header = ({
                     <View style={styles.posterWrapper}>
                         <Image
                             source={images.poster}
-                            style={styles.posterImage}
+                            style={[
+                                styles.posterImage,
+                                isKeyboardVisible && {
+                                    height: deviceHeight * 0.18,
+                                },
+                            ]}
                         />
                     </View>
                 ) : (
@@ -170,7 +197,8 @@ const styles = StyleSheet.create({
     posterImage: {
         marginLeft: 20,
         width: 317,
-        height: 270,
+        height: deviceHeight * 0.4,
+        resizeMode: 'contain',
     },
 
     headerAndInnerHeader: {},
