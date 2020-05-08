@@ -6,6 +6,7 @@ import colors from '../../constants/colors';
 import strings from '../../locales/strings';
 import constStyle from '../../constants/constStyles';
 import RectangleButton from '../../components/common/RectangleButton';
+import {ScrollView} from 'react-native-gesture-handler';
 
 interface AddDocumentsProps {
     navigation: any;
@@ -18,32 +19,38 @@ const AddDocuments = ({navigation}: AddDocumentsProps) => {
     };
     return (
         <View style={styles.container}>
-            <AttachmentCard
-                title={strings.techPassport || ''}
-                icon="camera"
-                name={strings.takePhoto || ''}
-                textColor={colors.darkGrayText}
-            />
-            <AttachmentCard
-                title={strings.license || ''}
-                textColor={colors.darkGrayText}
-                icon="attachment"
-                name={strings.takePhotoAndAttach || ''}
-            />
-            <AttachmentCard
-                title={strings.passport || ''}
-                textColor={colors.darkGrayText}
-                icon="facePhoto"
-                name={strings.pictureSide || ''}
-            />
-            <AttachmentCard
-                title={strings.passport || ''}
-                textColor={colors.blue}
-                // icon="tick"
-                customIcon="tick"
-                name={strings.residenceSide || ''}
-            />
-            <View style={styles.footer}>
+            <ScrollView
+                contentContainerStyle={{
+                    paddingHorizontal: CONTAINER_PADDING,
+                    justifyContent: 'space-between',
+                }}>
+                <View>
+                    <AttachmentCard
+                        title={strings.techPassport || ''}
+                        icon="camera"
+                        name={strings.takePhoto || ''}
+                        textColor={colors.darkGrayText}
+                    />
+                    <AttachmentCard
+                        title={strings.license || ''}
+                        textColor={colors.darkGrayText}
+                        icon="attachment"
+                        name={strings.takePhotoAndAttach || ''}
+                    />
+                    <AttachmentCard
+                        title={strings.passport || ''}
+                        textColor={colors.darkGrayText}
+                        icon="facePhoto"
+                        name={strings.pictureSide || ''}
+                    />
+                    <AttachmentCard
+                        title={strings.passport || ''}
+                        textColor={colors.blue}
+                        // icon="tick"
+                        customIcon="tick"
+                        name={strings.residenceSide || ''}
+                    />
+                </View>
                 <View style={styles.footerWrapper}>
                     <Text style={[constStyle.medium, styles.firstFooter]}>
                         {strings.privacyPoliceFirst}
@@ -54,15 +61,17 @@ const AddDocuments = ({navigation}: AddDocumentsProps) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.buttonWrapper}>
-                    <RectangleButton
-                        onPress={onPress}
-                        backColor={colors.yellow}
-                        text={strings.further}
-                        textColor={colors.black}
-                    />
-                </View>
+            </ScrollView>
+            {/* <View style={styles.footer}> */}
+            <View style={styles.buttonWrapper}>
+                <RectangleButton
+                    onPress={onPress}
+                    backColor={colors.yellow}
+                    text={strings.further}
+                    textColor={colors.black}
+                />
             </View>
+            {/* </View> */}
         </View>
     );
 };
@@ -72,14 +81,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
         paddingTop: 20,
-        paddingHorizontal: CONTAINER_PADDING,
     },
     footer: {
         flex: 1,
         justifyContent: 'space-between',
     },
     footerWrapper: {
-        paddingTop: 120,
+        // paddingTop: 40,
+        paddingBottom: 10,
     },
     firstFooter: {
         textAlign: 'center',
@@ -91,9 +100,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: colors.blue,
     },
-    buttonWrapper: {
-        marginBottom: BUTTON_MARGIN_BOTTOM,
-    },
+    buttonWrapper: {padding: CONTAINER_PADDING},
 });
 
 export default AddDocuments;

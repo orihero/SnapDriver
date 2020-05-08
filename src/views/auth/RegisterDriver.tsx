@@ -9,6 +9,7 @@ import SelectAndInputCard from '../../components/cards/SelectAndInputCard';
 import SelectOrInputCard from '../../components/cards/SelectOrInputCard';
 import RectangleButton from '../../components/common/RectangleButton';
 import constStyle from '../../constants/constStyles';
+import {ScrollView} from 'react-native-gesture-handler';
 
 interface RegisterDriverProps {
     navigation: any;
@@ -21,40 +22,46 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
     };
     return (
         <View style={styles.container}>
-            <View style={styles.profileWrapper}>
-                <Avatar style={styles.avatar} />
-                <View style={styles.verticalWrapper}>
-                    <InputCard
-                        title={strings.name || ''}
-                        placeholder={strings.enterYourName || ''}
-                    />
-                    <InputCard
-                        title={strings.familyName || ''}
-                        placeholder={strings.enterYourFamilyName || ''}
-                    />
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    paddingHorizontal: CONTAINER_PADDING,
+                    justifyContent: 'space-between',
+                }}>
+                <View style={styles.profileWrapper}>
+                    <Avatar style={styles.avatar} />
+                    <View style={styles.verticalWrapper}>
+                        <InputCard
+                            title={strings.name || ''}
+                            placeholder={strings.enterYourName || ''}
+                        />
+                        <InputCard
+                            title={strings.familyName || ''}
+                            placeholder={strings.enterYourFamilyName || ''}
+                        />
+                    </View>
                 </View>
-            </View>
-            <SelectAndInputCard
-                titleVisible={true}
-                icon="smartphone"
-                value="+998"
-                placeholder={strings.enterYourNumber || ''}
-                isInputNumber
-                title={strings.enterYourNumber || ''}
-            />
-            <SelectOrInputCard
-                icon="listPen"
-                title={strings.yourResidence || ''}
-                placeholder={strings.addressResidence || ''}
-            />
-            <SelectOrInputCard
-                isPassword
-                icon="passwordChecked"
-                title={strings.yourPassword || ''}
-                placeholder={strings.enterYourPassword || ''}
-            />
-            <View style={styles.footer}>
-                <View style={styles.footerWrapper}>
+                <SelectAndInputCard
+                    titleVisible={true}
+                    icon="smartphone"
+                    value="+998"
+                    placeholder={strings.enterYourNumber || ''}
+                    isInputNumber
+                    title={strings.enterYourNumber || ''}
+                />
+                <SelectOrInputCard
+                    icon="listPen"
+                    title={strings.yourResidence || ''}
+                    placeholder={strings.addressResidence || ''}
+                />
+                <SelectOrInputCard
+                    isPassword
+                    icon="passwordChecked"
+                    title={strings.yourPassword || ''}
+                    placeholder={strings.enterYourPassword || ''}
+                />
+                <View style={{flex: 1}} />
+	                <View style={styles.footerWrapper}>
                     <Text style={[constStyle.medium, styles.firstFooter]}>
                         {strings.privacyPoliceFirst}
                     </Text>
@@ -64,15 +71,18 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.buttonWrapper}>
-                    <RectangleButton
-                        onPress={onPress}
-                        backColor={colors.yellow}
-                        text={strings.further}
-                        textColor={colors.black}
-                    />
-                </View>
+            </ScrollView>
+            {/* <View style={styles.footer}> */}
+            {/*  */}
+            <View style={styles.buttonWrapper}>
+                <RectangleButton
+                    onPress={onPress}
+                    backColor={colors.yellow}
+                    text={strings.further}
+                    textColor={colors.black}
+                />
             </View>
+            {/* </View> */}
         </View>
     );
 };
@@ -81,7 +91,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.white,
         flex: 1,
-        paddingHorizontal: CONTAINER_PADDING,
     },
     profileWrapper: {
         flexDirection: 'row',
@@ -100,7 +109,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     footerWrapper: {
-        paddingTop: 70,
+        paddingBottom: CONTAINER_PADDING,
     },
     firstFooter: {
         textAlign: 'center',
@@ -113,7 +122,7 @@ const styles = StyleSheet.create({
         color: colors.blue,
     },
     buttonWrapper: {
-        marginBottom: BUTTON_MARGIN_BOTTOM,
+        padding: CONTAINER_PADDING,
     },
 });
 

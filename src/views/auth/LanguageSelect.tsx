@@ -13,7 +13,11 @@ import strings from '../../locales/strings';
 import constStyles from '../../constants/constStyles';
 import SelectCard from '../../components/cards/SelectCard';
 import RectangleButton from '../../components/common/RectangleButton';
-import {CONTAINER_PADDING} from '../../constants/values';
+import {
+    CONTAINER_PADDING,
+    deviceWidth,
+    deviceHeight,
+} from '../../constants/values';
 
 interface LanguageSelectProps {
     navigation: any;
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     logoImage: {
-        height: 80,
+        height: deviceHeight * 0.08,
         width: 185,
         resizeMode: 'contain',
     },
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     driverImage: {
-        height: 230,
+        height: deviceHeight * 0.27,
         width: 300,
         resizeMode: 'contain',
     },

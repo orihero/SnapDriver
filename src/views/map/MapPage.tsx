@@ -73,8 +73,10 @@ const MapPage = ({navigation}: MapPageProps) => {
                                 navigation={navigation}
                                 image={images.taxi}
                                 title={strings.myTariff || ''}
+                                key={1}
                             />
                             <MessageCard
+                                key={2}
                                 onPress={onChatPress}
                                 navigation={navigation}
                                 image={images.chat}
@@ -87,7 +89,7 @@ const MapPage = ({navigation}: MapPageProps) => {
                                 style={[
                                     styles.tariffWrapper,
                                     showTariff && {
-                                        right: -190,
+                                        right: -220,
                                     },
                                 ]}>
                                 <TariffCard
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
     },
     tariffWrapper: {
         marginTop: 200,
-        right: -350,
+        right: -1000,
     },
 });
 

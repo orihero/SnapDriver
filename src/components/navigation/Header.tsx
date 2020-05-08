@@ -16,7 +16,7 @@ interface HeaderProps {
     title?: string;
     backColor?: string;
     menu?: boolean;
-    notification: boolean;
+    notification?: boolean;
     round?: boolean;
     innerHeader?: boolean;
     gradientBack?: any;

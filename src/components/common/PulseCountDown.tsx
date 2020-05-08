@@ -7,6 +7,7 @@ import Animated, {Easing} from 'react-native-reanimated';
 import Touchable from './Touchable';
 import CountDown from 'react-native-countdown-component';
 import constStyles from '../../constants/constStyles';
+import {deviceHeight} from '../../constants/values';
 
 interface PulseCountDownProps {
     navigation?: any;
@@ -38,7 +39,7 @@ const PulseCountDown = ({
             <PulseLoader />
             <AnimatedCircularProgress
                 ref={progressCircle}
-                size={150}
+                size={deviceHeight * 0.2}
                 width={3}
                 rotation={0}
                 fill={0}
@@ -88,7 +89,7 @@ const PulseCountDown = ({
 
 const styles = StyleSheet.create({
     container: {
-        height: 330,
+        height: deviceHeight * 0.35,
         justifyContent: 'center',
         alignItems: 'center',
     },

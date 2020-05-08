@@ -6,6 +6,7 @@ import {
     StyleSheet,
     KeyboardAvoidingView,
     Keyboard,
+    ScrollView,
 } from 'react-native';
 import Icon from '../../assets/icons';
 import constStyle from '../../constants/constStyles';
@@ -53,45 +54,58 @@ const EnterCode = ({navigation}: EnterCodeProps) => {
 
     let [inputScreen, setInputScreen] = useState(false);
     return (
-        <KeyboardAvoidingView style={styles.container}>
-            {!inputScreen && (
-                <View style={styles.titleWrapper}>
-                    <Text style={[constStyle.semibold, styles.firstTitle]}>
-                        {strings.weAreHappyYouAreHere}
-                    </Text>
-                    <Text style={[constStyle.bold, styles.secondTitle]}>
-                        {strings.letsRegister}
-                    </Text>
-                </View>
-            )}
-            <View style={[styles.cardWrapper, inputScreen && {paddingTop: 30}]}>
-                <SelectAndInputCard
-                    setInputScreen={setInputScreen}
-                    title={strings.yourPhoneNumber || ''}
-                    icon="smartphone"
-                    value="+998"
-                    isInputNumber={true}
-                    placeholder={strings.enterYourNumber || ''}
-                />
-                {inputScreen && (
-                    <SelectOrInputCard
-                        title={strings.enterYourPassword || ''}
-                        icon="passwordChecked"
-                        placeholder={strings.enterYourPassword || ''}
-                        isPassword
-                    />
+        <View style={styles.container}>
+            <ScrollView
+                style={{
+                    // paddingHorizontal: CONTAINER_PADDING,
+                    backgroundColor: colors.white,
+                }}
+                contentContainerStyle={{
+                    justifyContent: 'space-between',
+                }}>
+                {!inputScreen && (
+                    <View style={styles.titleWrapper}>
+                        <Text style={[constStyle.semibold, styles.firstTitle]}>
+                            {strings.weAreHappyYouAreHere}
+                        </Text>
+                        <Text style={[constStyle.bold, styles.secondTitle]}>
+                            {strings.letsRegister}
+                        </Text>
+                    </View>
                 )}
-            </View>
-            {!inputScreen && (
-                <View style={styles.footerWrapper}>
-                    <Text style={[constStyle.medium, styles.firstFooter]}>
-                        {strings.privacyPoliceFirst}
-                    </Text>
-                    <Text style={[constStyle.bold, styles.secondFooter]}>
-                        {strings.privacyPoliceSecond}
-                    </Text>
+                <View
+                    style={[
+                        styles.cardWrapper,
+                        inputScreen && {paddingTop: 30},
+                    ]}>
+                    <SelectAndInputCard
+                        setInputScreen={setInputScreen}
+                        title={strings.yourPhoneNumber || ''}
+                        icon="smartphone"
+                        value="+998"
+                        isInputNumber={true}
+                        placeholder={strings.enterYourNumber || ''}
+                    />
+                    {inputScreen && (
+                        <SelectOrInputCard
+                            title={strings.enterYourPassword || ''}
+                            icon="passwordChecked"
+                            placeholder={strings.enterYourPassword || ''}
+                            isPassword
+                        />
+                    )}
                 </View>
-            )}
+                {!inputScreen && (
+                    <View style={styles.footerWrapper}>
+                        <Text style={[constStyle.medium, styles.firstFooter]}>
+                            {strings.privacyPoliceFirst}
+                        </Text>
+                        <Text style={[constStyle.bold, styles.secondFooter]}>
+                            {strings.privacyPoliceSecond}
+                        </Text>
+                    </View>
+                )}
+            </ScrollView>
             {!isKeyboardVisible && (
                 <View style={styles.submitButton}>
                     <RectangleButton
@@ -102,16 +116,14 @@ const EnterCode = ({navigation}: EnterCodeProps) => {
                     />
                 </View>
             )}
-        </KeyboardAvoidingView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: CONTAINER_PADDING,
-        backgroundColor: colors.white,
         flex: 1,
-        justifyContent: 'space-between',
+        backgroundColor: colors.white,
     },
     titleWrapper: {
         padding: 18,
@@ -125,8 +137,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     cardWrapper: {
-        paddingBottom: 20,
-        paddingTop: 20,
+        // paddingBottom: 20,
+        // paddingTop: 20,
+        padding: CONTAINER_PADDING,	
     },
     footerWrapper: {},
     firstFooter: {
@@ -140,7 +153,8 @@ const styles = StyleSheet.create({
         color: colors.darkGrayText,
     },
     submitButton: {
-        marginTop: 20,
+        // marginTop: 20,
+        paddingHorizontal: CONTAINER_PADDING,
         marginBottom: BUTTON_MARGIN_BOTTOM,
     },
 });

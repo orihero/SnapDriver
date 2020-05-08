@@ -98,13 +98,13 @@ let MapStack = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Passanger',
+        // initialRouteName: 'Passanger',
     },
 );
 
 let Drawer = createDrawerNavigator(
     {
-        // AuthStack,
+        AuthStack,
         MapStack,
     },
     {
@@ -115,8 +115,8 @@ let Drawer = createDrawerNavigator(
 );
 
 let Switch = createSwitchNavigator({
-    // LanguageSelect,
-    // AuthStack,
+    LanguageSelect,
+    AuthStack,
     Drawer,
 });
 

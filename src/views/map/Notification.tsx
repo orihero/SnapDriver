@@ -189,8 +189,7 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flex: 1,
         justifyContent: 'space-between',
-        paddingHorizontal: 30,
-        marginBottom: BUTTON_MARGIN_BOTTOM,
+        margin: CONTAINER_PADDING,
     },
     countButton: {
         marginTop: 20,
