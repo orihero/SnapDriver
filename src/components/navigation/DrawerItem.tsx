@@ -1,0 +1,43 @@
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {NavigationScreenProp} from 'react-navigation';
+import constStyles from '../../constants/constStyles';
+import colors from '../../constants/colors';
+
+interface DrawerItemProps {
+    item: {
+        name: string;
+        to: string;
+    };
+    navigation: NavigationScreenProp<{}>;
+}
+
+const DrawerItem = ({item, navigation}: DrawerItemProps) => {
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate(item.to);
+                }}>
+                <Text style={[constStyles.medium, styles.text]}>
+                    {item.name}
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        paddingVertical: 15,
+        paddingHorizontal: 30,
+        borderBottomColor: colors.superPaleGray,
+        borderBottomWidth: 1,
+    },
+    text: {
+        fontSize: 15,
+    },
+});
+
+export default DrawerItem;

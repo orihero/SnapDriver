@@ -1,29 +1,39 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-    View,
-    Text,
     StyleSheet,
-    TouchableOpacity,
+    Text,
+    View,
     ScrollView,
+    TouchableOpacity,
+    FlatList,
+    StatusBar,
 } from 'react-native';
-import colors from '../../constants/colors';
+import {NavigationScreenProp} from 'react-navigation';
+import {CONTAINER_PADDING} from '../../constants/values';
 import Avatar from '../../components/common/Avatar';
-import {CONTAINER_PADDING, BUTTON_MARGIN_BOTTOM} from '../../constants/values';
 import InputCard from '../../components/cards/InputCard';
 import strings from '../../locales/strings';
 import SelectAndInputCard from '../../components/cards/SelectAndInputCard';
 import SelectOrInputCard from '../../components/cards/SelectOrInputCard';
-import RectangleButton from '../../components/common/RectangleButton';
 import constStyle from '../../constants/constStyles';
+import RectangleButton from '../../components/common/RectangleButton';
+import colors from '../../constants/colors';
+import images from '../../assets/images';
+import ImageCard from '../../components/cards/ImageCard';
 
-interface RegisterDriverProps {
-    navigation: any;
+interface ProfileProps {
+    navigation: NavigationScreenProp<{}>;
 }
 
-const RegisterDriver = ({navigation}: RegisterDriverProps) => {
+const Profile = ({navigation}: ProfileProps) => {
     //functions
+    useEffect(() => {
+        StatusBar.setBarStyle('light-content');
+        StatusBar.setBackgroundColor(colors.blue);
+    }, [navigation]);
+
     const onPress = () => {
-        navigation.navigate('AddDocuments');
+        navigation.navigate('MapPage');
     };
     let codeList = [
         {label: '90', value: '(90)'},
@@ -34,6 +44,20 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
         {label: '98', value: '(98)'},
         {label: '99', value: '(99)'},
     ];
+
+    const dummyUser = {
+        name: 'Kamronbek',
+        surname: 'Juraev',
+        numberCode: '(94)',
+        number: '454 58 86',
+        carMark: 'Nissan',
+        carModel: 'Qashqai',
+        carNumber: '01 С 565 НН',
+        passport: images.user,
+        lisence: images.poster,
+        password: '12345678',
+        address: 'Navoiy kochasi 20',
+    };
 
     return (
         <View style={styles.container}>
@@ -47,10 +71,12 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
                     <Avatar style={styles.avatar} />
                     <View style={styles.verticalWrapper}>
                         <InputCard
+                            preValue={dummyUser.name}
                             title={strings.name || ''}
                             placeholder={strings.enterYourName || ''}
                         />
                         <InputCard
+                            preValue={dummyUser.surname}
                             title={strings.familyName || ''}
                             placeholder={strings.enterYourFamilyName || ''}
                         />
@@ -60,33 +86,37 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
                     selectOptions={codeList}
                     titleVisible={true}
                     icon="smartphone"
-                    value="+998"
+                    selectValue="+998"
                     placeholder={strings.enterYourNumber || ''}
                     isInputNumber
                     title={strings.enterYourNumber || ''}
+                    preValue={dummyUser.number}
+                    selectedOption={dummyUser.numberCode}
                 />
                 <SelectOrInputCard
                     icon="listPen"
                     title={strings.yourResidence || ''}
                     placeholder={strings.addressResidence || ''}
+                    preValue={dummyUser.address}
                 />
                 <SelectOrInputCard
                     isPassword
                     icon="passwordChecked"
-                    title={strings.yourPassword || ''}
+                    preValue={dummyUser.password}
+                    title={strings.changePassword || ''}
                     placeholder={strings.enterYourPassword || ''}
                 />
-                <View style={{flex: 1}} />
-                <View style={styles.footerWrapper}>
-                    <Text style={[constStyle.medium, styles.firstFooter]}>
-                        {strings.privacyPoliceFirst}
-                    </Text>
-                    <TouchableOpacity>
-                        <Text style={[constStyle.bold, styles.secondFooter]}>
-                            {strings.privacyPoliceSecond}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                <View style={styles.carInfoWrapper}></View>
+                <FlatList
+                    columnWrapperStyle={styles.imagesWrapper}
+                    numColumns={2}
+                    data={[
+                        {title: strings.passport, photo: dummyUser.passport},
+                        {title: strings.license, photo: dummyUser.lisence},
+                    ]}
+                    renderItem={({item}) => <ImageCard item={item} />}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </ScrollView>
             {/* <View style={styles.footer}> */}
             {/*  */}
@@ -94,7 +124,7 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
                 <RectangleButton
                     onPress={onPress}
                     backColor={colors.yellow}
-                    text={strings.further}
+                    text={strings.save}
                     textColor={colors.black}
                 />
             </View>
@@ -120,12 +150,9 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingLeft: 15,
     },
-    footer: {
-        flex: 1,
+    imagesWrapper: {
         justifyContent: 'space-between',
-    },
-    footerWrapper: {
-        paddingBottom: CONTAINER_PADDING,
+        margin: 10,
     },
     firstFooter: {
         textAlign: 'center',
@@ -139,7 +166,8 @@ const styles = StyleSheet.create({
     },
     buttonWrapper: {
         padding: CONTAINER_PADDING,
+        paddingTop: 0,
     },
 });
 
-export default RegisterDriver;
+export default Profile;

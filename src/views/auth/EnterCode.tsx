@@ -7,6 +7,7 @@ import {
     KeyboardAvoidingView,
     Keyboard,
     ScrollView,
+    LayoutAnimation,
 } from 'react-native';
 import Icon from '../../assets/icons';
 import constStyle from '../../constants/constStyles';
@@ -28,17 +29,34 @@ const EnterCode = ({navigation}: EnterCodeProps) => {
     const onPress = () => {
         navigation.navigate('RegisterDriver');
     };
+    let codeList = [
+        {label: '90', value: '(90)'},
+        {label: '91', value: '(91)'},
+        {label: '93', value: '(93)'},
+        {label: '94', value: '(94)'},
+        {label: '97', value: '(97)'},
+        {label: '98', value: '(98)'},
+        {label: '99', value: '(99)'},
+    ];
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
             'keyboardDidShow',
             () => {
-                setKeyboardVisible(true); // or some other action
+                setKeyboardVisible(true);
+                LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.easeInEaseOut,
+                );
+                // or some other action
             },
         );
         const keyboardDidHideListener = Keyboard.addListener(
             'keyboardDidHide',
             () => {
-                setKeyboardVisible(false); // or some other action
+                LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.linear,
+                    setKeyboardVisible(false),
+                );
+                // or some other action
             },
         );
 
@@ -76,15 +94,16 @@ const EnterCode = ({navigation}: EnterCodeProps) => {
                 <View
                     style={[
                         styles.cardWrapper,
-                        inputScreen && {paddingTop: 30},
+                        inputScreen && {paddingTop: 40},
                     ]}>
                     <SelectAndInputCard
                         setInputScreen={setInputScreen}
                         title={strings.yourPhoneNumber || ''}
                         icon="smartphone"
-                        value="+998"
+                        selectValue="+998"
                         isInputNumber={true}
                         placeholder={strings.enterYourNumber || ''}
+                        selectOptions={codeList}
                     />
                     {inputScreen && (
                         <SelectOrInputCard
@@ -139,7 +158,7 @@ const styles = StyleSheet.create({
     cardWrapper: {
         // paddingBottom: 20,
         // paddingTop: 20,
-        padding: CONTAINER_PADDING,	
+        padding: CONTAINER_PADDING,
     },
     footerWrapper: {},
     firstFooter: {

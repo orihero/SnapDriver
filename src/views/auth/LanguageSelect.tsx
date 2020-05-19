@@ -35,14 +35,19 @@ const LanguageSelect = ({navigation}: LanguageSelectProps) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.top}>
-                <Image source={images.logoBlue} style={styles.logoImage} />
-                <Text style={[styles.title, constStyles.bold]}>
-                    {strings.earnMoneyWithUs}
-                </Text>
-            </View>
-            <View style={styles.middle}>
-                <Image source={images.driverCar} style={styles.driverImage} />
+            <View>
+                <View style={styles.top}>
+                    <Image source={images.logoBlue} style={styles.logoImage} />
+                    <Text style={[styles.title, constStyles.bold]}>
+                        {strings.earnMoneyWithUs}
+                    </Text>
+                </View>
+                <View style={styles.middle}>
+                    <Image
+                        source={images.driverCar}
+                        style={styles.driverImage}
+                    />
+                </View>
             </View>
             <View style={styles.bottom}>
                 <SelectCard name={strings.language} value={strings.russian} />
@@ -75,6 +80,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         paddingHorizontal: CONTAINER_PADDING,
         flex: 1,
+        justifyContent: 'space-between',
     },
     top: {
         padding: 40,
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     logoImage: {
-        height: deviceHeight * 0.08,
+        height: deviceHeight * 0.07,
         width: 185,
         resizeMode: 'contain',
     },
@@ -95,15 +101,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     driverImage: {
-        height: deviceHeight * 0.27,
+        height: deviceHeight * 0.24,
         width: 300,
         resizeMode: 'contain',
     },
     bottom: {
-        paddingTop: 40,
+        paddingVertical: 20,
     },
     buttonWrapper: {
-        paddingVertical: 40,
+        paddingVertical: 20,
         paddingHorizontal: 25,
     },
     textWrapper: {

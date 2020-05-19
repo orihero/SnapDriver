@@ -40,10 +40,10 @@ const MapPage = ({navigation}: MapPageProps) => {
         setShowNotification(true);
     };
 
-    // useEffect(() => {
-    //     StatusBar.setBarStyle('dark-content');
-    //     StatusBar.setBackgroundColor(colors.white);
-    // }, [navigation]);
+    useEffect(() => {
+        StatusBar.setBarStyle('dark-content');
+        StatusBar.setBackgroundColor(colors.white);
+    }, [navigation]);
 
     //variables
     let [showNotification, setShowNotification] = useState(false);
@@ -89,7 +89,7 @@ const MapPage = ({navigation}: MapPageProps) => {
                                 style={[
                                     styles.tariffWrapper,
                                     showTariff && {
-                                        right: -220,
+                                        right: -40,
                                     },
                                 ]}>
                                 <TariffCard
@@ -98,10 +98,10 @@ const MapPage = ({navigation}: MapPageProps) => {
                                     minPrice={4000}
                                 />
                                 <TariffCard
-                                    textColor={colors.white}
+                                    textColor={colors.paleGray}
                                     name="Комфорт от"
                                     minPrice={4000}
-                                    backColor={colors.blue}
+                                    backColor={colors.blueish}
                                     setShowTariff={setShowTariff}
                                 />
                             </View>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
         marginBottom: BUTTON_MARGIN_BOTTOM,
     },
     tariffWrapper: {
+        position: 'absolute',
         marginTop: 200,
         right: -1000,
     },

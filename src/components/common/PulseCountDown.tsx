@@ -60,7 +60,7 @@ const PulseCountDown = ({
                             </Text>
                             <CountDown
                                 until={time}
-                                size={25}
+                                size={20}
                                 //  onFinish={() => alert('Finished')}
                                 digitStyle={{
                                     backgroundColor: colors.transparent,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         width: 160,
     },
     name: {
-        fontSize: 16,
+        fontSize: 15,
         marginTop: -5,
     },
     title: {

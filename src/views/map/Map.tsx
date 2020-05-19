@@ -1,9 +1,15 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import mapConfig from '../../configs/mapConfig';
+import {NavigationScreenProp} from 'react-navigation';
+import colors from '../../constants/colors';
 
-const MapScreen = () => {
+interface MapProps {
+    navigation: NavigationScreenProp<{}>;
+}
+
+const MapScreen = ({navigation}: MapProps) => {
     const [coordinates, setCoordinates] = useState({
         x: {
             latitude: 37.78825,
@@ -14,6 +20,10 @@ const MapScreen = () => {
             longitudeDelta: 0.0121,
         },
     });
+    useEffect(() => {
+        StatusBar.setBarStyle('dark-content');
+        StatusBar.setBackgroundColor(colors.white);
+    }, [navigation]);
     return (
         <View style={styles.container}>
             <MapView

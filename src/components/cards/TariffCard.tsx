@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginBottom: 10,
         overflow: 'hidden',
+        width: 140,
     },
     container: {
         paddingHorizontal: 10,

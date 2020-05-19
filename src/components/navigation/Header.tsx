@@ -22,6 +22,7 @@ interface HeaderProps {
     gradientBack?: any;
     titleColor?: string;
     children?: ReactNode;
+    childBgColor?: string;
 }
 
 const Header = ({
@@ -37,6 +38,7 @@ const Header = ({
     notification,
     round,
     children,
+    childBgColor,
 }: HeaderProps) => {
     //functions
     const onPress = () => {
@@ -44,7 +46,7 @@ const Header = ({
     };
 
     const onMenuPress = () => {
-        // navigation.toggleDrawer();
+        navigation.toggleDrawer();
     };
 
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -146,7 +148,13 @@ const Header = ({
                             )}
                         </View>
                         {children && (
-                            <View style={styles.childrenHeader}>
+                            <View
+                                style={[
+                                    styles.childrenHeader,
+                                    !!childBgColor && {
+                                        backgroundColor: childBgColor,
+                                    },
+                                ]}>
                                 {children}
                             </View>
                         )}
@@ -172,7 +180,13 @@ const Header = ({
                     start={{x: 0, y: 0}}
                     end={{x: 0, y: 1}}
                     colors={[gradientBack[0] || '', gradientBack[1] || '']}>
-                    <HeaderView />
+                    <View
+                        style={{
+                            height: 80,
+                            justifyContent: 'center',
+                        }}>
+                        <HeaderView />
+                    </View>
                 </LinearGradient>
             ) : (
                 <HeaderView />

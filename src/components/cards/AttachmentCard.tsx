@@ -4,6 +4,7 @@ import colors from '../../constants/colors';
 import {BORDER_RADIUS} from '../../constants/values';
 import Icon from '../../assets/icons';
 import constStyles from '../../constants/constStyles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface AttachmentCardProps {
     title: string;
@@ -11,6 +12,8 @@ interface AttachmentCardProps {
     icon?: string;
     customIcon?: string;
     textColor: string;
+    onPress: any;
+    done?: boolean;
 }
 
 const AttachmentCard = ({
@@ -19,6 +22,8 @@ const AttachmentCard = ({
     icon,
     textColor,
     customIcon,
+    onPress,
+    done,
 }: AttachmentCardProps) => {
     return (
         <View style={styles.container}>
@@ -27,28 +32,33 @@ const AttachmentCard = ({
                 style={[
                     styles.contentWrapper,
                     constStyles.shadow,
-                    !!customIcon && {
+                    !!done && {
                         borderBottomWidth: 2,
-                        borderBottomColor: textColor,
+                        borderBottomColor: colors.blue,
                     },
                 ]}>
                 <Text
                     style={[
                         styles.name,
                         constStyles.semibold,
+                        !!done && {
+                            color: colors.blue,
+                        },
                         !!textColor && {
                             color: textColor,
                         },
                     ]}>
                     {name}
                 </Text>
-                <View style={styles.icon}>
-                    <Icon
-                        name={customIcon ? customIcon : icon}
-                        size={customIcon ? 15 : 25}
-                        color={textColor}
-                    />
-                </View>
+                <TouchableOpacity onPress={onPress}>
+                    <View style={styles.icon}>
+                        <Icon
+                            name={done ? 'tick' : icon}
+                            size={done ? 15 : 25}
+                            color={!done ? textColor : colors.blue}
+                        />
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     );

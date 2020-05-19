@@ -12,22 +12,26 @@ import constStyles from '../../constants/constStyles';
 import colors from '../../constants/colors';
 import Icon from '../../assets/icons';
 import {BORDER_RADIUS} from '../../constants/values';
+import RNPickerSelect from 'react-native-picker-select';
 
 interface SelectAndInputCardProps {
     title: string;
     titleVisible?: boolean;
-    value: string;
+    selectValue: string;
     values?: [];
     icon: string;
     placeholder: string;
     isInputNumber: boolean;
     setInputScreen?: any;
     setKeyboardOn?: any;
+    selectOptions: any;
+    selectedOption?: string;
+    preValue?: string;
 }
 
 const SelectAndInputCard = ({
-    value,
-    values,
+    selectValue,
+    // values,
     icon,
     placeholder,
     isInputNumber,
@@ -35,18 +39,37 @@ const SelectAndInputCard = ({
     titleVisible,
     setInputScreen,
     setKeyboardOn,
+    selectOptions,
+    selectedOption,
+    preValue,
 }: SelectAndInputCardProps) => {
     let [showTitle, setShowTitle] = useState(
         !!titleVisible ? titleVisible : false,
     );
 
+    let [selected, setSelected] = useState(selectedOption);
+    let [value, setValue] = useState(preValue && preValue);
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding">
             {showTitle && <Text style={styles.title}>{title}</Text>}
             <View style={[styles.contentWrapper, constStyles.shadow]}>
-                <Icon name={icon} style={styles.icon} size={25} />
-                <Text style={styles.value}>{value}</Text>
-                <Icon name="angleUp" color={colors.grayText} />
+                <RNPickerSelect
+                    onValueChange={(value) => setSelected(value)}
+                    items={selectOptions || []}
+                    Icon={() => <View />}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                        <Icon name={icon} style={styles.icon} size={25} />
+                        <Text style={styles.value}>
+                            {selectValue}
+                            {selected}
+                        </Text>
+                        <Icon name="angleUp" color={colors.grayText} />
+                    </View>
+                </RNPickerSelect>
                 <TextInput
                     onFocus={() => {
                         if (!titleVisible) {
@@ -54,6 +77,8 @@ const SelectAndInputCard = ({
                             setInputScreen(true);
                         }
                     }}
+                    onChangeText={(text) => setValue(text)}
+                    value={value}
                     style={styles.input}
                     placeholder={placeholder}
                     numberOfLines={1}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {StyleSheet, Text, View, ScrollView, StatusBar} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import colors from '../../constants/colors';
@@ -40,9 +40,16 @@ const Chat = ({navigation}: ChatProps) => {
         StatusBar.setBackgroundColor(colors.blue);
     }, [navigation]);
 
+    let flatList = useRef(null);
+
     return (
         <View style={styles.container}>
             <FlatList
+                ref={flatList}
+                onContentSizeChange={() =>
+                    flatList.current.scrollToEnd({animated: true})
+                }
+                onLayout={() => flatList.current.scrollToEnd({animated: true})}
                 contentContainerStyle={styles.chatArea}
                 data={messagesList}
                 renderItem={({item}) => <ChatMessage item={item} />}
@@ -61,14 +68,14 @@ const Chat = ({navigation}: ChatProps) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
         backgroundColor: colors.white,
     },
     chatArea: {
         paddingHorizontal: CONTAINER_PADDING,
     },
     inputWrapper: {
-        padding: CONTAINER_PADDING,
+        marginBottom: CONTAINER_PADDING,
+        paddingHorizontal: CONTAINER_PADDING,
     },
 });
 

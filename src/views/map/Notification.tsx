@@ -37,9 +37,9 @@ const Notification = ({
         <View
             style={[
                 styles.plane,
-                showDetails && {
-                    justifyContent: 'space-between',
-                },
+                // showDetails && {
+                // justifyContent: 'space-between',
+                // },
             ]}>
             <View />
             <View
@@ -50,22 +50,22 @@ const Notification = ({
                         paddingBottom: BUTTON_MARGIN_BOTTOM,
                     },
                 ]}>
-                {!showDetails && (
-                    <PulseCountDown
-                        name={strings.skip || ''}
-                        title={strings.order || ''}
-                        time={8}
-                        // onPress={onCountDownPress}
-                        setShowNotification={setShowNotification}
-                    />
-                )}
+                {/* {!showDetails && ( */}
+                <PulseCountDown
+                    name={strings.skip || ''}
+                    title={strings.order || ''}
+                    time={8}
+                    // onPress={onCountDownPress}
+                    setShowNotification={setShowNotification}
+                />
+                {/* )} */}
                 <View
                     style={[
                         styles.section,
                         styles.bottomBorder,
-                        showDetails && {
-                            paddingTop: 30,
-                        },
+                        // showDetails && {
+                        //     paddingTop: 30,
+                        // },
                     ]}>
                     <View style={styles.left}>
                         <Text style={[styles.price, constStyles.bold]}>
@@ -100,7 +100,7 @@ const Notification = ({
                     </Text>
                 </View>
                 <InfoCard message="Поедет моя мама, просит не торопиться, так как очень боится скорости" />
-                {showDetails && (
+                {/* {showDetails && (
                     <CountDownButton
                         style={styles.countButton}
                         backColor={colors.green}
@@ -112,23 +112,21 @@ const Notification = ({
                         setShowDetails={setShowDetails}
                         setShowNotification={setShowNotification}
                     />
-                )}
+                )} */}
             </View>
-            {!showDetails && (
-                <View style={styles.buttonWrapper}>
-                    <View style={{}} />
-                    <RectangleButton
-                        backColor={colors.yellow}
-                        textColor={colors.black}
-                        fontSize={18}
-                        fontWeight={constStyles.bold}
-                        text={strings.accept}
-                        onPress={() => {
-                            setShowDetails(true);
-                        }}
-                    />
-                </View>
-            )}
+            {/* {!showDetails && ( */}
+            <View style={styles.buttonWrapper}>
+                <View style={{}} />
+                <RectangleButton
+                    backColor={colors.yellow}
+                    textColor={colors.black}
+                    fontSize={18}
+                    fontWeight={constStyles.bold}
+                    text={strings.accept}
+                    onPress={onCountDownButtonPress}
+                />
+            </View>
+            {/* )} */}
         </View>
     );
 };

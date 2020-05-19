@@ -14,6 +14,7 @@ interface SelectOrInputCardProps {
     secondaryIcon?: string;
     isSelect?: boolean;
     textColor?: string;
+    preValue?: string;
 }
 
 const SelectOrInputCard = ({
@@ -25,8 +26,10 @@ const SelectOrInputCard = ({
     secondaryIcon,
     isSelect,
     textColor,
+    preValue,
 }: SelectOrInputCardProps) => {
     let [showTitle, setShowTitle] = useState(false);
+    let [value, setValue] = useState(preValue && preValue);
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
@@ -41,10 +44,12 @@ const SelectOrInputCard = ({
                 {icon && <Icon name={icon} style={styles.icon} size={20} />}
                 {!isSelect && (
                     <TextInput
+                        onChangeText={(text) => setValue(text)}
                         style={styles.input}
                         placeholder={placeholder}
                         numberOfLines={1}
                         secureTextEntry={isPassword}
+                        value={value}
                     />
                 )}
                 {!!isSelect && (

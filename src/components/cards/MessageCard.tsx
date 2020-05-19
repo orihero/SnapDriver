@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     title: {
         paddingTop: 15,
-        fontSize: 18,
+        fontSize: 15,
     },
 });
 

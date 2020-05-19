@@ -12,8 +12,13 @@ import {
     Map,
     Passanger,
     Chat,
+    Profile,
+    Settings,
+    Orders,
+    Balance,
 } from '../views';
 import Header from '../components/navigation/Header';
+import DrawerContent from '../components/navigation/DrawerContent';
 import {deviceWidth} from '../constants/values';
 import colors from '../constants/colors';
 import strings from '../locales/strings';
@@ -73,7 +78,7 @@ let AuthStack = createStackNavigator(
         },
     },
     {
-        // initialRouteName: 'AddCar',
+        // initialRouteName: 'AddDocuments',
     },
 );
 
@@ -94,8 +99,9 @@ let MapStack = createStackNavigator(
         Chat: {
             screen: Chat,
             navigationOptions: {
-                header: () => (
+                header: ({navigation}) => (
                     <Header
+                        navigation={navigation}
                         backArrow
                         backColor={colors.blue}
                         title={strings.chatWithDriver}
@@ -109,27 +115,73 @@ let MapStack = createStackNavigator(
                 headerShown: false,
             },
         },
+        Orders: {
+            screen: Orders,
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        Profile: {
+            screen: Profile,
+            navigationOptions: {
+                header: ({navigation}) => (
+                    <Header
+                        navigation={navigation}
+                        backArrow
+                        backColor={colors.blue}
+                        title={strings.myProfile}
+                    />
+                ),
+            },
+        },
+        Settings: {
+            screen: Settings,
+            navigationOptions: {
+                header: ({navigation}) => (
+                    <Header
+                        navigation={navigation}
+                        backArrow
+                        backColor={colors.blue}
+                        title={strings.settings}
+                    />
+                ),
+            },
+        },
+        Balance: {
+            screen: Balance,
+            navigationOptions: {
+                header: ({navigation}) => (
+                    <Header
+                        navigation={navigation}
+                        backArrow
+                        backColor={colors.blue}
+                        title={strings.balance}
+                        round
+                    />
+                ),
+            },
+        },
     },
     {
-        initialRouteName: 'Chat',
+        // initialRouteName: 'Balance',
     },
 );
 
 let Drawer = createDrawerNavigator(
     {
-        AuthStack,
+        // AuthStack,
         MapStack,
     },
     {
         // drawerType: 'slide',
-        drawerWidth: deviceWidth * 0.8,
-        // contentComponent: DrawerContent,
+        drawerWidth: deviceWidth * 0.9,
+        contentComponent: DrawerContent,
     },
 );
 
 let Switch = createSwitchNavigator({
-    LanguageSelect,
-    AuthStack,
+    // LanguageSelect,
+    // AuthStack,
     Drawer,
 });
 

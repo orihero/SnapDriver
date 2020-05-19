@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import constStyles from '../../constants/constStyles';
 
 interface InputCardProps {
     title: string;
     placeholder: string;
+    preValue: string;
 }
 
-const InputCard = ({title, placeholder}: InputCardProps) => {
+const InputCard = ({title, placeholder, preValue}: InputCardProps) => {
+    let [value, setValue] = useState(preValue && preValue);
     return (
         <View style={styles.contianer}>
             <Text style={[styles.title, constStyles.light]}>{title}</Text>
-            <TextInput placeholder={placeholder} style={styles.input} />
+            <TextInput
+                onChangeText={(text) => setValue(text)}
+                placeholder={placeholder}
+                style={styles.input}
+                value={value}
+            />
         </View>
     );
 };
