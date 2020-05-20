@@ -18,20 +18,13 @@ interface MessageCardProps {
     image: ImageSourcePropType;
     title: string;
     onPress: any;
-    key: number;
 }
 
-const MessageCard = ({
-    navigation,
-    key,
-    image,
-    title,
-    onPress,
-}: MessageCardProps) => {
+const MessageCard = ({navigation, image, title, onPress}: MessageCardProps) => {
     //functions
 
     return (
-        <View style={styles.container} key={key}>
+        <View style={styles.container}>
             <View style={[styles.touchableWrapper, constStyles.shadow]}>
                 <Touchable onPress={onPress}>
                     <View style={styles.imageWrapper}>
@@ -54,12 +47,12 @@ const styles = StyleSheet.create({
         borderRadius: 70,
     },
     imageWrapper: {
-        padding: 15,
+        padding: 10,
         backgroundColor: colors.white,
     },
     image: {
-        height: 30,
-        width: 30,
+        height: 25,
+        width: 25,
         resizeMode: 'contain',
     },
     title: {

@@ -132,7 +132,11 @@ const Header = ({
                                                 padding: 10,
                                                 backgroundColor: colors.white,
                                             }}>
-                                            <Icon name="menu" size={14} />
+                                            <Icon
+                                                name="menu"
+                                                color={colors.blue}
+                                                size={14}
+                                            />
                                             {notification && (
                                                 <View style={styles.notifyIcon}>
                                                     <Icon

@@ -81,18 +81,19 @@ const styles = StyleSheet.create({
         width: 140,
     },
     container: {
-        paddingHorizontal: 10,
-        paddingVertical: 15,
-        backgroundColor: colors.white,
+        paddingHorizontal: 7,
+        paddingVertical: 10,
+        backgroundColor: colors.paleGray,
+        alignItems: 'flex-end',
     },
-    name: {fontSize: 15},
+    name: {fontSize: 14},
     priceWrapper: {
         flexDirection: 'row',
     },
     price: {
-        fontSize: 20,
+        fontSize: 18,
     },
-    currency: {fontSize: 20},
+    currency: {fontSize: 18},
 });
 
 export default TariffCard;

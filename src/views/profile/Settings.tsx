@@ -11,6 +11,7 @@ interface SettingsProps {}
 
 const Settings = ({}: SettingsProps) => {
     let [darkMode, setDarkMode] = useState(false);
+    let [audio, setAudio] = useState(false);
     return (
         <View style={styles.container}>
             <View style={[styles.bar, styles.bottomBorder]}>
@@ -30,6 +31,24 @@ const Settings = ({}: SettingsProps) => {
                     value={darkMode}
                     onValueChange={() => {
                         setDarkMode(!darkMode);
+                    }}
+                />
+            </View>
+            <View style={[styles.bar, styles.bottomBorder]}>
+                <Text
+                    style={[
+                        styles.text,
+                        constStyles.bold,
+                        {
+                            color: audio ? colors.blue : colors.black,
+                        },
+                    ]}>
+                    {strings.soundGuide}
+                </Text>
+                <CustomSwitch
+                    value={audio}
+                    onValueChange={() => {
+                        setAudio(!audio);
                     }}
                 />
             </View>

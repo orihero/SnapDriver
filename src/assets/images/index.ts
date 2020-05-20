@@ -8,6 +8,7 @@ const images = {
     chat: require('.//chat.png'),
     location: require('./location.png'),
     locationBorder: require('./locationBorder.png'),
+    marker: require('./marker.png'),
 };
 
 export default images;

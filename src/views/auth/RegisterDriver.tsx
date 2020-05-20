@@ -60,7 +60,7 @@ const RegisterDriver = ({navigation}: RegisterDriverProps) => {
                     selectOptions={codeList}
                     titleVisible={true}
                     icon="smartphone"
-                    value="+998"
+                    selectValue="+998"
                     placeholder={strings.enterYourNumber || ''}
                     isInputNumber
                     title={strings.enterYourNumber || ''}

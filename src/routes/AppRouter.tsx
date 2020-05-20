@@ -169,7 +169,7 @@ let MapStack = createStackNavigator(
 
 let Drawer = createDrawerNavigator(
     {
-        // AuthStack,
+        AuthStack,
         MapStack,
     },
     {
@@ -180,8 +180,8 @@ let Drawer = createDrawerNavigator(
 );
 
 let Switch = createSwitchNavigator({
-    // LanguageSelect,
-    // AuthStack,
+    LanguageSelect,
+    AuthStack,
     Drawer,
 });
 

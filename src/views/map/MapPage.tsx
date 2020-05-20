@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {View, Text, StatusBar, StyleSheet, LayoutAnimation} from 'react-native';
 import Map from './Map';
 import {NavigationScreenProp} from 'react-navigation';
@@ -17,12 +17,13 @@ import Notification from './Notification';
 import constStyles from '../../constants/constStyles';
 import Modal from '../../components/container/Modal';
 import TariffCard from '../../components/cards/TariffCard';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface MapPageProps {
     navigation: NavigationScreenProp<{}>;
 }
 
-const MapPage = ({navigation}: MapPageProps) => {
+let MapPage = ({navigation}: MapPageProps) => {
     //functions
     const onTaxiPress = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -45,12 +46,14 @@ const MapPage = ({navigation}: MapPageProps) => {
         StatusBar.setBackgroundColor(colors.white);
     }, [navigation]);
 
+    let mapRef = useRef();
+
     //variables
     let [showNotification, setShowNotification] = useState(false);
     let [showTariff, setShowTariff] = useState(false);
     return (
         <View style={{flex: 1}}>
-            <Map />
+            <Map ref={mapRef} />
             {showNotification ? (
                 <Notification
                     onCountDownPress={onCountDownPress}
@@ -73,10 +76,8 @@ const MapPage = ({navigation}: MapPageProps) => {
                                 navigation={navigation}
                                 image={images.taxi}
                                 title={strings.myTariff || ''}
-                                key={1}
                             />
                             <MessageCard
-                                key={2}
                                 onPress={onChatPress}
                                 navigation={navigation}
                                 image={images.chat}
@@ -89,7 +90,7 @@ const MapPage = ({navigation}: MapPageProps) => {
                                 style={[
                                     styles.tariffWrapper,
                                     showTariff && {
-                                        right: -40,
+                                        left: -40,
                                     },
                                 ]}>
                                 <TariffCard
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     tariffWrapper: {
         position: 'absolute',
         marginTop: 200,
-        right: -1000,
+        left: -1000,
     },
 });
 

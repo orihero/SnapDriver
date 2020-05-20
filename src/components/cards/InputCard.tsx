@@ -5,7 +5,7 @@ import constStyles from '../../constants/constStyles';
 interface InputCardProps {
     title: string;
     placeholder: string;
-    preValue: string;
+    preValue?: string;
 }
 
 const InputCard = ({title, placeholder, preValue}: InputCardProps) => {
