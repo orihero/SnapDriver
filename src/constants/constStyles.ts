@@ -30,4 +30,7 @@ export default StyleSheet.create({
         elevation: 5,
         //disabled because of Modal
     },
+    wideShadow: {
+        elevation: 20,
+    },
 });

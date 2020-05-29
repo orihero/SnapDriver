@@ -5,9 +5,11 @@ import strings from '../../locales/strings';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import constStyles from '../../constants/constStyles';
 
-interface OrderTabProps {}
+interface HeaderTabProps {
+    filter?: boolean;
+}
 
-const OrderTab = () => {
+const HeaderTab = ({filter}: HeaderTabProps) => {
     let [activeTab, setActiveTab] = useState('day');
     let [activeFilter, setActiveFilter] = useState('skipped');
     //fonctions
@@ -112,86 +114,88 @@ const OrderTab = () => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <View style={styles.container}>
-                <TouchableOpacity onPress={onDonePress}>
-                    <View
-                        style={[
-                            styles.item,
-                            {
-                                backgroundColor:
-                                    activeFilter == 'done'
-                                        ? colors.white
-                                        : colors.blue,
-                            },
-                        ]}>
-                        <Text
+            {filter && (
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={onDonePress}>
+                        <View
                             style={[
-                                constStyles.semibold,
-                                styles.text,
+                                styles.item,
                                 {
-                                    color:
+                                    backgroundColor:
                                         activeFilter == 'done'
-                                            ? colors.blue
-                                            : colors.white,
+                                            ? colors.white
+                                            : colors.blue,
                                 },
                             ]}>
-                            {strings.done}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onSkippedPress}>
-                    <View
-                        style={[
-                            styles.item,
-                            {
-                                backgroundColor:
-                                    activeFilter == 'skipped'
-                                        ? colors.white
-                                        : colors.blue,
-                            },
-                        ]}>
-                        <Text
+                            <Text
+                                style={[
+                                    constStyles.semibold,
+                                    styles.text,
+                                    {
+                                        color:
+                                            activeFilter == 'done'
+                                                ? colors.blue
+                                                : colors.white,
+                                    },
+                                ]}>
+                                {strings.done}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onSkippedPress}>
+                        <View
                             style={[
-                                constStyles.semibold,
-                                styles.text,
+                                styles.item,
                                 {
-                                    color:
+                                    backgroundColor:
                                         activeFilter == 'skipped'
-                                            ? colors.blue
-                                            : colors.white,
+                                            ? colors.white
+                                            : colors.blue,
                                 },
                             ]}>
-                            {strings.skipped}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onCancelledPress}>
-                    <View
-                        style={[
-                            styles.item,
-                            {
-                                backgroundColor:
-                                    activeFilter == 'cancelled'
-                                        ? colors.white
-                                        : colors.blue,
-                            },
-                        ]}>
-                        <Text
+                            <Text
+                                style={[
+                                    constStyles.semibold,
+                                    styles.text,
+                                    {
+                                        color:
+                                            activeFilter == 'skipped'
+                                                ? colors.blue
+                                                : colors.white,
+                                    },
+                                ]}>
+                                {strings.skipped}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onCancelledPress}>
+                        <View
                             style={[
-                                constStyles.semibold,
-                                styles.text,
+                                styles.item,
                                 {
-                                    color:
+                                    backgroundColor:
                                         activeFilter == 'cancelled'
-                                            ? colors.blue
-                                            : colors.white,
+                                            ? colors.white
+                                            : colors.blue,
                                 },
                             ]}>
-                            {strings.cancelled}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+                            <Text
+                                style={[
+                                    constStyles.semibold,
+                                    styles.text,
+                                    {
+                                        color:
+                                            activeFilter == 'cancelled'
+                                                ? colors.blue
+                                                : colors.white,
+                                    },
+                                ]}>
+                                {strings.cancelled}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            )}
         </>
     );
 };
@@ -219,4 +223,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default OrderTab;
+export default HeaderTab;

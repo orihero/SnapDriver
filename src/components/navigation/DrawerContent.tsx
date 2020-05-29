@@ -19,7 +19,7 @@ const menuList = [
     {
         id: '1',
         name: strings.earnings,
-        to: '',
+        to: 'Earning',
     },
     {
         id: '2',

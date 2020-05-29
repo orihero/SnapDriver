@@ -33,7 +33,7 @@ const SwipePanel = ({children, height, top, bottom, drag}) => {
             containerStyle={[
                 styles.container,
                 {
-                    height: height,
+                    height: 5000,
                 },
             ]}>
             <View style={[styles.childWrapper]}>{children}</View>
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.transparent,
         margin: 10,
-
         marginTop: 0,
         borderRadius: BIG_BORDER_RADIUS,
         overflow: 'hidden',

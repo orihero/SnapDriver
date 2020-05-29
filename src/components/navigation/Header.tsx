@@ -142,7 +142,7 @@ const Header = ({
                                                     <Icon
                                                         name="ellipse"
                                                         size={10}
-                                                        color={colors.blue}
+                                                        color={colors.orange}
                                                     />
                                                 </View>
                                             )}

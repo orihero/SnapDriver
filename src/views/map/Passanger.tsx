@@ -43,8 +43,9 @@ const steps = [
     {
         button: strings.finishDrive,
         drag: false,
-        slideStart: 220,
-        slideEnd: 400,
+        slideStart: 240,
+        slideEnd: 330,
+        height: 420,
     },
     {
         button: strings.finish,
@@ -159,146 +160,181 @@ let StepTwo = () => {
             />
             <View
                 style={{
-                    padding: 20,
-                    flexDirection: 'row',
-                    backgroundColor: colors.white,
-                }}>
-                <View style={{paddingTop: 5}}>
-                    <Image
-                        source={images.locationBorder}
-                        style={{
-                            width: 14,
-                            height: 60,
-                            resizeMode: 'contain',
-                        }}
-                    />
-                </View>
-                <View>
-                    <View
-                        style={{
-                            marginLeft: 10,
-                            paddingBottom: 10,
-                            borderBottomWidth: 1,
-                            borderBottomColor: colors.superPaleGray,
-                        }}>
-                        <Text
-                            style={[
-                                {
-                                    fontSize: 14,
-                                },
-                                constStyles.light,
-                            ]}>
-                            {strings.drivingFrom}
-                        </Text>
-                        <Text
-                            style={[
-                                {
-                                    fontSize: 15,
-                                },
-                                constStyles.bold,
-                            ]}>
-                            Саларская набережаная 35
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            paddingLeft: 10,
-                            paddingTop: 5,
-                        }}>
-                        <Text
-                            style={[
-                                {
-                                    fontSize: 14,
-                                },
-                                constStyles.light,
-                            ]}>
-                            {strings.drivingTo}
-                        </Text>
-                        <Text
-                            style={[
-                                {
-                                    fontSize: 15,
-                                },
-                                constStyles.bold,
-                            ]}>
-                            Дом
-                        </Text>
-                    </View>
-                </View>
-            </View>
-            <View
-                style={{
-                    paddingHorizontal: 15,
                     backgroundColor: colors.white,
                 }}>
                 <View
                     style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        paddingHorizontal: 15,
-                        paddingVertical: 10,
+                        borderWidth: 2,
+                        borderRadius: 10,
+                        borderColor: colors.grayText,
+                        top: 0,
+                        justifyContent: 'center',
                         alignItems: 'center',
+                        alignSelf: 'center',
+                        marginTop: 10,
+                        width: 30,
+                    }}
+                />
+                <View
+                    style={{
+                        paddingTop: 10,
+                        padding: 20,
+                        flexDirection: 'row',
+                        backgroundColor: colors.white,
                     }}>
-                    <Icon name="airCondition" color={colors.blue} size={25} />
-                    <Text style={{width: 200}}>{strings.airConditioner}</Text>
-                    <Icon name="checkCircle" color={colors.blue} size={25} />
+                    <View style={{paddingTop: 5}}>
+                        <Image
+                            source={images.locationBorder}
+                            style={{
+                                width: 14,
+                                height: 60,
+                                resizeMode: 'contain',
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <View
+                            style={{
+                                marginLeft: 10,
+                                paddingBottom: 10,
+                                borderBottomWidth: 1,
+                                borderBottomColor: colors.superPaleGray,
+                            }}>
+                            <Text
+                                style={[
+                                    {
+                                        fontSize: 14,
+                                    },
+                                    constStyles.light,
+                                ]}>
+                                {strings.drivingFrom}
+                            </Text>
+                            <Text
+                                style={[
+                                    {
+                                        fontSize: 15,
+                                    },
+                                    constStyles.bold,
+                                ]}>
+                                Саларская набережаная 35
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                paddingLeft: 10,
+                                paddingTop: 5,
+                            }}>
+                            <Text
+                                style={[
+                                    {
+                                        fontSize: 14,
+                                    },
+                                    constStyles.light,
+                                ]}>
+                                {strings.drivingTo}
+                            </Text>
+                            <Text
+                                style={[
+                                    {
+                                        fontSize: 15,
+                                    },
+                                    constStyles.bold,
+                                ]}>
+                                Дом
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        paddingHorizontal: 15,
+                        backgroundColor: colors.white,
+                    }}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            paddingHorizontal: 15,
+                            paddingVertical: 10,
+                            alignItems: 'center',
+                        }}>
+                        <Icon
+                            name="airCondition"
+                            color={colors.blue}
+                            size={25}
+                        />
+                        <Text style={{width: 200}}>
+                            {strings.airConditioner}
+                        </Text>
+                        <Icon
+                            name="checkCircle"
+                            color={colors.blue}
+                            size={25}
+                        />
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            paddingHorizontal: 15,
+                            paddingVertical: 10,
+                            alignItems: 'center',
+                        }}>
+                        <Icon name="smoke" color={colors.black} size={25} />
+                        <Text style={{width: 200}}>
+                            {strings.carForSmokers}
+                        </Text>
+                        <Icon
+                            name="checkCircle"
+                            color={colors.blue}
+                            size={25}
+                        />
+                    </View>
                 </View>
                 <View
                     style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        paddingHorizontal: 15,
+                        justifyContent: 'space-evenly',
                         paddingVertical: 10,
-                        alignItems: 'center',
+                        paddingBottom: 20,
+                        backgroundColor: colors.white,
                     }}>
-                    <Icon name="smoke" color={colors.black} size={25} />
-                    <Text style={{width: 200}}>{strings.carForSmokers}</Text>
-                    <Icon name="checkCircle" color={colors.blue} size={25} />
-                </View>
-            </View>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    paddingVertical: 10,
-                    paddingBottom: 20,
-                    backgroundColor: colors.white,
-                }}>
-                <View
-                    style={[
-                        {
-                            padding: 10,
-                            backgroundColor: colors.white,
-                            borderRadius: 30,
-                            overflow: 'hidden',
-                        },
-                        constStyles.shadow,
-                    ]}>
-                    <Icon name="path" size={25} color={colors.black} />
-                </View>
-                <View
-                    style={[
-                        {
-                            padding: 10,
-                            backgroundColor: colors.white,
-                            borderRadius: 30,
-                            overflow: 'hidden',
-                        },
-                        constStyles.shadow,
-                    ]}>
-                    <Icon name="chat" size={25} color={colors.blue} />
-                </View>
-                <View
-                    style={[
-                        {
-                            padding: 10,
-                            backgroundColor: colors.white,
-                            borderRadius: 30,
-                            overflow: 'hidden',
-                        },
-                        constStyles.shadow,
-                    ]}>
-                    <Icon name="noCar" size={25} color={colors.black} />
+                    <View
+                        style={[
+                            {
+                                padding: 10,
+                                backgroundColor: colors.white,
+                                borderRadius: 30,
+                                overflow: 'hidden',
+                            },
+                            constStyles.shadow,
+                        ]}>
+                        <Icon name="path" size={25} color={colors.black} />
+                    </View>
+                    <View
+                        style={[
+                            {
+                                padding: 10,
+                                backgroundColor: colors.white,
+                                borderRadius: 30,
+                                overflow: 'hidden',
+                            },
+                            constStyles.shadow,
+                        ]}>
+                        <Icon name="chat" size={25} color={colors.blue} />
+                    </View>
+                    <View
+                        style={[
+                            {
+                                padding: 10,
+                                backgroundColor: colors.white,
+                                borderRadius: 30,
+                                overflow: 'hidden',
+                            },
+                            constStyles.shadow,
+                        ]}>
+                        <Icon name="noCar" size={25} color={colors.black} />
+                    </View>
                 </View>
             </View>
         </View>
@@ -316,88 +352,98 @@ let StepThree = () => {
             />
             <View
                 style={{
-                    paddingHorizontal: 15,
-                    flexDirection: 'row',
-                    backgroundColor: colors.white,
-                }}>
-                <View
-                    style={{
-                        paddingVertical: 10,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}>
-                    <Image
-                        style={{height: 20, width: 14, resizeMode: 'contain'}}
-                        source={images.location}
-                    />
-                    <View
-                        style={{
-                            paddingLeft: 10,
-                        }}>
-                        <Text
-                            style={[
-                                {
-                                    fontSize: 14,
-                                },
-                                constStyles.light,
-                            ]}>
-                            {strings.drivingFrom}
-                        </Text>
-                        <Text
-                            style={[
-                                {
-                                    fontSize: 15,
-                                },
-                                constStyles.bold,
-                            ]}>
-                            Саларская набережаная 35
-                        </Text>
-                    </View>
-                </View>
-            </View>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    paddingVertical: 10,
                     paddingBottom: 20,
                     backgroundColor: colors.white,
                 }}>
                 <View
-                    style={[
-                        {
-                            padding: 10,
-                            backgroundColor: colors.white,
-                            borderRadius: 30,
-                            overflow: 'hidden',
-                        },
-                        constStyles.shadow,
-                    ]}>
-                    <Icon name="path" size={25} color={colors.black} />
+                    style={{
+                        paddingHorizontal: 15,
+                        flexDirection: 'row',
+                        backgroundColor: colors.white,
+                    }}>
+                    <View
+                        style={{
+                            paddingVertical: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                        <Image
+                            style={{
+                                height: 20,
+                                width: 14,
+                                resizeMode: 'contain',
+                            }}
+                            source={images.location}
+                        />
+                        <View
+                            style={{
+                                paddingLeft: 10,
+                            }}>
+                            <Text
+                                style={[
+                                    {
+                                        fontSize: 14,
+                                    },
+                                    constStyles.light,
+                                ]}>
+                                {strings.drivingFrom}
+                            </Text>
+                            <Text
+                                style={[
+                                    {
+                                        fontSize: 15,
+                                    },
+                                    constStyles.bold,
+                                ]}>
+                                Саларская набережаная 35
+                            </Text>
+                        </View>
+                    </View>
                 </View>
                 <View
-                    style={[
-                        {
-                            padding: 10,
-                            backgroundColor: colors.white,
-                            borderRadius: 30,
-                            overflow: 'hidden',
-                        },
-                        constStyles.shadow,
-                    ]}>
-                    <Icon name="chat" size={25} color={colors.blue} />
-                </View>
-                <View
-                    style={[
-                        {
-                            padding: 10,
-                            backgroundColor: colors.white,
-                            borderRadius: 30,
-                            overflow: 'hidden',
-                        },
-                        constStyles.shadow,
-                    ]}>
-                    <Icon name="noCar" size={25} color={colors.black} />
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly',
+                        paddingVertical: 10,
+                        paddingBottom: 20,
+                        backgroundColor: colors.white,
+                    }}>
+                    <View
+                        style={[
+                            {
+                                padding: 10,
+                                backgroundColor: colors.white,
+                                borderRadius: 30,
+                                overflow: 'hidden',
+                            },
+                            constStyles.shadow,
+                        ]}>
+                        <Icon name="path" size={25} color={colors.black} />
+                    </View>
+                    <View
+                        style={[
+                            {
+                                padding: 10,
+                                backgroundColor: colors.white,
+                                borderRadius: 30,
+                                overflow: 'hidden',
+                            },
+                            constStyles.shadow,
+                        ]}>
+                        <Icon name="chat" size={25} color={colors.blue} />
+                    </View>
+                    <View
+                        style={[
+                            {
+                                padding: 10,
+                                backgroundColor: colors.white,
+                                borderRadius: 30,
+                                overflow: 'hidden',
+                            },
+                            constStyles.shadow,
+                        ]}>
+                        <Icon name="noCar" size={25} color={colors.black} />
+                    </View>
                 </View>
             </View>
         </View>

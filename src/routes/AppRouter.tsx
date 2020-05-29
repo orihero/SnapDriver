@@ -15,6 +15,7 @@ import {
     Profile,
     Settings,
     Orders,
+    Earning,
     Balance,
 } from '../views';
 import Header from '../components/navigation/Header';
@@ -156,20 +157,25 @@ let MapStack = createStackNavigator(
                         backArrow
                         backColor={colors.blue}
                         title={strings.balance}
-                        round
                     />
                 ),
             },
         },
+        Earning: {
+            screen: Earning,
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
     },
     {
-        // initialRouteName: 'Balance',
+        // initialRouteName: 'Earning',
     },
 );
 
 let Drawer = createDrawerNavigator(
     {
-        AuthStack,
+        // AuthStack,
         MapStack,
     },
     {

@@ -4,7 +4,7 @@ import {NavigationScreenProp} from 'react-navigation';
 import Header from '../../components/navigation/Header';
 import colors from '../../constants/colors';
 import strings from '../../locales/strings';
-import OrderTab from '../../components/navigation/OrderTab';
+import HeaderTab from '../../components/navigation/HeaderTab';
 import {CONTAINER_PADDING} from '../../constants/values';
 import constStyles from '../../constants/constStyles';
 import OrderCard from '../../components/cards/OrderCard';
@@ -62,7 +62,7 @@ const Orders = ({navigation}: OrdersProps) => {
                 title={strings.myOrders}
                 childBgColor={colors.blue}>
                 <View style={styles.tabWrapper}>
-                    <OrderTab />
+                    <HeaderTab filter />
                 </View>
             </Header>
             <View style={styles.container}>
@@ -82,7 +82,7 @@ const Orders = ({navigation}: OrdersProps) => {
                 </View>
                 <View style={styles.earningDetail}>
                     <Text style={[styles.titleText, constStyles.bold]}>
-                        {strings.allOrders}
+                        {strings.sumTax}
                     </Text>
                     <View style={styles.rightText}>
                         <Text style={[styles.price, constStyles.bold]}>
@@ -98,7 +98,9 @@ const Orders = ({navigation}: OrdersProps) => {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={styles.ordersWrapper}
                     data={orderList}
-                    renderItem={({item}) => <OrderCard item={item} />}
+                    renderItem={({item}) => (
+                        <OrderCard item={item} navigation={navigation} />
+                    )}
                     keyExtractor={(index) => index.toString()}
                 />
             </View>

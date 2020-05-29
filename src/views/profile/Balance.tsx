@@ -32,7 +32,7 @@ const Balance = ({navigation}: BalanceProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                <View style={[styles.topWrapper, constStyles.shadow]}>
+                <View style={[styles.topWrapper, constStyles.wideShadow]}>
                     <View>
                         <View style={styles.textWrapper}>
                             <Text style={[styles.text, constStyles.light]}>
@@ -66,7 +66,7 @@ const Balance = ({navigation}: BalanceProps) => {
                     </View>
                     <BubleCutout style={styles.buble} />
                 </View>
-                <View style={[styles.bottomWrapper, constStyles.shadow]}>
+                <View style={[styles.bottomWrapper, constStyles.wideShadow]}>
                     <HatCutout style={styles.cut} />
                     <View style={[styles.bar, styles.borderBottom]}>
                         <Text style={[styles.priceTitle, constStyles.bold]}>
@@ -123,7 +123,7 @@ const Balance = ({navigation}: BalanceProps) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: colors.white,
+        backgroundColor: colors.white,
         padding: CONTAINER_PADDING,
         justifyContent: 'space-between',
     },

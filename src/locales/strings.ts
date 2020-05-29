@@ -2,6 +2,11 @@ import LocalizedStrings from 'react-native-localization';
 
 let strings = new LocalizedStrings({
     ru: {
+        myCard: 'Моя карта',
+        earningInWeek: 'Доход за неделю',
+        bet: 'Ставка',
+        duration: 'Время',
+        ride: 'Поездок',
         earnMoneyWithUs: 'Зарабатывайте деньги с нами',
         language: 'Язык',
         russian: 'Русский',
@@ -104,6 +109,7 @@ let strings = new LocalizedStrings({
         done: 'Выполненным',
         skipped: 'Пропущенным',
         cancelled: 'Отмененным',
+        sumTax: 'Сумма комиссии',
     },
     uz: {},
     en: {},
