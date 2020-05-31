@@ -181,19 +181,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     priceTitle: {
-        fontSize: 15,
+        fontSize: 13,
     },
     price: {
-        fontSize: 15,
+        fontSize: 13,
         color: colors.blue,
     },
     fillText: {
         textAlign: 'center',
         paddingBottom: 20,
-        fontSize: 16,
+        fontSize: 14,
     },
     fillTextButton: {
-        fontSize: 18,
+        fontSize: 16,
         color: colors.blue,
     },
 });

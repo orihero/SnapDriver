@@ -105,7 +105,7 @@ let strings = new LocalizedStrings({
         fillBalanceText1: 'Пополнить баланс вы можете в пунктах',
         fillBalanceText2: 'или через приложение',
         fillBalance: 'Пополнить баланс',
-        soundGuide: 'Озвучить заказа',
+        soundGuide: 'Озвучивать заказы',
         done: 'Выполненным',
         skipped: 'Пропущенным',
         cancelled: 'Отмененным',
