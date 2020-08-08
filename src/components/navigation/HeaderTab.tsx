@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, LayoutAnimation} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import colors from '../../constants/colors';
-import strings from '../../locales/strings';
+import strings from '@constants/strings';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import constStyles from '../../constants/constStyles';
 
-interface HeaderTabProps {
-    filter?: boolean;
-}
 
-const HeaderTab = ({filter}: HeaderTabProps) => {
+
+const HeaderTab = () => {
     let [activeTab, setActiveTab] = useState('day');
     let [activeFilter, setActiveFilter] = useState('skipped');
-    //fonctions
+
     const onDayPress = () => {
         setActiveTab('day');
     };
@@ -114,94 +112,13 @@ const HeaderTab = ({filter}: HeaderTabProps) => {
                     </View>
                 </TouchableOpacity>
             </View>
-            {filter && (
-                <View style={styles.container}>
-                    <TouchableOpacity onPress={onDonePress}>
-                        <View
-                            style={[
-                                styles.item,
-                                {
-                                    backgroundColor:
-                                        activeFilter == 'done'
-                                            ? colors.white
-                                            : colors.blue,
-                                },
-                            ]}>
-                            <Text
-                                style={[
-                                    constStyles.semibold,
-                                    styles.text,
-                                    {
-                                        color:
-                                            activeFilter == 'done'
-                                                ? colors.blue
-                                                : colors.white,
-                                    },
-                                ]}>
-                                {strings.done}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={onSkippedPress}>
-                        <View
-                            style={[
-                                styles.item,
-                                {
-                                    backgroundColor:
-                                        activeFilter == 'skipped'
-                                            ? colors.white
-                                            : colors.blue,
-                                },
-                            ]}>
-                            <Text
-                                style={[
-                                    constStyles.semibold,
-                                    styles.text,
-                                    {
-                                        color:
-                                            activeFilter == 'skipped'
-                                                ? colors.blue
-                                                : colors.white,
-                                    },
-                                ]}>
-                                {strings.skipped}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={onCancelledPress}>
-                        <View
-                            style={[
-                                styles.item,
-                                {
-                                    backgroundColor:
-                                        activeFilter == 'cancelled'
-                                            ? colors.white
-                                            : colors.blue,
-                                },
-                            ]}>
-                            <Text
-                                style={[
-                                    constStyles.semibold,
-                                    styles.text,
-                                    {
-                                        color:
-                                            activeFilter == 'cancelled'
-                                                ? colors.blue
-                                                : colors.white,
-                                    },
-                                ]}>
-                                {strings.cancelled}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            )}
         </>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        height: 45,
         padding: 5,
         borderWidth: 0.5,
         borderRadius: 30,
@@ -213,7 +130,7 @@ const styles = StyleSheet.create({
     },
     item: {
         padding: 6,
-        paddingHorizontal: 12,
+        paddingHorizontal: 27,
         borderRadius: 30,
         backgroundColor: colors.white,
         overflow: 'hidden',

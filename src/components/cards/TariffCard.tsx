@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, LayoutAnimation} from 'react-native';
-import constStyles from '../../constants/constStyles';
-import colors from '../../constants/colors';
-import {BORDER_RADIUS} from '../../constants/values';
-import Touchable from '../common/Touchable';
+import constStyles from '@constants/constStyles';
+import colors from '@constants/colors';
+import TouchablePlatformSpecific from '../common/TouchablePlatformSpecific';
 
 interface TariffCardProps {
     name: string;
@@ -28,7 +27,7 @@ const TariffCard = ({
 
     return (
         <View style={styles.plane}>
-            <Touchable onPress={onPress}>
+            <TouchablePlatformSpecific onPress={onPress}>
                 <View
                     style={[
                         styles.container,
@@ -68,7 +67,7 @@ const TariffCard = ({
                         </Text>
                     </View>
                 </View>
-            </Touchable>
+            </TouchablePlatformSpecific>
         </View>
     );
 };

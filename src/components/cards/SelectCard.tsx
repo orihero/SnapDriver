@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Icon from '../../assets/icons';
-import colors from '../../constants/colors';
-import constStyles from '../../constants/constStyles';
-import {BORDER_RADIUS} from '../../constants/values';
+import Icon from '@assets/icons';
+import colors from '@constants/colors';
+import constStyles from '@constants/constStyles';
+import {BORDER_RADIUS} from '@constants/values';
 
 interface SelectCardProps {
     name?: string;
@@ -17,7 +17,7 @@ const SelectCard = ({name, value, values}: SelectCardProps) => {
             <Text style={[styles.name, constStyles.medium]}>{name}</Text>
             <View style={styles.selectWrapper}>
                 <Text style={[styles.value, constStyles.bold]}>{value}</Text>
-                <Icon name="angleRight" size={14} color={colors.black} />
+                <Icon name="angleRight" size={14} color={colors.black}/>
             </View>
         </View>
     );

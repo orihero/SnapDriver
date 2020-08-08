@@ -4,10 +4,10 @@ import PulseLoader from '../lotties/PulseLoader';
 import colors from '../../constants/colors';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import Animated, {Easing} from 'react-native-reanimated';
-import Touchable from './Touchable';
+import TouchablePlatformSpecific from './TouchablePlatformSpecific';
 import CountDown from 'react-native-countdown-component';
 import constStyles from '../../constants/constStyles';
-import {deviceHeight} from '../../constants/values';
+import {deviceHeight} from '@constants/values';
 
 interface PulseCountDownProps {
     navigation?: any;
@@ -51,7 +51,7 @@ const PulseCountDown = ({
                 tintColor={colors.blue}
                 backgroundColor={colors.superPaleGray}>
                 {(fill) => (
-                    <Touchable onPress={onPress}>
+                    <TouchablePlatformSpecific onPress={onPress}>
                         <View style={styles.countDownWrapper}>
                             <Text
                                 numberOfLines={1}
@@ -80,7 +80,7 @@ const PulseCountDown = ({
                                 {name}
                             </Text>
                         </View>
-                    </Touchable>
+                    </TouchablePlatformSpecific>
                 )}
             </AnimatedCircularProgress>
         </View>

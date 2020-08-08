@@ -1,36 +1,35 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import Icon from '../../assets/icons';
-import images from '../../assets/images';
 import colors from '../../constants/colors';
 import constStyles from '../../constants/constStyles';
 import ImagePicker from 'react-native-image-picker';
 
 interface AvatarProps {
+    setAvatar: (avatar: any) => void,
+    avatar: object;
     style?: any;
 }
 
-const Avatar = ({style}: AvatarProps) => {
+const Avatar = ({avatar, setAvatar, style}: AvatarProps) => {
     const onAddPress = () => {
         const options = {
             noData: true,
         };
         ImagePicker.launchImageLibrary(options, (response) => {
             if (response.uri) {
-                setPhoto(response);
+                setAvatar(response);
             }
         });
     };
-    //variables
-    let [photo, setPhoto] = useState(images.user);
     return (
         <View style={[styles.container, style]}>
             <View style={styles.imageWrapper}>
-                <Image source={photo} style={styles.image} />
+                <Image source={{uri: avatar.uri}} style={styles.image}/>
             </View>
             <View style={[styles.iconWrapper, constStyles.shadow]}>
                 <TouchableOpacity onPress={onAddPress}>
-                    <Icon name="plus" size={20} color={colors.darkGray} />
+                    <Icon name="plus" size={20} color={colors.darkGray}/>
                 </TouchableOpacity>
             </View>
         </View>

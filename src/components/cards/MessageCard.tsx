@@ -1,20 +1,17 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     StyleSheet,
     Text,
-    StatusBar,
     Image,
     View,
     ImageSourcePropType,
 } from 'react-native';
-import {NavigationScreenProp} from 'react-navigation';
-import constStyles from '../../constants/constStyles';
-import Touchable from '../common/Touchable';
-import colors from '../../constants/colors';
-import images from '../../assets/images';
+import constStyles from '@constants/constStyles';
+import TouchablePlatformSpecific from '../common/TouchablePlatformSpecific';
+import colors from '@constants/colors';
 
 interface MessageCardProps {
-    navigation?: NavigationScreenProp<{}>;
+    navigation?: any;
     image: ImageSourcePropType;
     title: string;
     onPress: any;
@@ -26,11 +23,11 @@ const MessageCard = ({navigation, image, title, onPress}: MessageCardProps) => {
     return (
         <View style={styles.container}>
             <View style={[styles.touchableWrapper, constStyles.shadow]}>
-                <Touchable onPress={onPress}>
+                <TouchablePlatformSpecific onPress={onPress}>
                     <View style={styles.imageWrapper}>
-                        <Image source={image} style={styles.image} />
+                        <Image source={image} style={styles.image}/>
                     </View>
-                </Touchable>
+                </TouchablePlatformSpecific>
             </View>
             <Text style={[styles.title, constStyles.bold]}>{title}</Text>
         </View>

@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import images from '../../assets/images';
-import strings from '../../locales/strings';
+import strings from '@constants/strings';
 import Icon from '../../assets/icons';
-import RectangleButton from '../common/RectangleButton';
+import Button from '../common/Button';
 import colors from '../../constants/colors';
-import {CONTAINER_PADDING, BORDER_RADIUS} from '../../constants/values';
+import {CONTAINER_PADDING, BORDER_RADIUS} from '@constants/values';
 import constStyles from '../../constants/constStyles';
 
 interface OrderCardProps {
@@ -84,10 +84,9 @@ const OrderCard = ({navigation, item}: OrderCardProps) => {
                         : strings.withCard}
                 </Text>
             </View>
-            <RectangleButton
-                backColor={colors.yellow}
+            <Button
                 text={strings.complain}
-                textColor={colors.black}
+                onPress={() => null}
             />
         </View>
     );

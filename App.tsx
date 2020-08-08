@@ -1,25 +1,26 @@
 import React, {useEffect} from 'react';
-import {Platform, StatusBar, StyleSheet, UIManager, View} from 'react-native';
-import AppNavigator from './src/routes/AppRouter';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import colors from './src/constants/colors';
+import {Provider} from "react-redux";
+import AppNavigator from './src/navigation/AppNavigator';
+import {PersistGate} from 'redux-persist/lib/integration/react';
+
+import createStore from "./src/store/createStore";
+import api from "./src/services/api";
+
+const {store, persistor} = createStore();
 
 const App = () => {
+
     useEffect(() => {
-        if (Platform.OS === 'android') {
-            if (UIManager.setLayoutAnimationEnabledExperimental) {
-                UIManager.setLayoutAnimationEnabledExperimental(true);
-            }
-        }
+        api.setToken(store);
     }, []);
+
     return (
-        <SafeAreaProvider>
-            {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
-            <View style={{flex: 1}}>
-                <AppNavigator />
-            </View>
-        </SafeAreaProvider>
-    );
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <AppNavigator/>
+            </PersistGate>
+        </Provider>
+    )
 };
 
 export default App;

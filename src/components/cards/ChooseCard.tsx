@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import colors from '../../constants/colors';
 import constStyles from '../../constants/constStyles';
-import strings from '../../locales/strings';
+import strings from '@constants/strings';
 import {BORDER_RADIUS, CONTAINER_PADDING} from '../../constants/values';
 import Icon from '../../assets/icons';
 
@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
+        borderWidth: 2,
+        borderColor: colors.white,
     },
     rowLeft: {
         flexDirection: 'row',

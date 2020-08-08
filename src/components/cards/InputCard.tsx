@@ -4,14 +4,14 @@ import constStyles from '../../constants/constStyles';
 
 interface InputCardProps {
     title: string;
-    placeholder: string;
+    placeholder: any;
     preValue?: string;
 }
 
 const InputCard = ({title, placeholder, preValue}: InputCardProps) => {
     let [value, setValue] = useState(preValue && preValue);
     return (
-        <View style={styles.contianer}>
+        <View style={styles.container}>
             <Text style={[styles.title, constStyles.light]}>{title}</Text>
             <TextInput
                 onChangeText={(text) => setValue(text)}
@@ -24,7 +24,7 @@ const InputCard = ({title, placeholder, preValue}: InputCardProps) => {
 };
 
 const styles = StyleSheet.create({
-    contianer: {
+    container: {
         paddingBottom: 10,
     },
     title: {

@@ -9,7 +9,22 @@
         "moduleResolution": "node",
         "noEmit": true,
         "strict": true,
-        "target": "esnext"
+        "target": "esnext",
+        "baseUrl": "./",
+        "paths": {
+            "@components/*": [
+                "src/components/*"
+            ],
+            "@assets/*": [
+                "src/assets/*"
+            ],
+            "@constants/*": [
+                "src/constants/*"
+            ],
+            "@store/*": [
+                "src/store/*"
+            ]
+        }
     },
     "exclude": [
         "node_modules",

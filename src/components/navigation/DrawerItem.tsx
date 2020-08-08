@@ -1,16 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {NavigationScreenProp} from 'react-navigation';
 import constStyles from '../../constants/constStyles';
 import colors from '../../constants/colors';
+import {StackNavigationProp} from "@react-navigation/stack";
 
 interface DrawerItemProps {
     item: {
         name: string;
-        to: string;
+        label: string;
     };
-    navigation: NavigationScreenProp<{}>;
+    navigation: StackNavigationProp<any>;
 }
 
 const DrawerItem = ({item, navigation}: DrawerItemProps) => {
@@ -18,10 +18,10 @@ const DrawerItem = ({item, navigation}: DrawerItemProps) => {
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate(item.to);
+                    navigation.navigate(item.name);
                 }}>
                 <Text style={[constStyles.medium, styles.text]}>
-                    {item.name}
+                    {item.label}
                 </Text>
             </TouchableOpacity>
         </View>

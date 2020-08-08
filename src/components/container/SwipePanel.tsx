@@ -1,25 +1,19 @@
-import React, {useRef, useEffect, useState} from 'react';
-import {StyleSheet, Text, View, Dimensions, Animated} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {StyleSheet, View, Dimensions, Animated} from 'react-native';
 import SlidingUpPanel from 'rn-sliding-up-panel';
-import TariffCard from '../cards/TariffCard';
-import MessageCard from '../cards/MessageCard';
-import SelectAndInputCard from '../cards/SelectAndInputCard';
-import RectangleButton from '../common/RectangleButton';
 import {
-    deviceWidth,
-    CONTAINER_PADDING,
-    BORDER_RADIUS,
     BIG_BORDER_RADIUS,
-} from '../../constants/values';
-// import Animated from 'react-native-reanimated';
-import colors from '../../constants/colors';
+} from '@constants/values';
+import colors from '@constants/colors';
 
 const height = Dimensions.get('screen').height;
 
 const SwipePanel = ({children, height, top, bottom, drag}) => {
-    useEffect(() => {}, []);
+    useEffect(() => {
+    }, []);
 
-    const closePanel = () => {};
+    const closePanel = () => {
+    };
     const _panel = useRef(null);
     let _draggedValue = new Animated.Value(0);
     return (

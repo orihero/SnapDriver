@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TextInput, LayoutAnimation} from 'react-native';
-import Icon from '../../assets/icons';
-import constStyles from '../../constants/constStyles';
-import colors from '../../constants/colors';
-import {BORDER_RADIUS} from '../../constants/values';
+import {StyleSheet, Text, View, TextInput} from 'react-native';
+import Icon from '@assets/icons';
+import constStyles from '@constants/constStyles';
+import colors from '@constants/colors';
+import {BORDER_RADIUS} from '@constants/values';
 
 interface SelectOrInputCardProps {
     icon?: string;
@@ -17,19 +17,18 @@ interface SelectOrInputCardProps {
     preValue?: string;
 }
 
-const SelectOrInputCard = ({
-    title,
-    isPassword,
-    icon,
-    placeholder,
-    setKeyboardOn,
-    secondaryIcon,
-    isSelect,
-    textColor,
-    preValue,
-}: SelectOrInputCardProps) => {
-    let [showTitle, setShowTitle] = useState(false);
-    let [value, setValue] = useState(preValue && preValue);
+const SelectOrInputCard = (
+    {
+        title,
+        isPassword,
+        icon,
+        placeholder,
+        secondaryIcon,
+        isSelect,
+        textColor,
+        preValue,
+    }: SelectOrInputCardProps) => {
+    let [value, setValue] = useState('');
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
@@ -41,7 +40,8 @@ const SelectOrInputCard = ({
                         justifyContent: 'space-between',
                     },
                 ]}>
-                {icon && <Icon name={icon} style={styles.icon} size={20} />}
+                {icon && <Icon name={icon} style={styles.icon} size={20}/>}
+                <Text>{preValue}</Text>
                 {!isSelect && (
                     <TextInput
                         onChangeText={(text) => setValue(text)}
@@ -65,7 +65,7 @@ const SelectOrInputCard = ({
                     </Text>
                 )}
                 {secondaryIcon && (
-                    <Icon name={secondaryIcon} size={13} color={colors.black} />
+                    <Icon name={secondaryIcon} size={13} color={colors.black}/>
                 )}
             </View>
         </View>
@@ -100,5 +100,6 @@ const styles = StyleSheet.create({
         color: colors.darkGrayText,
     },
 });
+
 
 export default SelectOrInputCard;
