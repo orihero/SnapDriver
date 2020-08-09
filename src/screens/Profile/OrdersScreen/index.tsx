@@ -1,3 +1,3 @@
-import OrdersScreen from "./view";
+import OrdersScreen from "./controller";
 
 export default OrdersScreen;

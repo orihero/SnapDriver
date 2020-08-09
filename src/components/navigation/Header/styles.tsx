@@ -4,12 +4,14 @@ import {constStyles} from "@constants/index";
 
 export default StyleSheet.create({
     container: {
-        paddingVertical: 34,
+        height: 80,
+        justifyContent: 'center',
         backgroundColor: colors.blue,
         borderBottomEndRadius: 15,
         borderBottomStartRadius: 15,
         marginBottom: 35,
-        zIndex: -1
+        zIndex: -1,
+        overflow: 'hidden',
     },
     header: {
         flexDirection: 'row',

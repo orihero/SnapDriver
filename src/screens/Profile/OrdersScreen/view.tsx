@@ -1,15 +1,12 @@
-import React, {useEffect} from 'react';
-import {Text, View, StatusBar, FlatList} from 'react-native';
-import Header1 from '@components/navigation/Header';
-import colors from '@constants/colors';
+import React from 'react';
+import {Text, View, FlatList, NativeSyntheticEvent, NativeScrollEvent, Animated} from 'react-native';
 import strings from '@constants/strings';
 import HeaderTab from '@components/navigation/HeaderTab';
 import constStyles from '@constants/constStyles';
 import OrderCard from '@components/cards/OrderCard';
 import styles from "./styles";
+import Header from "@components/navigation/Header";
 
-interface OrdersProps {
-}
 
 const orderList = [
     {
@@ -44,58 +41,73 @@ const orderList = [
     },
 ];
 
-const OrdersScreenView = ({}: OrdersProps) => {
-    //functions
-    useEffect(() => {
-        StatusBar.setBarStyle('light-content');
-        StatusBar.setBackgroundColor(colors.blue);
-    }, []);
+interface IProps {
+    onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    animatedHeight: any;
+}
+
+const OrdersScreenView = ({onScroll, animatedHeight}: IProps) => {
 
     return (
-        <View style={styles.plane}>
-            <View style={styles.tabWrapper}>
-                <HeaderTab filter />
-            </View>
-            <View style={styles.container}>
-                <View style={styles.earningDetail}>
-                    <Text style={[styles.titleText, constStyles.bold]}>
-                        {strings.allOrders}
-                    </Text>
-                    <View style={styles.rightText}>
-                        <Text style={[styles.price, constStyles.bold]}>
-                            245500
-                        </Text>
-                        <Text style={[styles.currency, constStyles.light]}>
-                            {' '}
-                            сум
-                        </Text>
-                    </View>
+        <>
+            <Header
+                title={strings.orders}
+                style={{
+                    marginBottom: 0,
+                    borderBottomEndRadius: 0,
+                    borderBottomStartRadius: 0,
+                    height: animatedHeight
+                }}
+            />
+            <View style={styles.plane}>
+                <View style={styles.tabWrapper}>
+                    <HeaderTab/>
                 </View>
-                <View style={styles.earningDetail}>
-                    <Text style={[styles.titleText, constStyles.bold]}>
-                        {strings.sumTax}
-                    </Text>
-                    <View style={styles.rightText}>
-                        <Text style={[styles.price, constStyles.bold]}>
-                            245500
+                <View style={styles.container}>
+                    <View style={styles.earningDetail}>
+                        <Text style={[styles.titleText, constStyles.bold]}>
+                            {strings.allOrders}
                         </Text>
-                        <Text style={[styles.currency, constStyles.light]}>
-                            {' '}
-                            сум
-                        </Text>
+                        <View style={styles.rightText}>
+                            <Text style={[styles.price, constStyles.bold]}>
+                                245500
+                            </Text>
+                            <Text style={[styles.currency, constStyles.light]}>
+                                {' '}
+                                сум
+                            </Text>
+                        </View>
                     </View>
+                    <View style={styles.earningDetail}>
+                        <Text style={[styles.titleText, constStyles.bold]}>
+                            {strings.sumTax}
+                        </Text>
+                        <View style={styles.rightText}>
+                            <Text style={[styles.price, constStyles.bold]}>
+                                245500
+                            </Text>
+                            <Text style={[styles.currency, constStyles.light]}>
+                                {' '}
+                                сум
+                            </Text>
+                        </View>
+                    </View>
+                    <FlatList
+                        scrollEventThrottle={16}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={styles.ordersWrapper}
+                        data={orderList}
+                        onScroll={onScroll}
+                        renderItem={({item}) => (
+                            <OrderCard item={item} navigation={{}}/>
+                        )}
+                        keyExtractor={(item) => item.id}
+                    >
+                        <Text>sds</Text>
+                    </FlatList>
                 </View>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={styles.ordersWrapper}
-                    data={orderList}
-                    renderItem={({item}) => (
-                        <OrderCard item={item} navigation={{}} />
-                    )}
-                    keyExtractor={(index) => index.toString()}
-                />
             </View>
-        </View>
+        </>
     );
 };
 

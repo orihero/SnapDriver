@@ -8,7 +8,6 @@ import MessageCard from '@components/cards/MessageCard';
 import images from '@assets/images';
 import Button from '@components/common/Button';
 import NotificationsScreen from '../NotificationsScreen';
-import constStyles from '@constants/constStyles';
 import TariffCard from '@components/cards/TariffCard';
 import styles from "./styles";
 import SCREENS from "@constants/screens";
@@ -43,74 +42,68 @@ let MapScreenView = ({navigation}: MapPageProps) => {
 
     let mapRef = useRef();
 
-    //variables
     let [showNotification, setShowNotification] = useState(false);
     let [showTariff, setShowTariff] = useState(false);
 
     return (
         <View style={{flex: 1}}>
             <Map ref={mapRef}/>
-            {showNotification ? (
-                <View
-                    onCountDownPress={onCountDownPress}
-                    setShowNotification={setShowNotification}
-                    navigation={navigation}
-                />
-            ) : (
-                <>
-                    <Header1
+            {/*<NotificationsScreen*/}
+            {/*    setShowNotification={setShowNotification}*/}
+            {/*    navigation={navigation}*/}
+            {/*    onCountDownPress={onCountDownPress}*/}
+            {/*/>*/}
+            <Header1
+                navigation={navigation}
+                menu
+                gradientBack={[colors.white, colors.transparent]}
+                titleColor={colors.black}
+                title={strings.noAccess + '(1)'}
+            />
+            <View style={styles.content}>
+                <View style={styles.messageWrapper}>
+                    <MessageCard
+                        onPress={onTaxiPress}
                         navigation={navigation}
-                        menu
-                        gradientBack={[colors.white, colors.transparent]}
-                        titleColor={colors.black}
-                        title={strings.noAccess + '(1)'}
+                        image={images.taxi}
+                        title={strings.myTariff || ''}
                     />
-                    <View style={styles.content}>
-                        <View style={styles.messageWrapper}>
-                            <MessageCard
-                                onPress={onTaxiPress}
-                                navigation={navigation}
-                                image={images.taxi}
-                                title={strings.myTariff || ''}
-                            />
-                            <MessageCard
-                                onPress={onChatPress}
-                                navigation={navigation}
-                                image={images.chat}
-                                title={strings.message || ''}
-                            />
-                        </View>
-                        <View style={styles.buttonWrapper}>
-                            <View/>
-                            <View
-                                style={[
-                                    styles.tariffWrapper,
-                                    showTariff && {
-                                        left: -40,
-                                    },
-                                ]}>
-                                <TariffCard
-                                    setShowTariff={setShowTariff}
-                                    name="Эконом от"
-                                    minPrice={4000}
-                                />
-                                <TariffCard
-                                    textColor={colors.paleGray}
-                                    name="Комфорт от"
-                                    minPrice={4000}
-                                    backColor={colors.blueish}
-                                    setShowTariff={setShowTariff}
-                                />
-                            </View>
-                            <Button
-                                fontSize={16}
-                                onPress={onPress}
-                                text={strings.goShift}
-                            />
-                        </View>
+                    <MessageCard
+                        onPress={onChatPress}
+                        navigation={navigation}
+                        image={images.chat}
+                        title={strings.message || ''}
+                    />
+                </View>
+                <View style={styles.buttonWrapper}>
+                    <View/>
+                    <View
+                        style={[
+                            styles.tariffWrapper,
+                            showTariff && {
+                                left: -40,
+                            },
+                        ]}>
+                        <TariffCard
+                            setShowTariff={setShowTariff}
+                            name="Эконом от"
+                            minPrice={4000}
+                        />
+                        <TariffCard
+                            textColor={colors.paleGray}
+                            name="Комфорт от"
+                            minPrice={4000}
+                            backColor={colors.blueish}
+                            setShowTariff={setShowTariff}
+                        />
                     </View>
-                </>
-            )}
+                    <Button
+                        fontSize={16}
+                        onPress={onPress}
+                        text={strings.goShift}
+                    />
+                </View>
+            </View>
         </View>
     );
 };

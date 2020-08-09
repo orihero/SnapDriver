@@ -4,7 +4,7 @@ import sagaPlugin from 'reactotron-redux-saga'
 import {reactotronRedux} from 'reactotron-redux'
 
 export default Reactotron
-    .setAsyncStorageHandler(AsyncStorage)
+    .setAsyncStorageHandler?.(AsyncStorage)
     .configure()
     .use(reactotronRedux())
     .use(sagaPlugin({}))
