@@ -6,7 +6,7 @@ import {
 
 
 import SCREENS from "@constants/screens";
-import MapScreen from "../../screens/Map/MapScreen";
+import MapScreen from "../../screens/Map/MainScreen";
 import ChatScreen from "../../screens/Map/ChatScreen";
 import Header from "@components/navigation/Header";
 import {strings} from "@constants/index";

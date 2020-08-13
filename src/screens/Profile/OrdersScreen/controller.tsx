@@ -27,13 +27,13 @@ const OrdersScreenController = ({navigation}: IProps) => {
             ).start()
         };
 
-    const calcHeight = (value: number) => {
-        if (value >= 80) {
-            return 0
-        } else {
-            return 80 - value
-        }
-    };
+        const calcHeight = (value: number) => {
+            if (value >= 80) {
+                return 0
+            } else {
+                return 80 - value
+            }
+        };
 
 
         const onScroll = ({nativeEvent}: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -42,8 +42,12 @@ const OrdersScreenController = ({navigation}: IProps) => {
 
         return (
             <OrdersScreenView
-                onScroll={onScroll}
-                animatedHeight={animatedHeight}
+                onScroll={Animated.event([{nativeEvent: {contentOffset: {y: animatedHeight}}}])}
+                animatedHeight={animatedHeight.interpolate({
+                    inputRange: [0, 80],
+                    outputRange: [80, 0],
+                    extrapolate: 'clamp'
+                })}
             />
         );
     }

@@ -1,34 +1,28 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import PulseLoader from '../lotties/PulseLoader';
-import colors from '../../constants/colors';
+import colors from '@constants/colors';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import Animated, {Easing} from 'react-native-reanimated';
 import TouchablePlatformSpecific from './TouchablePlatformSpecific';
 import CountDown from 'react-native-countdown-component';
-import constStyles from '../../constants/constStyles';
+import constStyles from '@constants/constStyles';
 import {deviceHeight} from '@constants/values';
 
 interface PulseCountDownProps {
-    navigation?: any;
     time: number;
-    title: string;
-    name: string;
-    setShowNotification: any;
+    title: any;
+    name: any;
+    onPress: () => void;
 }
 
-const PulseCountDown = ({
-    navigation,
-    time,
-    title,
-    name,
-    setShowNotification,
-}: PulseCountDownProps) => {
+const PulseCountDown = (
+    {
+        time,
+        title,
+        name,
+        onPress,
+    }: PulseCountDownProps) => {
     const progressCircle = useRef(null);
-    const onPress = () => {
-        // progressCircle.current.animate('100', time * 1000);
-        setShowNotification(false);
-    };
 
     useEffect(() => {
         progressCircle.current.animate('100', time * 1000);
@@ -36,7 +30,7 @@ const PulseCountDown = ({
 
     return (
         <View style={styles.container}>
-            <PulseLoader />
+            <PulseLoader/>
             <AnimatedCircularProgress
                 ref={progressCircle}
                 size={deviceHeight * 0.2}
@@ -61,7 +55,7 @@ const PulseCountDown = ({
                             <CountDown
                                 until={time}
                                 size={20}
-                                //  onFinish={() => alert('Finished')}
+                                onFinish={onPress}
                                 digitStyle={{
                                     backgroundColor: colors.transparent,
                                     width: 30,
@@ -92,6 +86,7 @@ const styles = StyleSheet.create({
         height: deviceHeight * 0.35,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     countDownWrapper: {
         flex: 1,

@@ -10,7 +10,6 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'space-between',
     },
-
     messageWrapper: {
         justifyContent: 'space-evenly',
         flexDirection: 'row',
@@ -26,4 +25,7 @@ export default StyleSheet.create({
         marginTop: 200,
         left: -1000,
     },
+    activeTariff: {
+        left: -40
+    }
 });

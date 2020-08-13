@@ -11,14 +11,12 @@ import TouchablePlatformSpecific from '../common/TouchablePlatformSpecific';
 import colors from '@constants/colors';
 
 interface MessageCardProps {
-    navigation?: any;
     image: ImageSourcePropType;
-    title: string;
+    title: any;
     onPress: any;
 }
 
-const MessageCard = ({navigation, image, title, onPress}: MessageCardProps) => {
-    //functions
+const MessageCard = ({image, title, onPress}: MessageCardProps) => {
 
     return (
         <View style={styles.container}>

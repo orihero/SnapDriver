@@ -1,3 +1,3 @@
-import Map from "./view";
+import Map from "./connect";
 
 export default Map;

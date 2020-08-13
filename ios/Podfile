@@ -92,6 +92,8 @@ target 'snapDriver' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
+
   target 'snapDriverTests' do
     inherit! :complete
     # Pods for testing
