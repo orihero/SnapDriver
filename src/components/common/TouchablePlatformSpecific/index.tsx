@@ -3,7 +3,8 @@ import {
     TouchableNativeFeedback,
     TouchableOpacity,
     Platform,
-    TouchableOpacityProps, TouchableNativeFeedbackProps
+    TouchableOpacityProps,
+    TouchableNativeFeedbackProps
 } from "react-native";
 
 interface IProps extends TouchableOpacityProps, TouchableNativeFeedbackProps {

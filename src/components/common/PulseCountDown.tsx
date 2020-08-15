@@ -4,6 +4,7 @@ import PulseLoader from '../lotties/PulseLoader';
 import colors from '@constants/colors';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import TouchablePlatformSpecific from './TouchablePlatformSpecific';
+// @ts-ignore
 import CountDown from 'react-native-countdown-component';
 import constStyles from '@constants/constStyles';
 import {deviceHeight} from '@constants/values';
@@ -25,6 +26,7 @@ const PulseCountDown = (
     const progressCircle = useRef(null);
 
     useEffect(() => {
+        // @ts-ignore
         progressCircle.current.animate('100', time * 1000);
     }, []);
 
@@ -34,10 +36,11 @@ const PulseCountDown = (
             <AnimatedCircularProgress
                 ref={progressCircle}
                 size={deviceHeight * 0.2}
-                width={3}
+                width={5}
                 rotation={0}
                 fill={0}
                 lineCap="round"
+                backgroundWidth={7}
                 style={{
                     borderRadius: 150,
                     backgroundColor: colors.superPaleGray,
@@ -47,11 +50,7 @@ const PulseCountDown = (
                 {(fill) => (
                     <TouchablePlatformSpecific onPress={onPress}>
                         <View style={styles.countDownWrapper}>
-                            <Text
-                                numberOfLines={1}
-                                style={[styles.title, constStyles.light]}>
-                                {title}
-                            </Text>
+                            <Text numberOfLines={1} style={[styles.title, constStyles.light]}>{title}</Text>
                             <CountDown
                                 until={time}
                                 size={20}
@@ -59,7 +58,6 @@ const PulseCountDown = (
                                 digitStyle={{
                                     backgroundColor: colors.transparent,
                                     width: 30,
-                                    overflow: 'visible',
                                     height: 10,
                                 }}
                                 separatorStyle={{color: colors.blue}}
@@ -86,7 +84,6 @@ const styles = StyleSheet.create({
         height: deviceHeight * 0.35,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     countDownWrapper: {
         flex: 1,

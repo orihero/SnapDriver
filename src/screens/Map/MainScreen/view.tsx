@@ -15,9 +15,10 @@ import NewOrderScreen from "../NewOrderScreen";
 interface IProps {
     goToChat: () => void;
     showTariff: boolean;
-    setShowTariff: (value: boolean) => void;
+    setShowTariff: (value: (prevState: any) => boolean) => void;
     changeDriverStatus: () => void;
     driverStatus: boolean;
+    isButtonVisible: boolean;
 }
 
 let MainScreenView = (
@@ -27,53 +28,60 @@ let MainScreenView = (
         goToChat,
         changeDriverStatus,
         driverStatus,
+        isButtonVisible,
     }: IProps
 ) => {
     return (
-        <View style={{flex: 1}}>
+        <>
             <NewOrderScreen/>
-            <Map/>
-            <MapHeader
-                gradientBack={[colors.white, colors.transparent]}
-                title={driverStatus ? 'На смене' : strings.noAccess + '  (1)'}
-            />
-            <View style={styles.content}>
-                <View style={styles.messageWrapper}>
-                    <MessageCard
-                        onPress={() => setShowTariff((prevState) => !prevState)}
-                        image={images.taxi}
-                        title={strings.myTariff}
-                    />
-                    <MessageCard
-                        onPress={goToChat}
-                        image={images.chat}
-                        title={strings.message}
-                    />
-                </View>
-                <View style={styles.buttonWrapper}>
-                    <View/>
-                    <View style={[styles.tariffWrapper, showTariff && styles.activeTariff]}>
-                        <TariffCard
-                            setShowTariff={setShowTariff}
-                            name="Эконом от"
-                            minPrice={4000}
+            <View style={{flex: 1}}>
+                <Map/>
+                <MapHeader
+                    gradientBack={[colors.white, colors.transparent]}
+                    title={driverStatus ? 'На смене' : strings.noAccess + '  (1)'}
+                />
+                <View style={styles.content}>
+                    <View style={styles.messageWrapper}>
+                        <MessageCard
+                            onPress={() => setShowTariff((prevState) => !prevState)}
+                            image={images.taxi}
+                            title={strings.myTariff}
                         />
-                        <TariffCard
-                            textColor={colors.paleGray}
-                            name="Комфорт от"
-                            minPrice={4000}
-                            backColor={colors.blueish}
-                            setShowTariff={setShowTariff}
+                        <MessageCard
+                            onPress={goToChat}
+                            image={images.chat}
+                            title={strings.message}
                         />
                     </View>
-                    <Button
-                        fontSize={16}
-                        onPress={changeDriverStatus}
-                        text={strings.goShift}
-                    />
+                    <View style={styles.buttonWrapper}>
+                        <View/>
+                        <View style={[styles.tariffWrapper, showTariff && styles.activeTariff]}>
+                            <TariffCard
+                                setShowTariff={setShowTariff}
+                                name="Эконом от"
+                                minPrice={4000}
+                            />
+                            <TariffCard
+                                textColor={colors.paleGray}
+                                name="Комфорт от"
+                                minPrice={4000}
+                                backColor={colors.blueish}
+                                setShowTariff={setShowTariff}
+                            />
+                        </View>
+                        {
+                            isButtonVisible &&
+                            <Button
+                                containerStyle={styles.button}
+                                textStyles={styles.buttonText}
+                                onPress={changeDriverStatus}
+                                text={strings.goShift}
+                            />
+                        }
+                    </View>
                 </View>
             </View>
-        </View>
+        </>
     );
 };
 

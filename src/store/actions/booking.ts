@@ -5,10 +5,12 @@ const SetDriverStatusOnline = createAction(Booking.SetDriverStatusOnline.REQUEST
 const SetDriverStatusOffline = createAction(Booking.SetDriverStatusOffline.REQUEST);
 const NewOrder = createAction(Booking.NewOrder.REQUEST);
 const SkipNewOrder = createAction(Booking.SkipNewOrder.REQUEST);
+const AcceptNewOrder = createAction(Booking.AcceptNewOrder.REQUEST);
 
 export default {
     SetDriverStatusOnline,
     SetDriverStatusOffline,
     NewOrder,
     SkipNewOrder,
+    AcceptNewOrder,
 }

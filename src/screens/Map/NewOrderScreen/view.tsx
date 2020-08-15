@@ -12,12 +12,13 @@ import IAction from "@store/types/IAction";
 interface IProps {
     visible: boolean;
     skipNewOrder: IAction;
+    acceptNewOrder: () => void;
 }
 
-const NewOrderScreenView = ({visible, skipNewOrder}: IProps) => {
+const NewOrderScreenView = ({visible, skipNewOrder, acceptNewOrder}: IProps) => {
 
     return (
-        <Modal presentationStyle={"fullScreen"} visible={visible}>
+        <Modal visible={visible} transparent>
             <View style={[styles.plane]}>
                 <View style={[styles.container, constStyles.shadow,]}>
                     <PulseCountDown
@@ -55,10 +56,7 @@ const NewOrderScreenView = ({visible, skipNewOrder}: IProps) => {
                         <Text style={[styles.tariffTitle, constStyles.light]}>
                             {strings.tariff}:
                         </Text>
-                        <Text style={[styles.tariff, constStyles.bold]}>
-                            {' '}
-                            Comfort
-                        </Text>
+                        <Text style={[styles.tariff, constStyles.bold]}> Comfort</Text>
                     </View>
                     <InfoCard message="Поедет моя мама, просит не торопиться, так как очень боится скорости"/>
                 </View>
@@ -66,7 +64,7 @@ const NewOrderScreenView = ({visible, skipNewOrder}: IProps) => {
                     <Button
                         fontSize={18}
                         text={strings.accept}
-                        onPress={() => null}
+                        onPress={acceptNewOrder}
                     />
                 </View>
             </View>

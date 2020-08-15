@@ -10,11 +10,11 @@ import HatCutout from '@components/common/HatCutout';
 import Button from '@components/common/Button';
 import styles from "./styles";
 
-interface BalanceProps {
+interface IProps {
     navigation: any;
 }
 
-const BalanceScreenView = ({navigation}: BalanceProps) => {
+const BalanceScreenView = ({navigation}: IProps) => {
     const onChatPress = () => {
         navigation.navigate('Chat');
     };
@@ -106,7 +106,9 @@ const BalanceScreenView = ({navigation}: BalanceProps) => {
                 </View>
                 <Button
                     text={strings.fillBalance}
-                    onPress={() => null}
+                    onPress={() => {
+                        console.log('sda')
+                    }}
                 />
             </View>
         </View>

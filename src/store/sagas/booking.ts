@@ -18,10 +18,10 @@ function* SetDriverStatusOnline(action: any) {
             client: io,
         });
 
-
         echo
             .channel('snaptaxi_database_car.105')
             .listen('.SearchEvent', (booking: any) => {
+                console.log(booking);
                 action.cb(booking)
             });
 
@@ -68,13 +68,49 @@ function* NewOrder(action: any) {
 
         yield put({
             type: Booking.NewOrder.SUCCESS,
+            payload: action.payload
         });
-
 
     } catch (error) {
 
         yield put({
             type: Booking.NewOrder.FAILURE,
+            payload: error,
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
+function* AcceptNewOrder(action: any) {
+    try {
+
+        const {orderId, driverId} = action.payload;
+
+        const {data} = yield call(api.request.put, `/car-booking/status/${orderId}`, {
+            status: 'accepted',
+            driver_id: driverId,
+        });
+
+
+        echo
+            .channel('snaptaxi_database_car_order.105')
+            .listen('.OrderStatusEvent', (orderInfo: any) => {
+                console.log(orderInfo)
+                // action.cb(booking)
+            });
+
+        yield put({
+            type: Booking.AcceptNewOrder.SUCCESS,
+            payload: data.data
+        });
+
+        yield call(action.cb);
+
+    } catch (error) {
+
+        yield put({
+            type: Booking.AcceptNewOrder.FAILURE,
             payload: error,
         });
 
@@ -88,6 +124,7 @@ export default function* root() {
         takeLatest(Booking.SetDriverStatusOnline.REQUEST, SetDriverStatusOnline),
         takeLatest(Booking.SetDriverStatusOffline.REQUEST, SetDriverStatusOffline),
         takeLatest(Booking.NewOrder.REQUEST, NewOrder),
+        takeLatest(Booking.AcceptNewOrder.REQUEST, AcceptNewOrder),
     ]);
 }
 

@@ -13,6 +13,7 @@ interface HeaderProps {
     title?: string;
     notification?: boolean;
     gradientBack?: any;
+    children?: any
 }
 
 const MapHeader = (
@@ -20,6 +21,7 @@ const MapHeader = (
         title,
         gradientBack,
         notification,
+        children,
     }: HeaderProps) => {
 
     const navigation: DrawerNavigationProp<any> = useNavigation();
@@ -31,10 +33,10 @@ const MapHeader = (
     let HeaderView = () => {
         return (
             <View
-                style={[
-                    styles.container,
-                    !gradientBack && constStyles.shadow,
-                ]}>
+                style={[styles.container, !gradientBack && constStyles.shadow, children && {
+                    backgroundColor: colors.grey,
+                    paddingBottom: 15
+                }]}>
                 <View style={styles.headerAndInnerHeader}>
                     <View style={styles.header}>
                         <View style={styles.titleWrapper}>
@@ -67,6 +69,7 @@ const MapHeader = (
                             </TouchablePlatformSpecific>
                         </View>
                     </View>
+                    {children}
                 </View>
             </View>
         );
@@ -84,12 +87,9 @@ const MapHeader = (
                 <LinearGradient
                     start={{x: 0, y: 0}}
                     end={{x: 0, y: 1}}
-                    colors={[gradientBack[0] || '', gradientBack[1] || '']}>
-                    <View
-                        style={{
-                            height: 80,
-                            justifyContent: 'center',
-                        }}>
+                    colors={[gradientBack[0] || '', gradientBack[1] || '']}
+                >
+                    <View style={{height: 80, justifyContent: 'center'}}>
                         <HeaderView/>
                     </View>
                 </LinearGradient>

@@ -27,5 +27,13 @@ export default StyleSheet.create({
     },
     activeTariff: {
         left: -40
+    },
+    button: {
+        height: 63,
+        borderRadius: 250
+    },
+    buttonText: {
+        fontWeight: 'bold',
+        fontSize: 18
     }
 });

@@ -18,6 +18,7 @@ let Map = ({getCurrentLocation, setMapRef, currentLocation}: IProps) => {
     return (
         <View style={styles.container}>
             <MapView
+                showsCompass={false}
                 ref={ref => setMapRef(ref)}
                 style={styles.map}
                 showsBuildings

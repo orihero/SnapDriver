@@ -9,10 +9,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     content: {
-        // height: 400,
-        // overflow: 'hidden',
         borderRadius: BORDER_RADIUS,
-        // marginHorizontal: CONTAINER_PADDING,
         marginBottom: 20,
         justifyContent: 'space-between',
     },

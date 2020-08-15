@@ -1,34 +1,36 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Icon from '../../assets/icons';
-import colors from '../../constants/colors';
-import Touchable from '../common/Touchable';
+import Icon from '@assets/icons';
+import colors from '@constants/colors';
 import constStyles from '../../constants/constStyles';
-import {CONTAINER_PADDING} from '../../constants/values';
+import {CONTAINER_PADDING} from '@constants/values';
+import TouchablePlatformSpecific from "@components/common/TouchablePlatformSpecific";
 
 interface InnerHeaderProps {
-    topTitle: string;
+    topTitle: any;
     topData: string;
-    bottomTitle: string;
+    bottomTitle: any;
     bottomData: string;
     icon?: string;
     number: string;
 }
 
-const InnerHeader = ({
-    topData,
-    topTitle,
-    bottomData,
-    bottomTitle,
-    icon,
-    number,
-}: InnerHeaderProps) => {
-    //functions
+const InnerHeader = (
+    {
+        topData,
+        topTitle,
+        bottomData,
+        bottomTitle,
+        icon,
+        number,
+    }: InnerHeaderProps
+) => {
+
     const onPress = () => {
         console.warn('pressed');
     };
     return (
-        <View style={styles.contianer}>
+        <View style={styles.container}>
             <View style={styles.dataWrapper}>
                 <View style={styles.topWrapper}>
                     <Text style={[styles.topText, constStyles.bold]}>
@@ -41,7 +43,7 @@ const InnerHeader = ({
                 </View>
                 <View style={styles.bottomWrapper}>
                     {icon && (
-                        <Icon name={icon} size={20} color={colors.black} />
+                        <Icon name={icon} size={20} color={colors.black}/>
                     )}
                     <Text style={[styles.bottomText, constStyles.bold]}>
                         {bottomTitle}:
@@ -53,19 +55,18 @@ const InnerHeader = ({
                 </View>
             </View>
             <View style={[styles.iconWrapper, constStyles.shadow]}>
-                <Touchable onPress={onPress}>
+                <TouchablePlatformSpecific onPress={onPress}>
                     <View style={styles.icon}>
-                        <Icon name="phone" color={colors.blue} size={20} />
+                        <Icon name="phone" color={colors.blue} size={20}/>
                     </View>
-                </Touchable>
+                </TouchablePlatformSpecific>
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    contianer: {
-        backgroundColor: colors.white,
+    container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

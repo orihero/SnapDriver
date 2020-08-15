@@ -21,6 +21,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        height: 68
     },
     titleWrapper: {},
     iconWrapper: {

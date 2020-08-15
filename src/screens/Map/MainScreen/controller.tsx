@@ -12,7 +12,7 @@ interface IProps {
     SetDriverStatusOffline: IAction;
     NewOrder: IAction;
     driverStatus: boolean;
-
+    newOrderModal: any;
 }
 
 const MainScreenController = (
@@ -21,15 +21,18 @@ const MainScreenController = (
         driverStatus,
         SetDriverStatusOffline,
         SetDriverStatusOnline,
-        NewOrder
+        NewOrder,
+        newOrderModal
     }: IProps
 ) => {
     const [showTariff, setShowTariff] = useState(false);
 
     useEffect(() => {
-        StatusBar.setBarStyle('dark-content');
-        StatusBar.setBackgroundColor(colors.white);
-    }, [navigation]);
+        navigation.addListener('focus', () => {
+            StatusBar.setBarStyle('dark-content');
+            StatusBar.setBackgroundColor(colors.white);
+        });
+    }, []);
 
     const routeTo = (screen: string) => () => {
         navigation.navigate(screen)
@@ -52,6 +55,7 @@ const MainScreenController = (
             showTariff={showTariff}
             driverStatus={driverStatus}
             changeDriverStatus={changeDriverStatus}
+            isButtonVisible={!newOrderModal.visible}
         />
     );
 };

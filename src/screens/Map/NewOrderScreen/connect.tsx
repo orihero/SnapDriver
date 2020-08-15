@@ -2,7 +2,7 @@ import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
 import NewOrderScreenController from "./controller";
-import {SkipNewOrder} from "@store/constants/booking";
+import booking from "@store/actions/booking"
 
 const mapStateToProps = ({booking: {newOrderModal}}: any) => ({
     newOrderModal
@@ -10,9 +10,8 @@ const mapStateToProps = ({booking: {newOrderModal}}: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
-        SkipNewOrder: () => ({
-            type: SkipNewOrder.SUCCESS,
-        })
+        AcceptNewOrder: booking.AcceptNewOrder,
+        SkipNewOrder: booking.SkipNewOrder,
     }, dispatch);
 };
 

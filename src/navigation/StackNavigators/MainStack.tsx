@@ -8,6 +8,7 @@ import {
 import SCREENS from "@constants/screens";
 import MapScreen from "../../screens/Map/MainScreen";
 import ChatScreen from "../../screens/Map/ChatScreen";
+import TripScreen from "../../screens/Map/TripScreen";
 import Header from "@components/navigation/Header";
 import {strings} from "@constants/index";
 
@@ -25,6 +26,13 @@ const MainStack = () => (
             component={MapScreen}
             options={{
                 headerShown: false
+            }}
+        />
+        <Screen
+            name={SCREENS.TRIP}
+            component={TripScreen}
+            options={{
+                headerShown: false,
             }}
         />
         <Screen

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ActivityIndicator} from "react-native";
+import {View, Text, ActivityIndicator, ViewStyle, TextStyle} from "react-native";
 
 
 import styles from "./styles";
@@ -7,21 +7,23 @@ import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
 interface IProps {
     text?: string;
-    containerStyle?: any;
+    containerStyle?: ViewStyle;
     onPress: () => void,
     fontSize?: number;
     isLoading?: boolean;
-    disabled?: boolean
+    disabled?: boolean,
+    textStyles?: TextStyle;
 }
 
 const Button = (
     {
+        textStyles,
         text,
         containerStyle,
         onPress,
         fontSize,
-        isLoading,
-        disabled
+        isLoading = false,
+        disabled = false
     }: IProps) => {
     return (
         <View style={[styles.button, disabled && styles.disabled, containerStyle]}>
@@ -34,7 +36,8 @@ const Button = (
                                     [
                                         styles.text,
                                         disabled && styles.disabledText,
-                                        !fontSize && {fontSize}
+                                        !fontSize && {fontSize},
+                                        textStyles
                                     ]
                                 }
                             >

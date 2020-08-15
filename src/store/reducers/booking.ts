@@ -1,8 +1,17 @@
-import {NewOrder, SetDriverStatusOffline, SetDriverStatusOnline, SkipNewOrder} from "../constants/booking";
+import {
+    AcceptNewOrder,
+    NewOrder,
+    SetDriverStatusOffline,
+    SetDriverStatusOnline,
+    SkipNewOrder
+} from "../constants/booking";
 
 const initialState = {
     driverStatus: false,
-    newOrderModal: false,
+    newOrderModal: {
+        visible: false,
+        data: null
+    }
 };
 
 export default (state = initialState, action: any) => {
@@ -20,13 +29,28 @@ export default (state = initialState, action: any) => {
         case NewOrder.SUCCESS: {
             return {
                 ...state,
-                newOrderModal: true,
+                newOrderModal: {
+                    visible: true,
+                    data: action.payload
+                }
             }
         }
-        case SkipNewOrder.SUCCESS: {
+        case SkipNewOrder.REQUEST: {
             return {
                 ...state,
-                newOrderModal: false,
+                newOrderModal: {
+                    visible: false,
+                    data: null
+                }
+            }
+        }
+        case AcceptNewOrder.SUCCESS: {
+            return {
+                ...state,
+                newOrderModal: {
+                    visible: false,
+                    data: null
+                }
             }
         }
         default:

@@ -25,8 +25,7 @@ enum SCREENS {
 
     CHAT = 'CHAT',
     MAP = 'MAP',
-    NOTIFICATIONS = 'NOTIFICATIONS',
-    PASSENGER = 'PASSENGER',
+    TRIP = 'TRIP',
 
 }
 
