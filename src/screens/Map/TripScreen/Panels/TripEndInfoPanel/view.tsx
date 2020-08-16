@@ -6,7 +6,11 @@ import styles from "./styles";
 import Button from "@components/common/Button";
 import {strings} from "@constants/index";
 
-const TripEndInfoPanelView = () => {
+interface IProps {
+    changeOrderStatus: () => void;
+}
+
+const TripEndInfoPanelView = ({changeOrderStatus}: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
@@ -27,11 +31,10 @@ const TripEndInfoPanelView = () => {
                     <Icon name="setting" size={18}/>
                 </View>
                 <Button
-                    onPress={() => null}
+                    onPress={changeOrderStatus}
                     text={strings.finish}
                 />
             </View>
-
         </View>
     );
 };

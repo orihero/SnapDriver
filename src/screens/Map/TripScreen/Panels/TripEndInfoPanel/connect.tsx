@@ -1,8 +1,8 @@
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
-import NewOrderScreenController from "./controller";
-import booking from "@store/actions/booking"
+import TripEndInfoPanelPanelController from "./controller";
+import booking from "@store/actions/booking";
 
 const mapStateToProps = ({booking: {newOrder}}: any) => ({
     newOrder
@@ -10,12 +10,11 @@ const mapStateToProps = ({booking: {newOrder}}: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
-        AcceptNewOrder: booking.AcceptNewOrder,
-        SkipNewOrder: booking.SkipNewOrder,
+        ChangeOrderStatus: booking.ChangeOrderStatus
     }, dispatch);
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(NewOrderScreenController);
+)(TripEndInfoPanelPanelController);

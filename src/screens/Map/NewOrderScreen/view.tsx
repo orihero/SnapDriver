@@ -13,10 +13,18 @@ interface IProps {
     visible: boolean;
     skipNewOrder: IAction;
     acceptNewOrder: () => void;
+    orderDetails: any;
+    isLoading: boolean;
 }
 
-const NewOrderScreenView = ({visible, skipNewOrder, acceptNewOrder}: IProps) => {
-
+const NewOrderScreenView = (
+    {
+        visible,
+        skipNewOrder,
+        acceptNewOrder,
+        orderDetails,
+        isLoading
+    }: IProps) => {
     return (
         <Modal visible={visible} transparent>
             <View style={[styles.plane]}>
@@ -25,20 +33,20 @@ const NewOrderScreenView = ({visible, skipNewOrder, acceptNewOrder}: IProps) => 
                         onPress={skipNewOrder}
                         name={strings.skip}
                         title={strings.order}
-                        time={8}
+                        time={1000}
                     />
                     <View
                         style={[styles.section, styles.bottomBorder]}>
                         <View style={styles.left}>
                             <Text style={[styles.price, constStyles.bold]}>
-                                35 500
+                                {orderDetails.price}
                             </Text>
                             <Text style={[styles.text, constStyles.light]}>
-                                Комиссия:3 550
+                                Комиссия: {orderDetails.commission}
                             </Text>
                         </View>
                         <Text style={[styles.distance, constStyles.medium]}>
-                            13 км
+                            {orderDetails.distance} км
                         </Text>
                     </View>
                     <View style={[styles.rowWrapper, styles.bottomBorder]}>
@@ -48,23 +56,32 @@ const NewOrderScreenView = ({visible, skipNewOrder, acceptNewOrder}: IProps) => 
                                 {strings.drivingFrom}
                             </Text>
                             <Text style={[styles.locationText, constStyles.bold]}>
-                                Саларская набережаная 35
+                                {
+                                    orderDetails.id &&
+                                    JSON.parse(orderDetails.routes)[0].address
+                                }
                             </Text>
                         </View>
                     </View>
                     <View style={styles.tariffWrapper}>
                         <Text style={[styles.tariffTitle, constStyles.light]}>
-                            {strings.tariff}:
+                            {strings.tariff}:&nbsp;
                         </Text>
-                        <Text style={[styles.tariff, constStyles.bold]}> Comfort</Text>
+                        <Text style={[styles.tariff, constStyles.bold]}>
+                            {orderDetails.id && orderDetails.car_type.title}
+                        </Text>
                     </View>
-                    <InfoCard message="Поедет моя мама, просит не торопиться, так как очень боится скорости"/>
+                    {
+                        orderDetails.comment &&
+                        <InfoCard message={orderDetails.comment}/>
+                    }
                 </View>
                 <View style={styles.buttonWrapper}>
                     <Button
                         fontSize={18}
                         text={strings.accept}
                         onPress={acceptNewOrder}
+                        isLoading={isLoading}
                     />
                 </View>
             </View>

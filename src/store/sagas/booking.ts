@@ -1,5 +1,4 @@
-import {put, takeLatest, call, all, fork} from "redux-saga/effects";
-import {eventChannel} from "redux-saga";
+import {put, takeLatest, call, all} from "redux-saga/effects";
 import io from "socket.io-client"
 import Echo from "laravel-echo";
 
@@ -20,11 +19,9 @@ function* SetDriverStatusOnline(action: any) {
 
         echo
             .channel('snaptaxi_database_car.105')
-            .listen('.SearchEvent', (booking: any) => {
-                console.log(booking);
-                action.cb(booking)
+            .listen('.SearchEvent', ({booking}: any) => {
+                action.cb({...booking.id, ...booking.channel})
             });
-
 
         yield put({
             type: Booking.SetDriverStatusOnline.SUCCESS,
@@ -118,6 +115,34 @@ function* AcceptNewOrder(action: any) {
     }
 }
 
+function* ChangeOrderStatus(action: any) {
+    try {
+
+        const {orderStatus, driverId, orderId} = action.payload;
+
+        const {data} = yield call(api.request.put, `/car-booking/status/${orderId}`, {
+            status: orderStatus,
+            driver_id: driverId,
+        });
+
+        yield put({
+            type: Booking.ChangeOrderStatus.SUCCESS,
+            payload: data.data
+        });
+
+        yield call(action.cb);
+
+    } catch (error) {
+
+        yield put({
+            type: Booking.ChangeOrderStatus.FAILURE,
+            payload: error,
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -125,6 +150,7 @@ export default function* root() {
         takeLatest(Booking.SetDriverStatusOffline.REQUEST, SetDriverStatusOffline),
         takeLatest(Booking.NewOrder.REQUEST, NewOrder),
         takeLatest(Booking.AcceptNewOrder.REQUEST, AcceptNewOrder),
+        takeLatest(Booking.ChangeOrderStatus.REQUEST, ChangeOrderStatus),
     ]);
 }
 

@@ -8,7 +8,14 @@ import Icon from "@assets/icons";
 import styles from "./styles";
 import Button from "@components/common/Button";
 
-const DestinationDetailsPanelView = () => {
+interface IProps {
+    changeOrderStatus: () => void;
+    isLoading: boolean;
+    drivingFrom: string;
+    drivingTo: string;
+}
+
+const DestinationDetailsPanelView = ({changeOrderStatus, isLoading, drivingFrom, drivingTo}: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
@@ -21,11 +28,11 @@ const DestinationDetailsPanelView = () => {
                     <View>
                         <View style={styles.drivingFromWrapper}>
                             <Text style={styles.drivingText}>{strings.drivingFrom}</Text>
-                            <Text style={styles.text}>Саларская набережаная 35</Text>
+                            <Text style={styles.text}>{drivingFrom}</Text>
                         </View>
                         <View style={styles.drivingToWrapper}>
                             <Text style={styles.drivingText}>{strings.drivingTo}</Text>
-                            <Text style={styles.text}>Дом</Text>
+                            <Text style={styles.text}>{drivingTo}</Text>
                         </View>
                     </View>
                 </View>
@@ -41,8 +48,7 @@ const DestinationDetailsPanelView = () => {
                         <Icon name="checkCircle" color={colors.blue} size={25}/>
                     </View>
                 </View>
-                <View
-                    style={styles.bottomWrapper}>
+                <View style={styles.bottomWrapper}>
                     <View style={styles.bottomIconWrapper}>
                         <Icon name="path" size={25} color={colors.black}/>
                     </View>
@@ -54,8 +60,9 @@ const DestinationDetailsPanelView = () => {
                     </View>
                 </View>
                 <Button
-                    onPress={() => null}
-                    text={strings.finish}
+                    onPress={changeOrderStatus}
+                    text={strings.letsGo}
+                    isLoading={isLoading}
                 />
             </View>
         </View>

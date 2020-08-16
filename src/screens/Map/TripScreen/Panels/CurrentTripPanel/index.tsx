@@ -1,3 +1,3 @@
-import CurrentTripPanel from "./view";
+import CurrentTripPanel from "./connect";
 
 export default CurrentTripPanel;

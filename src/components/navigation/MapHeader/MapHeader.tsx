@@ -32,11 +32,14 @@ const MapHeader = (
 
     let HeaderView = () => {
         return (
-            <View
-                style={[styles.container, !gradientBack && constStyles.shadow, children && {
-                    backgroundColor: colors.grey,
-                    paddingBottom: 15
-                }]}>
+            <View style={[styles.container, children && {
+                backgroundColor: colors.grey,
+                paddingBottom: 15,
+                borderWidth: 2,
+                borderColor: colors.white,
+                ...constStyles.shadow
+            }]}
+            >
                 <View style={styles.headerAndInnerHeader}>
                     <View style={styles.header}>
                         <View style={styles.titleWrapper}>
@@ -76,13 +79,7 @@ const MapHeader = (
     };
 
     return (
-        <View
-            style={[
-                styles.plane,
-                gradientBack && {
-                    backgroundColor: colors.transparent,
-                },
-            ]}>
+        <>
             {!!gradientBack ? (
                 <LinearGradient
                     start={{x: 0, y: 0}}
@@ -96,7 +93,7 @@ const MapHeader = (
             ) : (
                 <HeaderView/>
             )}
-        </View>
+        </>
     );
 };
 

@@ -8,7 +8,12 @@ import styles from "./styles";
 import Button from "@components/common/Button";
 import strings from "@constants/strings";
 
-const CurrentTripPanelView = () => {
+interface IProps {
+    changeOrderStatus: () => void;
+    isLoading: boolean;
+}
+
+const CurrentTripPanelView = ({changeOrderStatus, isLoading}: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
@@ -35,8 +40,9 @@ const CurrentTripPanelView = () => {
                     </View>
                 </View>
                 <Button
-                    onPress={() => null}
+                    onPress={changeOrderStatus}
                     text={strings.finish}
+                    isLoading={isLoading}
                 />
             </View>
         </View>

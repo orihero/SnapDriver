@@ -1,3 +1,3 @@
-import DestinationDetailsPanel from "./view";
+import DestinationDetailsPanel from "./connect";
 
 export default DestinationDetailsPanel;

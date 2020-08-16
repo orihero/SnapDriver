@@ -12,7 +12,7 @@ interface IProps {
     SetDriverStatusOffline: IAction;
     NewOrder: IAction;
     driverStatus: boolean;
-    newOrderModal: any;
+    newOrder: any;
 }
 
 const MainScreenController = (
@@ -22,7 +22,7 @@ const MainScreenController = (
         SetDriverStatusOffline,
         SetDriverStatusOnline,
         NewOrder,
-        newOrderModal
+        newOrder
     }: IProps
 ) => {
     const [showTariff, setShowTariff] = useState(false);
@@ -55,7 +55,7 @@ const MainScreenController = (
             showTariff={showTariff}
             driverStatus={driverStatus}
             changeDriverStatus={changeDriverStatus}
-            isButtonVisible={!newOrderModal.visible}
+            isModalVisible={newOrder.isModalVisible}
         />
     );
 };

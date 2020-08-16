@@ -3,9 +3,6 @@ import colors from "@constants/colors";
 import {BIG_BORDER_RADIUS} from "@constants/values";
 
 export default StyleSheet.create({
-    plane: {
-        backgroundColor: colors.white,
-    },
     container: {
         borderBottomRightRadius: BIG_BORDER_RADIUS,
         borderBottomLeftRadius: BIG_BORDER_RADIUS,

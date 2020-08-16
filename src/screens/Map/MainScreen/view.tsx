@@ -18,7 +18,7 @@ interface IProps {
     setShowTariff: (value: (prevState: any) => boolean) => void;
     changeDriverStatus: () => void;
     driverStatus: boolean;
-    isButtonVisible: boolean;
+    isModalVisible: boolean;
 }
 
 let MainScreenView = (
@@ -28,12 +28,12 @@ let MainScreenView = (
         goToChat,
         changeDriverStatus,
         driverStatus,
-        isButtonVisible,
+        isModalVisible,
     }: IProps
 ) => {
     return (
         <>
-            <NewOrderScreen/>
+            {isModalVisible && <NewOrderScreen/>}
             <View style={{flex: 1}}>
                 <Map/>
                 <MapHeader
@@ -70,7 +70,7 @@ let MainScreenView = (
                             />
                         </View>
                         {
-                            isButtonVisible &&
+                            !isModalVisible &&
                             <Button
                                 containerStyle={styles.button}
                                 textStyles={styles.buttonText}

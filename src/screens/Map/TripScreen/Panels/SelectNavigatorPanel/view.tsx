@@ -10,7 +10,13 @@ import images from "@assets/images";
 import styles from "./styles";
 import Button from "@components/common/Button";
 
-const SelectNavigatorPanelView = () => {
+interface IProps {
+    changeOrderStatus: () => void;
+    isLoading: boolean;
+    drivingFrom: string;
+}
+
+const SelectNavigatorPanelView = ({changeOrderStatus, isLoading, drivingFrom}: IProps) => {
 
     return (
         <View>
@@ -30,12 +36,13 @@ const SelectNavigatorPanelView = () => {
                     <Image style={styles.locationIcon} source={images.location}/>
                     <View style={styles.textWrapper}>
                         <Text style={styles.drivingFrom}>{strings.drivingFrom}</Text>
-                        <Text style={styles.text}>Саларская набережаная 35</Text>
+                        <Text style={styles.text}>{drivingFrom}</Text>
                     </View>
                 </View>
                 <Button
-                    onPress={() => null}
+                    onPress={changeOrderStatus}
                     text={strings.atPoint}
+                    isLoading={isLoading}
                 />
             </View>
         </View>

@@ -1,5 +1,5 @@
 import {
-    AcceptNewOrder,
+    AcceptNewOrder, ChangeOrderStatus,
     NewOrder,
     SetDriverStatusOffline,
     SetDriverStatusOnline,
@@ -8,9 +8,9 @@ import {
 
 const initialState = {
     driverStatus: false,
-    newOrderModal: {
-        visible: false,
-        data: null
+    newOrder: {
+        isModalVisible: false,
+        data: {}
     }
 };
 
@@ -29,8 +29,8 @@ export default (state = initialState, action: any) => {
         case NewOrder.SUCCESS: {
             return {
                 ...state,
-                newOrderModal: {
-                    visible: true,
+                newOrder: {
+                    isModalVisible: true,
                     data: action.payload
                 }
             }
@@ -38,18 +38,27 @@ export default (state = initialState, action: any) => {
         case SkipNewOrder.REQUEST: {
             return {
                 ...state,
-                newOrderModal: {
-                    visible: false,
-                    data: null
+                newOrder: {
+                    isModalVisible: false,
+                    data: {}
                 }
             }
         }
         case AcceptNewOrder.SUCCESS: {
             return {
                 ...state,
-                newOrderModal: {
-                    visible: false,
-                    data: null
+                newOrder: {
+                    data: action.payload,
+                    isModalVisible: false,
+                }
+            }
+        }
+        case ChangeOrderStatus.SUCCESS: {
+            return {
+                ...state,
+                newOrder: {
+                    data: action.payload,
+                    isModalVisible: false,
                 }
             }
         }

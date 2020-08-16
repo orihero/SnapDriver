@@ -1,29 +1,54 @@
 import React from 'react';
-import {View, Modal} from 'react-native';
+import {View} from 'react-native';
+
 import Map from '../Map';
+import {
+    CurrentTripPanel,
+    DestinationDetailsPanel,
+    SelectNavigatorPanel,
+    TripEndInfoPanel
+} from "./Panels";
 import strings from '@constants/strings';
-import InnerHeader from '@components/navigation/InnerHeader';
+import TripHeader from "@components/navigation/TripHeader";
+import OrderStatus from "@constants/orderStatus";
 import styles from "./styles";
-import MapHeader from "@components/navigation/MapHeader";
-import SelectNavigatorPanelView from "./Panels/SelectNavigatorPanel";
 
 
-const TripScreenView = ({}) => {
+interface IProps {
+    orderStatus: string;
+    orderInfo: any;
+    onPhonePress: () => void;
+}
+
+const TripScreenView = ({orderStatus, orderInfo, onPhonePress}: IProps) => {
+
+    const renderPanel = (orderStatus: string) => {
+        switch (orderStatus) {
+            case OrderStatus.ACCEPTED:
+                return <SelectNavigatorPanel/>;
+            case OrderStatus.ARRIVED:
+                return <DestinationDetailsPanel/>;
+            case OrderStatus.PROCESSING:
+                return <CurrentTripPanel/>;
+            case OrderStatus.DONE:
+                return <TripEndInfoPanel/>;
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Map/>
             <View>
-                <MapHeader title={'В пути'}>
-                    <InnerHeader
-                        topTitle={strings.tillOrder}
-                        topData="3 мин"
-                        bottomTitle={strings.distance}
-                        bottomData="0.5 км"
-                        number="+998965594855"
-                    />
-                </MapHeader>
+                <TripHeader
+                    topTitle={strings.tillOrder}
+                    topData="3 мин"
+                    bottomTitle={strings.distance}
+                    bottomData="0.5 км"
+                    number={orderInfo.user.phone}
+                    onPhonePress={onPhonePress}
+                />
             </View>
-            <SelectNavigatorPanelView/>
+            {renderPanel(orderStatus)}
         </View>
     );
 };

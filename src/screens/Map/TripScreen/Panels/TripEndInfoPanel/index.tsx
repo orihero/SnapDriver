@@ -1,3 +1,3 @@
-import TripEndInfoPanelView from "./view";
+import TripEndInfoPanelView from "./connect";
 
 export default TripEndInfoPanelView;

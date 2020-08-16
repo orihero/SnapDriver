@@ -1,3 +1,3 @@
-import SelectNavigatorPanel from "./view";
+import SelectNavigatorPanel from "./connect";
 
 export default SelectNavigatorPanel;

@@ -4,9 +4,9 @@ import {connect} from "react-redux";
 import MainScreenController from "./controller";
 import booking from "@store/actions/booking";
 
-const mapStateToProps = ({booking: {driverStatus, newOrderModal}}: any) => ({
+const mapStateToProps = ({booking: {driverStatus, newOrder}}: any) => ({
     driverStatus,
-    newOrderModal,
+    newOrder,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
