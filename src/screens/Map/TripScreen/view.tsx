@@ -18,9 +18,10 @@ interface IProps {
     orderStatus: string;
     orderInfo: any;
     onPhonePress: () => void;
+    destination: any;
 }
 
-const TripScreenView = ({orderStatus, orderInfo, onPhonePress}: IProps) => {
+const TripScreenView = ({orderStatus, orderInfo, onPhonePress, destination}: IProps) => {
 
     const renderPanel = (orderStatus: string) => {
         switch (orderStatus) {
@@ -41,10 +42,10 @@ const TripScreenView = ({orderStatus, orderInfo, onPhonePress}: IProps) => {
             <View>
                 <TripHeader
                     topTitle={strings.tillOrder}
-                    topData="3 мин"
+                    topData={`${destination.duration} мин`}
                     bottomTitle={strings.distance}
-                    bottomData="0.5 км"
-                    number={orderInfo.user.phone}
+                    bottomData={`${destination.distance} км`}
+                    number={'orderInfo && orderInfo.user.phone'}
                     onPhonePress={onPhonePress}
                 />
             </View>

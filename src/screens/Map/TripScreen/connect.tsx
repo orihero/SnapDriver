@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 
 import TripScreenController from "./controller";
 
-const mapStateToProps = ({booking: {newOrder}}: any) => ({
-    newOrder
+const mapStateToProps = ({booking: {newOrder}, map: {destination}}: any) => ({
+    newOrder,
+    destination: destination.details
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {

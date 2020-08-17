@@ -9,10 +9,11 @@ import colors from "@constants/colors";
 interface IProps {
     navigation: StackNavigationProp<any>;
     newOrder: any;
+    destination: any;
 }
 
 
-const TripScreenController = ({navigation, newOrder}: IProps) => {
+const TripScreenController = ({navigation, newOrder, destination}: IProps) => {
 
     const [orderStatus, setOrderStatus] = useState(OrderStatus.ACCEPTED);
 
@@ -34,6 +35,7 @@ const TripScreenController = ({navigation, newOrder}: IProps) => {
             orderStatus={orderStatus}
             orderInfo={newOrder.data}
             onPhonePress={onPhonePress}
+            destination={destination}
         />
 
     );

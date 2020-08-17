@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, StatusBar, Platform, PermissionsAndroid} from "react-native";
-import {useNavigation} from "@react-navigation/native";
-import SystemSetting from "react-native-system-setting";
 import Geolocation from "@react-native-community/geolocation";
+// @ts-ignore
+import SystemSetting from "react-native-system-setting";
 
 import Map from "./view";
 import {colors} from "@constants/index";
@@ -10,14 +10,50 @@ import IAction from "@store/types/IAction";
 
 interface IProps {
     GetCurrentLocation: IAction;
-    SetDestination: IAction;
+    SetDestinationDetails: IAction;
     currentLocation: any;
+    newOrder: any;
 }
 
-const MapController = ({GetCurrentLocation, SetDestination, currentLocation}: IProps) => {
-    const navigation = useNavigation();
+const MapController = (
+    {
+        GetCurrentLocation,
+        SetDestinationDetails,
+        currentLocation,
+        newOrder,
+    }: IProps) => {
     const [mapRef, setMapRef] = useState(null);
+    const [route, setRoute] = useState({});
 
+    useEffect(() => {
+        if (Object.keys(newOrder).length > 0) {
+            if (newOrder.status === 'accepted') {
+                setRoute({
+                    from: {
+                        longitude: Number(currentLocation.longitude),
+                        latitude: Number(currentLocation.latitude)
+                    },
+                    to: {
+                        longitude: Number(newOrder.routes[0].lng),
+                        latitude: Number(newOrder.routes[0].lat)
+                    }
+                })
+            } else {
+                setRoute({
+                    from: {
+                        longitude: Number(newOrder.routes[0].lng),
+                        latitude: Number(newOrder.routes[0].lat)
+                    },
+                    to: {
+                        longitude: Number(newOrder.routes[1].lng),
+                        latitude: Number(newOrder.routes[1].lat)
+                    }
+                })
+            }
+        } else {
+            setRoute({})
+        }
+    }, [newOrder.status]);
 
     useEffect(() => {
         if (mapRef) {
@@ -34,9 +70,9 @@ const MapController = ({GetCurrentLocation, SetDestination, currentLocation}: IP
         StatusBar.setBarStyle('dark-content');
         StatusBar.setBackgroundColor(colors.white);
 
-        navigation.addListener('focus', () => {
-            SetDestination();
-        });
+        // navigation.addListener('focus', () => {
+        //     SetDestination();
+        // });
 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
@@ -95,8 +131,11 @@ const MapController = ({GetCurrentLocation, SetDestination, currentLocation}: IP
     return (
         <Map
             getCurrentLocation={getCurrentLocation}
+            setDestinationDetails={SetDestinationDetails}
             setMapRef={setMapRef}
             currentLocation={currentLocation}
+            mapRef={mapRef}
+            route={route}
         />
     );
 };

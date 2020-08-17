@@ -91,10 +91,8 @@ function* AcceptNewOrder(action: any) {
 
 
         echo
-            .channel('snaptaxi_database_car_order.105')
+            .channel(`snaptaxi_database_car_order.${orderId}`)
             .listen('.OrderStatusEvent', (orderInfo: any) => {
-                console.log(orderInfo)
-                // action.cb(booking)
             });
 
         yield put({
