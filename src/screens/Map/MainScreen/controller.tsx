@@ -10,6 +10,7 @@ interface IProps {
     navigation: StackNavigationProp<any>;
     SetDriverStatusOnline: IAction;
     SetDriverStatusOffline: IAction;
+    GetCar: IAction;
     NewOrder: IAction;
     driverStatus: boolean;
     newOrder: any;
@@ -21,6 +22,7 @@ const MainScreenController = (
         driverStatus,
         SetDriverStatusOffline,
         SetDriverStatusOnline,
+        GetCar,
         NewOrder,
         newOrder
     }: IProps
@@ -28,10 +30,14 @@ const MainScreenController = (
     const [showTariff, setShowTariff] = useState(false);
 
     useEffect(() => {
+
+        GetCar();
+
         navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
             StatusBar.setBackgroundColor(colors.white);
         });
+
     }, []);
 
     const routeTo = (screen: string) => () => {

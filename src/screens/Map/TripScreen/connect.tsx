@@ -2,6 +2,7 @@ import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
 import TripScreenController from "./controller";
+import booking from "@store/actions/booking";
 
 const mapStateToProps = ({booking: {newOrder}, map: {destination}}: any) => ({
     newOrder,
@@ -9,7 +10,9 @@ const mapStateToProps = ({booking: {newOrder}, map: {destination}}: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({
+        SetWaiting: booking.SetWaiting,
+    }, dispatch);
 };
 
 export default connect(

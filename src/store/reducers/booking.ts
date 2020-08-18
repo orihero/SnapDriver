@@ -2,7 +2,7 @@ import {
     AcceptNewOrder, ChangeOrderStatus,
     NewOrder,
     SetDriverStatusOffline,
-    SetDriverStatusOnline,
+    SetDriverStatusOnline, SetWaiting,
     SkipNewOrder
 } from "../constants/booking";
 
@@ -10,8 +10,12 @@ const initialState = {
     driverStatus: false,
     newOrder: {
         isModalVisible: false,
-        data: {}
-    }
+        data: {},
+    },
+    waiting: {
+        time: 0,
+        status: false,
+    },
 };
 
 export default (state = initialState, action: any) => {
@@ -31,7 +35,7 @@ export default (state = initialState, action: any) => {
                 ...state,
                 newOrder: {
                     isModalVisible: true,
-                    data: action.payload
+                    data: action.payload,
                 }
             }
         }
@@ -40,7 +44,7 @@ export default (state = initialState, action: any) => {
                 ...state,
                 newOrder: {
                     isModalVisible: false,
-                    data: {}
+                    data: {},
                 }
             }
         }
@@ -60,6 +64,12 @@ export default (state = initialState, action: any) => {
                     data: action.payload,
                     isModalVisible: false,
                 }
+            }
+        }
+        case SetWaiting.SUCCESS: {
+            return {
+                ...state,
+                waiting: action.payload,
             }
         }
         default:

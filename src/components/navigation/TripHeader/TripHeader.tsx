@@ -14,38 +14,45 @@ interface InnerHeaderProps {
     bottomData: string;
     number: string;
     onPhonePress: () => void;
+    orderStatus: string;
+    headerTitle?: string,
 }
 
 const TripHeader = (
     {
+        headerTitle,
         topData,
         topTitle,
         bottomData,
         bottomTitle,
-        onPhonePress
+        onPhonePress,
+        orderStatus,
     }: InnerHeaderProps
 ) => {
     return (
-        <MapHeader title={'В пути'}>
-            <View style={styles.container}>
-                <View style={styles.dataWrapper}>
-                    <View style={styles.topWrapper}>
-                        <Text style={[styles.topText, constStyles.bold]}>{topTitle}:</Text>
-                        <Text style={[styles.topText, constStyles.bold]}>{' '}{topData}</Text>
-                    </View>
-                    <View style={styles.bottomWrapper}>
-                        <Text style={[styles.bottomText, constStyles.bold]}>{bottomTitle}:</Text>
-                        <Text style={[styles.bottomText, constStyles.bold]}>{' '}{bottomData}</Text>
-                    </View>
-                </View>
-                <View style={[styles.iconWrapper, constStyles.shadow]}>
-                    <TouchablePlatformSpecific onPress={onPhonePress}>
-                        <View style={styles.icon}>
-                            <Icon name="phone" color={colors.blue} size={20}/>
+        <MapHeader title={headerTitle}>
+            {
+                orderStatus !== 'done' ? <View style={styles.container}>
+                        <View style={styles.dataWrapper}>
+                            <View style={styles.topWrapper}>
+                                <Text style={[styles.topText, constStyles.bold]}>{topTitle}</Text>
+                                <Text style={[styles.topText, constStyles.bold]}>{' '}{topData}</Text>
+                            </View>
+                            <View style={styles.bottomWrapper}>
+                                <Text style={[styles.bottomText, constStyles.bold]}>{bottomTitle}:</Text>
+                                <Text style={[styles.bottomText, constStyles.bold]}>{' '}{bottomData}</Text>
+                            </View>
                         </View>
-                    </TouchablePlatformSpecific>
-                </View>
-            </View>
+                        <View style={[styles.iconWrapper, constStyles.shadow]}>
+                            <TouchablePlatformSpecific onPress={onPhonePress}>
+                                <View style={styles.icon}>
+                                    <Icon name="phone" color={colors.blue} size={20}/>
+                                </View>
+                            </TouchablePlatformSpecific>
+                        </View>
+                    </View>
+                    : <></>
+            }
         </MapHeader>
     );
 };

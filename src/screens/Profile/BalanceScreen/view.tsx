@@ -107,7 +107,6 @@ const BalanceScreenView = ({navigation}: IProps) => {
                 <Button
                     text={strings.fillBalance}
                     onPress={() => {
-                        console.log('sda')
                     }}
                 />
             </View>

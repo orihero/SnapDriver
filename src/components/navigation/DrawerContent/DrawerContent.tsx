@@ -55,7 +55,7 @@ const DrawerContent = (props: any) => {
                             {': '}
                         </Text>
                         <Text style={[styles.summNumber, constStyles.bold]}>
-                            356 559{' '}
+                            {user.balance}{' '}
                         </Text>
                         <Text style={[styles.summCurrency, constStyles.light]}>
                             сум

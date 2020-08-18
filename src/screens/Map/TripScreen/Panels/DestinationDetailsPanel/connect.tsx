@@ -5,7 +5,7 @@ import DestinationDetailsPanelController from "./controller";
 import booking from "@store/actions/booking";
 
 const mapStateToProps = ({booking: {newOrder}}: any) => ({
-    newOrder
+    newOrder,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {

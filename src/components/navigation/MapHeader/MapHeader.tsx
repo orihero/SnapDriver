@@ -37,6 +37,7 @@ const MapHeader = (
                 paddingBottom: 15,
                 borderWidth: 2,
                 borderColor: colors.white,
+                borderTopWidth: 0,
                 ...constStyles.shadow
             }]}
             >

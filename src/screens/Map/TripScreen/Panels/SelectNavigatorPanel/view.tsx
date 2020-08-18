@@ -14,18 +14,18 @@ interface IProps {
     changeOrderStatus: () => void;
     isLoading: boolean;
     drivingFrom: string;
+    openGoogleMaps: () => void;
 }
 
-const SelectNavigatorPanelView = ({changeOrderStatus, isLoading, drivingFrom}: IProps) => {
-
+const SelectNavigatorPanelView = ({changeOrderStatus, isLoading, drivingFrom, openGoogleMaps}: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
             <View style={styles.wrapper}>
                 <View style={styles.innerWrapper}>
-                    <Text style={styles.selectNavigatorText}>{strings.selectCard}</Text>
+                    <Text style={styles.selectNavigatorText}>{strings.selectNavigator}</Text>
                     <View style={styles.iconWrapper}>
-                        <TouchablePlatformSpecific>
+                        <TouchablePlatformSpecific onPress={openGoogleMaps}>
                             <View style={styles.icon}>
                                 <Icon name="locationFancy" size={20} color={colors.blue}/>
                             </View>

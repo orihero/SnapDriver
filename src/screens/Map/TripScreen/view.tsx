@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 
 import Map from '../Map';
 import {
@@ -19,11 +19,12 @@ interface IProps {
     orderInfo: any;
     onPhonePress: () => void;
     destination: any;
+    waitingTime: string;
 }
 
-const TripScreenView = ({orderStatus, orderInfo, onPhonePress, destination}: IProps) => {
+const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: IProps) => {
 
-    const renderPanel = (orderStatus: string) => {
+    const renderPanel = () => {
         switch (orderStatus) {
             case OrderStatus.ACCEPTED:
                 return <SelectNavigatorPanel/>;
@@ -36,20 +37,53 @@ const TripScreenView = ({orderStatus, orderInfo, onPhonePress, destination}: IPr
         }
     };
 
+    const headerText = () => {
+        switch (orderStatus) {
+            case OrderStatus.ACCEPTED:
+                return {
+                    headerTitle: strings.acceptedOrder,
+                    title: strings.tillOrder,
+                    data: destination.duration + ' мин'
+                };
+            case OrderStatus.ARRIVED:
+                return {
+                    headerTitle: strings.acceptedOrder,
+                    title: strings.waitingTime,
+                    data: waitingTime,
+                };
+            case OrderStatus.PROCESSING:
+                return {
+                    headerTitle: 'В пути',
+                    title: strings.tripTime,
+                    data: waitingTime,
+                };
+            case OrderStatus.DONE:
+                return {
+                    headerTitle: 'Завершение заказа',
+                    title: strings.waitingTime,
+                    data: waitingTime,
+                };
+            default:
+                return {}
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Map/>
             <View>
                 <TripHeader
-                    topTitle={strings.tillOrder}
-                    topData={`${destination.duration} мин`}
+                    headerTitle={headerText().headerTitle}
+                    orderStatus={orderStatus}
+                    topTitle={`${headerText().title}`}
+                    topData={`${headerText().data} `}
                     bottomTitle={strings.distance}
                     bottomData={`${destination.distance} км`}
                     number={'orderInfo && orderInfo.user.phone'}
                     onPhonePress={onPhonePress}
                 />
             </View>
-            {renderPanel(orderStatus)}
+            {renderPanel()}
         </View>
     );
 };

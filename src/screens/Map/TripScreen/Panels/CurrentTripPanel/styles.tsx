@@ -3,6 +3,7 @@ import colors from "@constants/colors";
 import constStyles from "@constants/constStyles";
 
 export default StyleSheet.create({
+
     hatCutOut: {
         width: '100%',
         height: 15,
@@ -11,6 +12,11 @@ export default StyleSheet.create({
         backgroundColor: colors.grey,
         padding: 15,
         paddingBottom: 20,
+        borderWidth: 2,
+        borderColor: colors.white,
+        borderTopWidth: 0,
+        borderBottomStartRadius: 15,
+        borderBottomEndRadius: 15,
     },
     innerWrapper: {
         paddingTop: 10,

@@ -7,10 +7,11 @@ import Button from "@components/common/Button";
 import {strings} from "@constants/index";
 
 interface IProps {
-    changeOrderStatus: () => void;
+    goToMainScreen: () => void;
+    price: string;
 }
 
-const TripEndInfoPanelView = ({changeOrderStatus}: IProps) => {
+const TripEndInfoPanelView = ({goToMainScreen, price}: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
@@ -18,7 +19,7 @@ const TripEndInfoPanelView = ({changeOrderStatus}: IProps) => {
                 <View style={styles.innerWrapper}>
                     <Text style={styles.text}>Стоимость</Text>
                     <View style={styles.costTextWrapper}>
-                        <Text style={styles.cost}>25 500</Text>
+                        <Text style={styles.cost}>{price}</Text>
                         <Text style={styles.currency}>сум</Text>
                     </View>
                 </View>
@@ -31,7 +32,7 @@ const TripEndInfoPanelView = ({changeOrderStatus}: IProps) => {
                     <Icon name="setting" size={18}/>
                 </View>
                 <Button
-                    onPress={changeOrderStatus}
+                    onPress={goToMainScreen}
                     text={strings.finish}
                 />
             </View>

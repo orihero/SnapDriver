@@ -29,7 +29,6 @@ let Map = (
         mapRef,
         route
     }: IProps) => {
-    console.log(route);
     return (
         <View style={styles.container}>
             <MapView

@@ -1,11 +1,12 @@
 import {VerifyCode} from "../constants/auth";
-import {GetProfile, UpdateProfile} from "../constants/user";
+import {GetCar, GetProfile, UpdateProfile} from "../constants/user";
 
 const initialState = {
     token: null,
     isAuthenticated: false,
     data: [],
-    isRegistered: false
+    isRegistered: false,
+    car: {}
 };
 
 export default (state = initialState, action: any) => {
@@ -28,6 +29,14 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 data: action.payload
+            };
+        case  GetCar.SUCCESS:
+            return {
+                ...state,
+                car: {
+                    ...state.car,
+                    ...action.payload,
+                }
             };
         default:
             return state

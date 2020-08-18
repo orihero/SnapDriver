@@ -11,6 +11,11 @@ export default StyleSheet.create({
         backgroundColor: colors.grey,
         padding: 15,
         paddingBottom: 20,
+        borderWidth: 2,
+        borderColor: colors.white,
+        borderTopWidth: 0,
+        borderBottomStartRadius: 15,
+        borderBottomEndRadius: 15,
     },
     innerWrapper: {
         flexDirection: 'row',

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import SelectNavigatorPanelView from "./view";
 import IAction from "@store/types/IAction";
 import OrderStatus from "@constants/orderStatus";
+import {Linking, Platform} from "react-native";
 
 interface IProps {
     ChangeOrderStatus: IAction;
@@ -12,12 +13,24 @@ const SelectNavigatorPanelController = ({ChangeOrderStatus, newOrder}: IProps) =
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const openGoogleMaps = () => {
+        const {routes} = newOrder;
+        const scheme = Platform.select({ios: 'maps:0,0?q=', android: 'geo:0,0?q='});
+        const latLng = `${routes[0].lat},${routes[0].lng}`;
+        const url = Platform.select({
+            ios: `${scheme}@${latLng}`,
+            android: `${scheme}${latLng}`
+        });
+
+        Linking.openURL(url).then();
+    };
+
     const changeOrderStatus = () => {
-        setIsLoading(true)
-        const {data} = newOrder;
+        setIsLoading(true);
+        const {driver, id} = newOrder;
         ChangeOrderStatus({
-            driver_id: data.driver.id,
-            orderId: data.id,
+            driver_id: driver.id,
+            orderId: id,
             orderStatus: OrderStatus.ARRIVED
         }, () => {
             setIsLoading(false)
@@ -30,7 +43,8 @@ const SelectNavigatorPanelController = ({ChangeOrderStatus, newOrder}: IProps) =
         <SelectNavigatorPanelView
             changeOrderStatus={changeOrderStatus}
             isLoading={isLoading}
-            drivingFrom={newOrder.data.routes[0].address}
+            drivingFrom={newOrder.routes[0].address}
+            openGoogleMaps={openGoogleMaps}
         />
 
     );

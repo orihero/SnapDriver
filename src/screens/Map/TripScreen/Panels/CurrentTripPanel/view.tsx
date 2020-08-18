@@ -11,9 +11,19 @@ import strings from "@constants/strings";
 interface IProps {
     changeOrderStatus: () => void;
     isLoading: boolean;
+    drivingTo: string;
+    duration: string;
+    distance: string;
 }
 
-const CurrentTripPanelView = ({changeOrderStatus, isLoading}: IProps) => {
+const CurrentTripPanelView = (
+    {
+        changeOrderStatus,
+        isLoading,
+        drivingTo,
+        distance,
+        duration
+    }: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
@@ -23,8 +33,8 @@ const CurrentTripPanelView = ({changeOrderStatus, isLoading}: IProps) => {
                     <View style={styles.imgWrapper}>
                         <Image style={styles.img} source={images.location}/>
                         <View style={styles.infoWrapper}>
-                            <Text style={styles.info}>7 км - 15 мин в пути</Text>
-                            <Text style={styles.text}>Саларская набережаная 35</Text>
+                            <Text style={styles.info}>{distance} км - {duration} мин в пути</Text>
+                            <Text style={styles.text}>{drivingTo}</Text>
                         </View>
                     </View>
                 </View>

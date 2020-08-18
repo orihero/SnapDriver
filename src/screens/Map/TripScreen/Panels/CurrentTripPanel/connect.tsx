@@ -4,8 +4,9 @@ import {connect} from "react-redux";
 import CurrentTripPanelController from "./controller";
 import booking from "@store/actions/booking";
 
-const mapStateToProps = ({booking: {newOrder}}: any) => ({
-    newOrder
+const mapStateToProps = ({booking: {newOrder},  map: {destination}}: any) => ({
+    newOrder,
+    destination
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {

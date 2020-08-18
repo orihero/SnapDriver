@@ -40,13 +40,16 @@ const PulseCountDown = (
                 rotation={0}
                 fill={0}
                 lineCap="round"
-                backgroundWidth={7}
+                backgroundWidth={4}
                 style={{
-                    borderRadius: 150,
-                    backgroundColor: colors.superPaleGray,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: deviceHeight * 0.2,
+                    backgroundColor: colors.grey,
                 }}
                 tintColor={colors.blue}
-                backgroundColor={colors.superPaleGray}>
+                backgroundColor={colors.white}
+            >
                 {(fill) => (
                     <TouchablePlatformSpecific onPress={onPress}>
                         <View style={styles.countDownWrapper}>
@@ -89,7 +92,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: 160,
     },
     name: {
         fontSize: 15,

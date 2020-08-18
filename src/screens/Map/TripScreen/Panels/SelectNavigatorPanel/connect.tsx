@@ -5,7 +5,7 @@ import SelectNavigatorPanelController from "./controller";
 import booking from "@store/actions/booking";
 
 const mapStateToProps = ({booking: {newOrder}}: any) => ({
-    newOrder
+    newOrder: newOrder.data
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {

@@ -6,68 +6,33 @@ import TouchablePlatformSpecific from '../common/TouchablePlatformSpecific';
 
 interface TariffCardProps {
     name: string;
-    backColor?: string;
-    textColor?: string;
+    active: boolean;
     minPrice: number;
-    setShowTariff: any;
 }
 
-const TariffCard = ({
-    name,
-    minPrice,
-    backColor,
-    textColor,
-    setShowTariff,
-}: TariffCardProps) => {
-    //functions
-    const onPress = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setShowTariff(false);
-    };
+const TariffCard = (
+    {
+        name,
+        minPrice,
+        active
+    }: TariffCardProps) => {
 
     return (
         <View style={styles.plane}>
-            <TouchablePlatformSpecific onPress={onPress}>
-                <View
-                    style={[
-                        styles.container,
-                        !!backColor && {backgroundColor: backColor},
-                    ]}>
-                    <Text
-                        style={[
-                            styles.name,
-                            constStyles.bold,
-                            !!textColor && {
-                                color: textColor,
-                            },
-                        ]}>
-                        {name}
+            <View style={[styles.container, active && {backgroundColor: colors.blue}]}>
+                <Text style={[styles.name, constStyles.bold, active && {color: colors.white}]}>
+                    {name}
+                </Text>
+                <View style={[styles.priceWrapper]}>
+                    <Text style={[styles.price, constStyles.bold, active && {color: colors.white}]}>
+                        {minPrice}
                     </Text>
-                    <View style={[styles.priceWrapper]}>
-                        <Text
-                            style={[
-                                styles.price,
-                                constStyles.bold,
-                                !!textColor && {
-                                    color: textColor,
-                                },
-                            ]}>
-                            {minPrice}
-                        </Text>
-                        <Text
-                            style={[
-                                styles.currency,
-                                constStyles.light,
-                                !!textColor && {
-                                    color: textColor,
-                                },
-                            ]}>
-                            {' '}
-                            сум
-                        </Text>
-                    </View>
+                    <Text style={[styles.currency, constStyles.light, active && {color: colors.white}]}>
+                        {' '}
+                        сум
+                    </Text>
                 </View>
-            </TouchablePlatformSpecific>
+            </View>
         </View>
     );
 };

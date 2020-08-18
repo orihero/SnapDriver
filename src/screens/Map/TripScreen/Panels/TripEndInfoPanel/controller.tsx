@@ -6,28 +6,22 @@ import OrderStatus from "@constants/orderStatus";
 import SCREENS from "@constants/screens";
 
 interface IProps {
-    ChangeOrderStatus: IAction;
     SkipNewOrder: IAction;
     newOrder: any;
 }
 
-const TripEndInfoPanelPanelController = ({ChangeOrderStatus, SkipNewOrder, newOrder}: IProps) => {
+const TripEndInfoPanelPanelController = ({SkipNewOrder, newOrder}: IProps) => {
     const navigation = useNavigation();
-    const changeOrderStatus = () => {
-        const {data} = newOrder;
-        ChangeOrderStatus({
-            driver_id: data.driver.id,
-            orderId: data.id,
-            orderStatus: OrderStatus.ARRIVED
-        }, () => {
-            navigation.navigate(SCREENS.MAP);
-            SkipNewOrder()
-        })
+
+    const goToMainScreen = () => {
+        SkipNewOrder();
+        navigation.navigate(SCREENS.MAP);
     };
 
     return (
         <TripEndInfoPanelView
-            changeOrderStatus={changeOrderStatus}
+            goToMainScreen={goToMainScreen}
+            price={newOrder.price}
         />
 
     );

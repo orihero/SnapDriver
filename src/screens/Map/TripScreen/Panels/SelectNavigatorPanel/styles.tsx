@@ -11,6 +11,11 @@ export default StyleSheet.create({
         backgroundColor: colors.grey,
         padding: 15,
         paddingBottom: 20,
+        borderWidth: 2,
+        borderColor: colors.white,
+        borderTopWidth: 0,
+        borderBottomStartRadius: 15,
+        borderBottomEndRadius: 15,
     },
     innerWrapper: {
         flexDirection: 'row',
@@ -18,6 +23,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderBottomColor: colors.superPaleGray,
         borderBottomWidth: 1,
+        paddingBottom: 10
     },
     text: {
         ...constStyles.bold,
@@ -54,5 +60,5 @@ export default StyleSheet.create({
     drivingFrom: {
         fontSize: 14,
         ...constStyles.light,
-    }
+    },
 })

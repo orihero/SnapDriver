@@ -8,7 +8,7 @@ export default StyleSheet.create({
     },
     container: {
         paddingHorizontal: CONTAINER_PADDING,
-        backgroundColor: colors.white,
+        backgroundColor: colors.grey,
         borderBottomRightRadius: BIG_BORDER_RADIUS,
         borderBottomLeftRadius: BIG_BORDER_RADIUS,
         paddingBottom: 20,

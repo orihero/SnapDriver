@@ -7,6 +7,7 @@ const SkipNewOrder = createActionTypes('SKIP_NEW_ORDER');
 const AcceptNewOrder = createActionTypes('ACCEPT_NEW_ORDER');
 const CancelOrder = createActionTypes('CANCEL_ORDER');
 const ChangeOrderStatus = createActionTypes('CHANGE_ORDER_STATUS');
+const SetWaiting = createActionTypes('SET_WAITING');
 
 
 export {
@@ -17,4 +18,5 @@ export {
     AcceptNewOrder,
     ChangeOrderStatus,
     CancelOrder,
+    SetWaiting,
 }

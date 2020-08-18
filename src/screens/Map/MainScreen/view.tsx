@@ -57,16 +57,14 @@ let MainScreenView = (
                         <View/>
                         <View style={[styles.tariffWrapper, showTariff && styles.activeTariff]}>
                             <TariffCard
-                                setShowTariff={setShowTariff}
                                 name="Эконом от"
                                 minPrice={4000}
+                                active={false}
                             />
                             <TariffCard
-                                textColor={colors.paleGray}
                                 name="Комфорт от"
                                 minPrice={4000}
-                                backColor={colors.blueish}
-                                setShowTariff={setShowTariff}
+                                active={true}
                             />
                         </View>
                         {
@@ -75,7 +73,7 @@ let MainScreenView = (
                                 containerStyle={styles.button}
                                 textStyles={styles.buttonText}
                                 onPress={changeDriverStatus}
-                                text={strings.goShift}
+                                text={driverStatus ? strings.exitShift : strings.goShift}
                             />
                         }
                     </View>

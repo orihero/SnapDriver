@@ -96,7 +96,6 @@ const MapController = (
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition((data) => {
             GetCurrentLocation(data.coords);
-            console.log('success')
         }, error => {
             getCurrentLocation()
         })
