@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {Vibration} from "react-native";
 import NewOrderScreenView from "./view";
 import IAction from "@store/types/IAction";
 import {useNavigation} from "@react-navigation/native";
@@ -15,6 +16,20 @@ const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IPro
     const navigation = useNavigation();
 
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const PATTERN = [
+            1000,
+            750,
+            1000,
+            750,
+            1000,
+            750,
+            1000,
+            750,
+        ];
+        Vibration.vibrate(PATTERN)
+    }, []);
 
     const acceptNewOrder = () => {
         setIsLoading(true);
