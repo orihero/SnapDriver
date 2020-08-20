@@ -1,4 +1,4 @@
-import {GetCurrentLocation, SetDestination, SetDestinationDetails} from "../constants/map";
+import {GetCurrentLocation, SetDestination, SetDestinationDetails, SetNetConnection} from "../constants/map";
 
 const initialState = {
     currentLocation: {
@@ -7,7 +7,8 @@ const initialState = {
     },
     destination: {
         details: {}
-    }
+    },
+    isNetConnected: false
 };
 
 export default (state = initialState, action: any) => {
@@ -28,6 +29,11 @@ export default (state = initialState, action: any) => {
                 destination: {
                     details: action.payload
                 }
+            };
+        case SetNetConnection.SUCCESS:
+            return {
+                ...state,
+                isNetConnected: action.payload
             };
         default:
             return state

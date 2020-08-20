@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import Map from '../Map';
 
@@ -19,6 +19,7 @@ interface IProps {
     changeDriverStatus: () => void;
     driverStatus: boolean;
     isModalVisible: boolean;
+    isNetConnected: boolean;
 }
 
 let MainScreenView = (
@@ -29,14 +30,31 @@ let MainScreenView = (
         changeDriverStatus,
         driverStatus,
         isModalVisible,
+        isNetConnected,
     }: IProps
 ) => {
+
+    const [buttonStyles, setButtonStyles] = useState(styles.button);
+
+    useEffect(()=> {
+        if  (!isNetConnected) {
+            setButtonStyles(prevState => ({
+                ...prevState,
+                backgroundColor: 'red'
+            }))
+        }else {
+            setButtonStyles(styles.button)
+        }
+
+    }, [isNetConnected]);
+
     return (
         <>
             {isModalVisible && <NewOrderScreen/>}
             <View style={{flex: 1}}>
                 <Map/>
                 <MapHeader
+                    isNetConnected={isNetConnected}
                     gradientBack={[colors.white, colors.transparent]}
                     title={driverStatus ? 'На смене' : strings.noAccess + '  (1)'}
                 />
@@ -70,7 +88,8 @@ let MainScreenView = (
                         {
                             !isModalVisible &&
                             <Button
-                                containerStyle={styles.button}
+                                disabled={!isNetConnected}
+                                containerStyle={buttonStyles}
                                 textStyles={styles.buttonText}
                                 onPress={changeDriverStatus}
                                 text={driverStatus ? strings.exitShift : strings.goShift}

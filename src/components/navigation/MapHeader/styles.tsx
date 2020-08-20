@@ -36,4 +36,7 @@ export default StyleSheet.create({
         bottom: 5,
         right: 6,
     },
+    error: {
+        color: colors.red,
+    }
 });

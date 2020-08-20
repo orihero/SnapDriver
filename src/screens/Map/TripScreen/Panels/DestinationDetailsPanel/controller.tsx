@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Animated} from "react-native";
+import {Animated, Linking, Platform} from "react-native";
 import DestinationDetailsPanelView from "./view";
 import IAction from "@store/types/IAction";
 import OrderStatus from "@constants/orderStatus";
@@ -36,7 +36,7 @@ const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps
                 }).start()
             } else if (gestureState.dy < 0) {
                 Animated.spring(height, {
-                    toValue: 180,
+                    toValue: 140,
                     useNativeDriver: false
                 }).start()
             }
@@ -44,11 +44,14 @@ const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps
     })).current;
 
     const collapse = height.interpolate({
-        inputRange: [-1, 180],
-        outputRange: [0, 180],
+        inputRange: [-1, 140],
+        outputRange: [0, 140],
         extrapolate: 'clamp'
     });
 
+    const onPhonePress = async () => {
+        await Linking.openURL(`tel:+${newOrder.data.user.phone}`)
+    };
 
     const changeOrderStatus = () => {
         setIsLoading(true);
@@ -72,6 +75,7 @@ const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps
             drivingTo={newOrder.data.routes[1].address}
             panResPonder={panResPonder}
             collapse={collapse}
+            onPhonePress={onPhonePress}
         />
     );
 };

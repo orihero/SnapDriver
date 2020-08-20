@@ -5,6 +5,7 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import colors from "@constants/colors";
 import SCREENS from "@constants/screens";
 import IAction from "@store/types/IAction";
+import NetInfo from "@react-native-community/netinfo";
 
 interface IProps {
     navigation: StackNavigationProp<any>;
@@ -12,8 +13,10 @@ interface IProps {
     SetDriverStatusOffline: IAction;
     GetCar: IAction;
     NewOrder: IAction;
+    SetNetConnection: IAction;
     driverStatus: boolean;
     newOrder: any;
+    isNetConnected: boolean;
 }
 
 const MainScreenController = (
@@ -24,7 +27,9 @@ const MainScreenController = (
         SetDriverStatusOnline,
         GetCar,
         NewOrder,
-        newOrder
+        newOrder,
+        SetNetConnection,
+        isNetConnected,
     }: IProps
 ) => {
     const [showTariff, setShowTariff] = useState(false);
@@ -36,6 +41,10 @@ const MainScreenController = (
         navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
             StatusBar.setBackgroundColor(colors.white);
+        });
+
+        NetInfo.addEventListener(state => {
+            SetNetConnection(state.isConnected && state.isInternetReachable)
         });
 
     }, []);
@@ -56,6 +65,7 @@ const MainScreenController = (
 
     return (
         <MainScreenView
+            isNetConnected={isNetConnected}
             goToChat={routeTo(SCREENS.CHAT)}
             setShowTariff={setShowTariff}
             showTariff={showTariff}

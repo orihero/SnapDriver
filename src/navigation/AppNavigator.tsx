@@ -25,7 +25,7 @@ const AppNavigator = ({user}: IProps) => (
                     }}
                 >
                     <Screen name={SCREENS.AUTHENTICATION_STACK} component={AuthenticationStack}/>
-                    <Screen name={SCREENS.REGISTER_DRIVER_STACK} component={RegisterDriverStack}/>
+                    {/*<Screen name={SCREENS.REGISTER_DRIVER_STACK} component={RegisterDriverStack}/>*/}
                 </Navigator>
                 : <DrawerStack/>
         }

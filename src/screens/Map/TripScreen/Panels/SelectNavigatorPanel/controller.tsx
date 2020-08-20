@@ -22,7 +22,7 @@ const SelectNavigatorPanelController = ({ChangeOrderStatus, newOrder}: IProps) =
             android: `${scheme}${latLng}`
         });
 
-        Linking.openURL(url).then();
+        Linking.openURL(url as string).then();
     };
 
     const changeOrderStatus = () => {

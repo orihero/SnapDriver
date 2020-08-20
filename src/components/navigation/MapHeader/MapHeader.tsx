@@ -14,6 +14,7 @@ interface HeaderProps {
     notification?: boolean;
     gradientBack?: any;
     children?: any
+    isNetConnected?: boolean
 }
 
 const MapHeader = (
@@ -22,6 +23,7 @@ const MapHeader = (
         gradientBack,
         notification,
         children,
+        isNetConnected =  true
     }: HeaderProps) => {
 
     const navigation: DrawerNavigationProp<any> = useNavigation();
@@ -44,7 +46,7 @@ const MapHeader = (
                 <View style={styles.headerAndInnerHeader}>
                     <View style={styles.header}>
                         <View style={styles.titleWrapper}>
-                            <Text style={[styles.title, constStyles.bold]}>
+                            <Text style={[styles.title, constStyles.bold, !isNetConnected && styles.error]}>
                                 {title}
                             </Text>
                         </View>

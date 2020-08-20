@@ -18,5 +18,5 @@ export default {
     AcceptNewOrder,
     CancelOrder,
     ChangeOrderStatus,
-    SetWaiting
+    SetWaiting,
 }

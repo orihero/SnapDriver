@@ -94,6 +94,8 @@ target 'snapDriver' do
 
   pod 'RCTSystemSetting', :path => '../node_modules/react-native-system-setting'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'snapDriverTests' do
     inherit! :complete
     # Pods for testing

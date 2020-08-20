@@ -1,7 +1,7 @@
 import React from 'react';
 import HatCutout from "@components/common/HatCutout";
 import colors from "@constants/colors";
-import {Image, Text, View} from "react-native";
+import {Image, Text, TouchableWithoutFeedback, View} from "react-native";
 import images from "@assets/images";
 import Icon from "@assets/icons";
 import styles from "./styles";
@@ -14,6 +14,7 @@ interface IProps {
     drivingTo: string;
     duration: string;
     distance: string;
+    openGoogleMaps: () => void;
 }
 
 const CurrentTripPanelView = (
@@ -22,7 +23,8 @@ const CurrentTripPanelView = (
         isLoading,
         drivingTo,
         distance,
-        duration
+        duration,
+        openGoogleMaps
     }: IProps) => {
     return (
         <View>
@@ -39,14 +41,13 @@ const CurrentTripPanelView = (
                     </View>
                 </View>
                 <View style={styles.bottomWrapper}>
-                    <View style={styles.bottomIconWrapper}>
-                        <Icon name="path" size={25} color={colors.black}/>
-                    </View>
+                    <TouchableWithoutFeedback onPress={openGoogleMaps}>
+                        <View style={styles.bottomIconWrapper}>
+                            <Icon name="path" size={25} color={colors.black}/>
+                        </View>
+                    </TouchableWithoutFeedback>
                     <View style={styles.bottomIconWrapper}>
                         <Icon name="chat" size={25} color={colors.blue}/>
-                    </View>
-                    <View style={styles.bottomIconWrapper}>
-                        <Icon name="noCar" size={25} color={colors.black}/>
                     </View>
                 </View>
                 <Button

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View, Animated} from "react-native";
+import {Image, Text, View, Animated, TouchableWithoutFeedback} from "react-native";
 import HatCutout from "@components/common/HatCutout";
 import colors from "@constants/colors";
 import images from "@assets/images";
@@ -15,6 +15,7 @@ interface IProps {
     drivingTo: string;
     panResPonder: any;
     collapse: any;
+    onPhonePress: () => void;
 }
 
 const DestinationDetailsPanelView = (
@@ -24,7 +25,8 @@ const DestinationDetailsPanelView = (
         drivingFrom,
         drivingTo,
         panResPonder,
-        collapse
+        collapse,
+        onPhonePress
     }: IProps) => {
     return (
         <View>
@@ -57,22 +59,16 @@ const DestinationDetailsPanelView = (
                             <Text style={[styles.optionText]}>{strings.airConditioner}</Text>
                             <Icon name="checkCircle" color={colors.blue} size={25}/>
                         </View>
-                        <View style={styles.optionWrapper}>
-                            <Icon name="smoke" color={colors.black} size={25}/>
-                            <Text style={styles.optionText}>{strings.carForSmokers}</Text>
-                            <Icon name="checkCircle" color={colors.blue} size={25}/>
-                        </View>
                     </View>
                     <View style={styles.bottomWrapper}>
                         <View style={styles.bottomIconWrapper}>
-                            <Icon name="path" size={25} color={colors.black}/>
-                        </View>
-                        <View style={styles.bottomIconWrapper}>
                             <Icon name="chat" size={25} color={colors.blue}/>
                         </View>
-                        <View style={styles.bottomIconWrapper}>
-                            <Icon name="noCar" size={25} color={colors.black}/>
-                        </View>
+                        <TouchableWithoutFeedback onPress={onPhonePress}>
+                            <View style={styles.bottomIconWrapper}>
+                                <Icon name="phone" size={25} color={colors.blue}/>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
                 </Animated.View>
                 <Button
