@@ -11,7 +11,7 @@ import IAction from "@store/types/IAction";
 
 interface IProps {
     visible: boolean;
-    skipNewOrder: IAction;
+    skipNewOrder: () => void;
     acceptNewOrder: () => void;
     orderDetails: any;
     isLoading: boolean;
@@ -33,7 +33,7 @@ const NewOrderScreenView = (
                         onPress={skipNewOrder}
                         name={strings.skip}
                         title={strings.order}
-                        time={8}
+                        time={10}
                     />
                     <View
                         style={[styles.section, styles.bottomBorder]}>

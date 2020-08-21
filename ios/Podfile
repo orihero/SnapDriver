@@ -96,6 +96,8 @@ target 'snapDriver' do
 
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
   target 'snapDriverTests' do
     inherit! :complete
     # Pods for testing

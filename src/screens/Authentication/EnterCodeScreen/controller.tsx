@@ -7,6 +7,8 @@ import {
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 
+const PushNotification = require("react-native-push-notification");
+
 import colors from "@constants/colors";
 import IAction from "@store/types/IAction";
 import SCREENS from "@constants/screens";
@@ -23,6 +25,7 @@ const EnterCodeScreenController = ({route, VerifyCode, ResendCode, GetProfile}: 
 
     const navigation = useNavigation();
     const [error, setError] = useState(false);
+    const [fcmToken, setFcmToken] = useState(null);
     const [value, setValue] = useState('');
     const codeFieldRef = useBlurOnFulfill({value, cellCount: 5});
     const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -37,6 +40,23 @@ const EnterCodeScreenController = ({route, VerifyCode, ResendCode, GetProfile}: 
         StatusBar.setBarStyle('light-content');
         StatusBar.setBackgroundColor(colors.blue);
     }, [navigation]);
+
+    PushNotification.configure({
+        onRegister: (data: any) => {
+            setFcmToken(data.token)
+        },
+        onNotification: (notification: any) => {
+            console.log("NOTIFICATION:", notification);
+        },
+        permissions: {
+            alert: true,
+            badge: true,
+            sound: true,
+        },
+        popInitialNotification: true,
+        requestPermissions: true,
+    });
+
 
     useEffect(() => {
         if (!counter) return;
@@ -54,11 +74,12 @@ const EnterCodeScreenController = ({route, VerifyCode, ResendCode, GetProfile}: 
         const {id} = route.params;
         VerifyCode({
             id,
-            code: value
+            code: value,
+            fcm_token: fcmToken
         }, () => {
             GetProfile(null, () => {
                 setIsLoading(false);
-                navigation.navigate(SCREENS.REGISTER_DRIVER_STACK);
+                navigation.navigate(SCREENS.MAIN_STACK);
             });
         }, () => {
             setError(true);
