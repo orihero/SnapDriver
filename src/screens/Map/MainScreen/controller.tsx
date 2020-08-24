@@ -11,33 +11,30 @@ interface IProps {
     navigation: StackNavigationProp<any>;
     SetDriverStatusOnline: IAction;
     SetDriverStatusOffline: IAction;
-    GetCar: IAction;
     NewOrder: IAction;
     SetNetConnection: IAction;
-    driverStatus: boolean;
+    driver: any;
     newOrder: any;
     isNetConnected: boolean;
+    car: any;
 }
 
 const MainScreenController = (
     {
         navigation,
-        driverStatus,
+        driver,
         SetDriverStatusOffline,
         SetDriverStatusOnline,
-        GetCar,
         NewOrder,
         newOrder,
         SetNetConnection,
         isNetConnected,
+        car,
     }: IProps
 ) => {
     const [showTariff, setShowTariff] = useState(false);
 
     useEffect(() => {
-
-        GetCar();
-
         navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
             StatusBar.setBackgroundColor(colors.white);
@@ -54,11 +51,13 @@ const MainScreenController = (
     };
 
     const changeDriverStatus = () => {
-        if (driverStatus) {
+        if (driver.status) {
             SetDriverStatusOffline()
         } else {
-            SetDriverStatusOnline({}, (bookingInfo) => {
-                NewOrder(bookingInfo)
+            SetDriverStatusOnline({
+                carId: car.id,
+            }, (bookingInfo) => {
+                !driver.isBusy && NewOrder(bookingInfo)
             })
         }
     };
@@ -69,9 +68,10 @@ const MainScreenController = (
             goToChat={routeTo(SCREENS.CHAT)}
             setShowTariff={setShowTariff}
             showTariff={showTariff}
-            driverStatus={driverStatus}
+            driverStatus={driver.status}
             changeDriverStatus={changeDriverStatus}
             isModalVisible={newOrder.isModalVisible}
+            rates={car.rates}
         />
     );
 };

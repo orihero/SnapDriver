@@ -1,5 +1,5 @@
 import {
-    AcceptNewOrder, ChangeOrderStatus,
+    AcceptNewOrder, ChangeOrderStatus, GetOrderList,
     NewOrder,
     SetDriverStatusOffline,
     SetDriverStatusOnline, SetWaiting,
@@ -7,7 +7,10 @@ import {
 } from "../constants/booking";
 
 const initialState = {
-    driverStatus: false,
+    driver: {
+        isBusy: false,
+        status: false,
+    },
     newOrder: {
         isModalVisible: false,
         data: {},
@@ -16,6 +19,9 @@ const initialState = {
         time: 0,
         status: false,
     },
+    list: {
+        data: []
+    }
 };
 
 export default (state = initialState, action: any) => {
@@ -23,25 +29,43 @@ export default (state = initialState, action: any) => {
         case  SetDriverStatusOnline.SUCCESS:
             return {
                 ...state,
-                driverStatus: true
+                driver: {
+                    isBusy: false,
+                    status: true
+                }
             };
         case  SetDriverStatusOffline.SUCCESS:
             return {
                 ...state,
-                driverStatus: false
+                driver: {
+                    isBusy: false,
+                    status: false
+                }
             };
         case NewOrder.SUCCESS: {
-            return {
-                ...state,
-                newOrder: {
-                    isModalVisible: true,
-                    data: action.payload,
+            if (!state.driver.isBusy) {
+                return {
+                    ...state,
+                    driver: {
+                        ...state.driver,
+                        isBusy: true,
+                    },
+                    newOrder: {
+                        isModalVisible: true,
+                        data: action.payload,
+                    }
                 }
+            } else {
+                return state
             }
         }
         case SkipNewOrder.REQUEST: {
             return {
                 ...state,
+                driver: {
+                    ...state.driver,
+                    isBusy: false,
+                },
                 newOrder: {
                     isModalVisible: false,
                     data: {},
@@ -51,6 +75,10 @@ export default (state = initialState, action: any) => {
         case AcceptNewOrder.SUCCESS: {
             return {
                 ...state,
+                driver: {
+                    ...state.driver,
+                    isBusy: true,
+                },
                 newOrder: {
                     data: action.payload,
                     isModalVisible: false,
@@ -70,6 +98,14 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 waiting: action.payload,
+            }
+        }
+        case GetOrderList.SUCCESS: {
+            return {
+                ...state,
+                list: {
+                    data: action.payload
+                },
             }
         }
         default:

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, StatusBar, Platform, PermissionsAndroid} from "react-native";
 import Geolocation from "@react-native-community/geolocation";
+import haversine from 'haversine';
 // @ts-ignore
 import SystemSetting from "react-native-system-setting";
 
@@ -24,6 +25,12 @@ const MapController = (
     }: IProps) => {
     const [mapRef, setMapRef] = useState(null);
     const [route, setRoute] = useState({});
+    const [prevCoordinates, setPrevCoordinates] = useState({
+        latitude: currentLocation.latitude,
+        longitude: currentLocation.longitude,
+    });
+    const [distanceTravelled, setDistanceTravelled] = useState(0);
+    const [routeCoordinates, setRouteCoordinates] = useState([]);
 
     useEffect(() => {
         if (Object.keys(newOrder).length > 0) {
@@ -70,16 +77,36 @@ const MapController = (
         StatusBar.setBarStyle('dark-content');
         StatusBar.setBackgroundColor(colors.white);
 
-        // navigation.addListener('focus', () => {
-        //     SetDestination();
-        // });
+        Geolocation.watchPosition(
+            position => {
+                const {latitude, longitude} = position.coords;
+
+                const newCoordinate = {
+                    latitude,
+                    longitude
+                };
+                setDistanceTravelled(prevState => prevState + calcDistance(newCoordinate));
+                // @ts-ignore
+                setRouteCoordinates(prevState => [...prevState, newCoordinate]);
+                setPrevCoordinates(newCoordinate)
+            },
+            (error) => console.log(error),
+            {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
+        );
+
 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
 
         checkGPSStatus();
 
+        getCurrentLocation()
+
     }, []);
+
+    const calcDistance = (newLatLng: any) => {
+        return haversine(prevCoordinates, newLatLng) || 0;
+    };
 
     const checkGPSStatus = () => {
         SystemSetting
@@ -96,6 +123,10 @@ const MapController = (
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition((data) => {
             GetCurrentLocation(data.coords);
+            setPrevCoordinates({
+                latitude: data.coords.latitude,
+                longitude: data.coords.longitude
+            })
         }, error => {
             getCurrentLocation()
         })
@@ -126,15 +157,22 @@ const MapController = (
         ])
     };
 
+    const onUserLocationChange = (coordinates: any) => {
+        GetCurrentLocation(coordinates)
+    };
+
 
     return (
-        <Map
+        Object.keys(currentLocation).length > 0 && <Map
             getCurrentLocation={getCurrentLocation}
             setDestinationDetails={SetDestinationDetails}
             setMapRef={setMapRef}
             currentLocation={currentLocation}
             mapRef={mapRef}
+            routeCoordinates={routeCoordinates}
             route={route}
+            onUserLocationChange={onUserLocationChange}
+            distanceTravelled={distanceTravelled}
         />
     );
 };

@@ -1,3 +1,3 @@
-import OrdersScreen from "./controller";
+import OrdersScreen from "./connect";
 
 export default OrdersScreen;

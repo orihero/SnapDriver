@@ -9,7 +9,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
         VerifyCode: auth.VerifyCode,
         ResendCode: auth.ResendCode,
-        GetProfile: user.GetProfile
+        GetProfile: user.GetProfile,
+        GetCar: user.GetCar,
     }, dispatch);
 };
 

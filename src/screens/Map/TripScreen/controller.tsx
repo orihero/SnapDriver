@@ -5,7 +5,6 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import TripScreenView from "./view";
 import OrderStatus from "@constants/orderStatus";
 import colors from "@constants/colors";
-import {log} from "react-native-reanimated";
 
 interface IProps {
     navigation: StackNavigationProp<any>;

@@ -1,8 +1,8 @@
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
-import TripEndInfoPanelPanelController from "./controller";
-import {ChangeOrderStatus} from "@store/constants/booking";
+import RatePassengerPanelController from "./controller";
+import booking from "@store/actions/booking";
 
 const mapStateToProps = ({booking: {newOrder}}: any) => ({
     newOrder: newOrder.data
@@ -10,14 +10,11 @@ const mapStateToProps = ({booking: {newOrder}}: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
-        ChangeOrderStatus: (payload) => ({
-            type: ChangeOrderStatus.SUCCESS,
-            payload
-        }),
+        ChangeOrderStatus: booking.ChangeOrderStatus
     }, dispatch);
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(TripEndInfoPanelPanelController);
+)(RatePassengerPanelController);

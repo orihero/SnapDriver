@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 
 import MainScreenController from "./controller";
 import booking from "@store/actions/booking";
-import user from "@store/actions/user";
 import map from "@store/actions/map";
 
-const mapStateToProps = ({booking: {driverStatus, newOrder}, map: {isNetConnected}}: any) => ({
-    driverStatus,
+const mapStateToProps = ({booking: {driver, newOrder}, map: {isNetConnected}, user: {car}}: any) => ({
+    driver,
     newOrder,
     isNetConnected,
+    car,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         SetDriverStatusOnline: booking.SetDriverStatusOnline,
         SetDriverStatusOffline: booking.SetDriverStatusOffline,
         NewOrder: booking.NewOrder,
-        GetCar: user.GetCar,
         SetNetConnection: map.SetNetConnection,
     }, dispatch);
 };

@@ -1,12 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 import Map from '../Map';
 import {
     CurrentTripPanel,
     DestinationDetailsPanel,
     SelectNavigatorPanel,
-    TripEndInfoPanel
+    TripEndInfoPanel,
+    RatePassengerPanel
 } from "./Panels";
 import strings from '@constants/strings';
 import TripHeader from "@components/navigation/TripHeader";
@@ -34,6 +35,8 @@ const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: I
                 return <CurrentTripPanel/>;
             case OrderStatus.DONE:
                 return <TripEndInfoPanel/>;
+            case OrderStatus.RATING:
+                return <RatePassengerPanel/>
         }
     };
 

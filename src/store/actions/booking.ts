@@ -9,6 +9,7 @@ const AcceptNewOrder = createAction(Booking.AcceptNewOrder.REQUEST);
 const CancelOrder = createAction(Booking.CancelOrder.REQUEST);
 const ChangeOrderStatus = createAction(Booking.ChangeOrderStatus.REQUEST);
 const SetWaiting = createAction(Booking.SetWaiting.SUCCESS);
+const GetOrderList = createAction(Booking.GetOrderList.REQUEST);
 
 export default {
     SetDriverStatusOnline,
@@ -19,4 +20,5 @@ export default {
     CancelOrder,
     ChangeOrderStatus,
     SetWaiting,
+    GetOrderList,
 }

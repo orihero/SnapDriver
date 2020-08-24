@@ -22,7 +22,6 @@ export default StyleSheet.create({
     },
     tariffWrapper: {
         position: 'absolute',
-        marginTop: 200,
         left: -1000,
     },
     activeTariff: {

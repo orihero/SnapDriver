@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import {NavigationScreenProp} from 'react-navigation';
 import images from '../../assets/images';
 import strings from '@constants/strings';
 import Icon from '../../assets/icons';
@@ -10,78 +9,62 @@ import {CONTAINER_PADDING, BORDER_RADIUS} from '@constants/values';
 import constStyles from '../../constants/constStyles';
 
 interface OrderCardProps {
-    navigation: NavigationScreenProp<{}>;
     item: {
         id: string;
-        date: string;
-        driveFrom: string;
-        driveTo: string;
-        price: string;
-        currency: string;
-        tax: string;
-        paymentType: string;
+        routes: [
+            {
+                address: string
+            },
+            {
+                address: string
+            }
+        ];
+        price: number;
+        commission: number;
+        created_at: string;
+        payment_type: string;
     };
 }
 
-const OrderCard = ({navigation, item}: OrderCardProps) => {
+const OrderCard = ({item}: OrderCardProps) => {
     return (
         <View style={[styles.container, constStyles.shadow]}>
             <View style={styles.idAndDate}>
-                <Text style={[styles.id, constStyles.light]}>{item.id}</Text>
-                <Text style={[styles.date, constStyles.light]}>
-                    {item.date}
-                </Text>
+                <Text style={[styles.id, constStyles.light]}>Id {item.id}</Text>
+                <Text style={[styles.date, constStyles.light]}>{item.created_at}</Text>
             </View>
             <View style={styles.locationAndImage}>
-                <Image
-                    source={images.locationBorder}
-                    style={styles.locationBorder}
-                />
+                <Image source={images.locationBorder} style={styles.locationBorder}/>
                 <View style={styles.locationWrapper}>
                     <View style={[styles.location, styles.borderBottom]}>
-                        <Text style={[styles.locationTitle, constStyles.light]}>
-                            {strings.drivingFrom}
-                        </Text>
-                        <Text style={[styles.locationText, constStyles.bold]}>
-                            {item.driveFrom}
-                        </Text>
+                        <Text style={[styles.locationTitle, constStyles.light]}>{strings.drivingFrom}</Text>
+                        <Text style={[styles.locationText, constStyles.bold]}>{item.routes[0].address}</Text>
                     </View>
                     <View style={[styles.location, styles.borderBottom]}>
-                        <Text style={[styles.locationTitle, constStyles.light]}>
-                            {strings.drivingTo}
-                        </Text>
-                        <Text style={[styles.locationText, constStyles.bold]}>
-                            {item.driveTo}
-                        </Text>
+                        <Text style={[styles.locationTitle, constStyles.light]}>{strings.drivingTo}</Text>
+                        <Text style={[styles.locationText, constStyles.bold]}>{item.routes[1].address}</Text>
                     </View>
                 </View>
             </View>
             <View style={[styles.priceWrapper, styles.borderBottom]}>
-                <Text style={[styles.price, constStyles.light]}>
-                    {strings.price}:{' '}
-                </Text>
-                <Text style={[styles.priceNum, constStyles.bold]}>
-                    {item.price}
-                </Text>
-                <Text style={[styles.currency, constStyles.light]}>
-                    {item.currency}{' '}
-                </Text>
-                <Text style={[styles.price, constStyles.light]}>
-                    ({item.tax} {item.currency})
-                </Text>
+                <Text style={[styles.price, constStyles.light]}>{strings.price}:{' '}</Text>
+                <Text style={[styles.priceNum, constStyles.bold]}>{item.price} </Text>
+                <Text style={[styles.currency, constStyles.light]}>cум{' '}</Text>
+                <Text style={[styles.price, constStyles.light]}>({item.commission}) сум</Text>
             </View>
             <View style={[styles.paymentType, styles.borderBottom]}>
                 <Icon
-                    name={item.paymentType == 'cash' ? 'cash' : 'card'}
+                    name={item.payment_type == 'cash' ? 'cash' : 'card'}
                     color={colors.blue}
-                    size={item.paymentType == 'cash' ? 25 : 20}
+                    size={item.payment_type == 'cash' ? 25 : 20}
                 />
                 <Text style={[styles.paymentText, constStyles.bold]}>
-                    {' '}
-                    {strings.payment}:{' '}
-                    {item.paymentType == 'cash'
-                        ? strings.withCash
-                        : strings.withCard}
+                    {' '}{strings.payment}:{' '}
+                    {
+                        item.payment_type == 'cash'
+                            ? strings.withCash
+                            : strings.withCard
+                    }
                 </Text>
             </View>
             <Button

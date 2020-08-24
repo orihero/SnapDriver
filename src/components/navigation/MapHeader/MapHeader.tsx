@@ -56,11 +56,11 @@ const MapHeader = (
                                     style={{
                                         padding: 10,
                                         backgroundColor: colors.white,
-                                    }}>
+                                    }}> 
                                     <Icon
                                         name="menu"
                                         color={colors.blue}
-                                        size={14}
+                                        size={20}
                                     />
                                     {notification && (
                                         <View style={styles.notifyIcon}>

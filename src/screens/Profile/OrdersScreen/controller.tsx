@@ -3,17 +3,22 @@ import OrdersScreenView from "./view";
 import {Animated, NativeScrollEvent, NativeSyntheticEvent, StatusBar} from "react-native";
 import colors from "@constants/colors";
 import {StackNavigationProp} from "@react-navigation/stack";
+import IAction from "@store/types/IAction";
 
 interface IProps {
     navigation: StackNavigationProp<any>;
+    orderList: any;
+    GetOrderList: IAction;
 }
 
-const OrdersScreenController = ({navigation}: IProps) => {
+const OrdersScreenController = ({navigation, orderList, GetOrderList}: IProps) => {
 
         const animatedHeight = useRef(new Animated.Value(80)).current;
+
         useEffect(() => {
             StatusBar.setBarStyle('light-content');
             StatusBar.setBackgroundColor(colors.blue);
+            GetOrderList()
         }, [navigation]);
 
         const startAnimation = (value: number) => {
@@ -48,6 +53,7 @@ const OrdersScreenController = ({navigation}: IProps) => {
                     outputRange: [80, 0],
                     extrapolate: 'clamp'
                 })}
+                orderList={orderList.data}
             />
         );
     }

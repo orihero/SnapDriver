@@ -20,6 +20,7 @@ interface IProps {
     driverStatus: boolean;
     isModalVisible: boolean;
     isNetConnected: boolean;
+    rates: any;
 }
 
 let MainScreenView = (
@@ -31,18 +32,19 @@ let MainScreenView = (
         driverStatus,
         isModalVisible,
         isNetConnected,
+        rates
     }: IProps
 ) => {
 
     const [buttonStyles, setButtonStyles] = useState(styles.button);
 
-    useEffect(()=> {
-        if  (!isNetConnected) {
+    useEffect(() => {
+        if (!isNetConnected) {
             setButtonStyles(prevState => ({
                 ...prevState,
                 backgroundColor: 'red'
             }))
-        }else {
+        } else {
             setButtonStyles(styles.button)
         }
 
@@ -56,7 +58,7 @@ let MainScreenView = (
                 <MapHeader
                     isNetConnected={isNetConnected}
                     gradientBack={[colors.white, colors.transparent]}
-                    title={driverStatus ? 'На смене' : strings.noAccess + '  (1)'}
+                    title={driverStatus && isNetConnected ? 'На смене' : strings.noAccess}
                 />
                 <View style={styles.content}>
                     <View style={styles.messageWrapper}>
@@ -72,18 +74,17 @@ let MainScreenView = (
                         />
                     </View>
                     <View style={styles.buttonWrapper}>
-                        <View/>
                         <View style={[styles.tariffWrapper, showTariff && styles.activeTariff]}>
-                            <TariffCard
-                                name="Эконом от"
-                                minPrice={4000}
-                                active={false}
-                            />
-                            <TariffCard
-                                name="Комфорт от"
-                                minPrice={4000}
-                                active={true}
-                            />
+                            {
+                                rates.map((rate: any) => (
+                                    <TariffCard
+                                        name={rate.title}
+                                        minPrice={rate.min_price}
+                                        active={false}
+                                    />
+                                ))
+                            }
+
                         </View>
                         {
                             !isModalVisible &&

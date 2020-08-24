@@ -1,26 +1,24 @@
 import React from 'react';
-import {useNavigation} from "@react-navigation/native";
 import TripEndInfoPanelView from "./view";
 import IAction from "@store/types/IAction";
-import OrderStatus from "@constants/orderStatus";
-import SCREENS from "@constants/screens";
 
 interface IProps {
-    SkipNewOrder: IAction;
+    ChangeOrderStatus: IAction;
     newOrder: any;
 }
 
-const TripEndInfoPanelPanelController = ({SkipNewOrder, newOrder}: IProps) => {
-    const navigation = useNavigation();
+const TripEndInfoPanelPanelController = ({newOrder, ChangeOrderStatus}: IProps) => {
 
-    const goToMainScreen = () => {
-        SkipNewOrder();
-        navigation.navigate(SCREENS.MAP);
+    const changeOrderStatus = () => {
+        ChangeOrderStatus({
+            ...newOrder,
+            status: 'rating'
+        })
     };
 
     return (
         <TripEndInfoPanelView
-            goToMainScreen={goToMainScreen}
+            changeOrderStatus={changeOrderStatus}
             price={newOrder.price}
         />
 

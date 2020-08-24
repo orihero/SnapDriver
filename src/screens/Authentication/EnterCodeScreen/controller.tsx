@@ -17,11 +17,19 @@ import SCREENS from "@constants/screens";
 interface IProps {
     route: any
     VerifyCode: IAction;
-    ResendCode: IAction
-    GetProfile: IAction
+    ResendCode: IAction;
+    GetProfile: IAction;
+    GetCar: IAction;
 }
 
-const EnterCodeScreenController = ({route, VerifyCode, ResendCode, GetProfile}: IProps) => {
+const EnterCodeScreenController = (
+    {
+        route,
+        VerifyCode,
+        ResendCode,
+        GetProfile,
+        GetCar,
+    }: IProps) => {
 
     const navigation = useNavigation();
     const [error, setError] = useState(false);
@@ -77,9 +85,10 @@ const EnterCodeScreenController = ({route, VerifyCode, ResendCode, GetProfile}: 
             code: value,
             fcm_token: fcmToken
         }, () => {
-            GetProfile(null, () => {
-                setIsLoading(false);
-                navigation.navigate(SCREENS.MAIN_STACK);
+            GetCar(null, () => {
+                GetProfile(null, () => {
+                    setIsLoading(false);
+                });
             });
         }, () => {
             setError(true);

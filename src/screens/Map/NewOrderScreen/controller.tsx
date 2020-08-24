@@ -40,7 +40,9 @@ const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IPro
 
     const stopNotify = () => {
         Vibration.cancel();
-        sound.stop();
+        if (sound) {
+            sound.stop();
+        }
         setSound(null)
     };
 

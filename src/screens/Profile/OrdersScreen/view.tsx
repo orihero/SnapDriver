@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, FlatList, NativeSyntheticEvent, NativeScrollEvent, Animated} from 'react-native';
+
 import strings from '@constants/strings';
 import HeaderTab from '@components/navigation/HeaderTab';
 import constStyles from '@constants/constStyles';
@@ -7,46 +8,13 @@ import OrderCard from '@components/cards/OrderCard';
 import styles from "./styles";
 import Header from "@components/navigation/Header";
 
-
-const orderList = [
-    {
-        id: '4562455865',
-        date: '12.03.2020',
-        driveFrom: 'Саларская набережаная 35',
-        driveTo: 'Дом',
-        price: '12 500',
-        currency: 'сум',
-        tax: '2500',
-        paymentType: 'card',
-    },
-    {
-        id: '4562455866',
-        date: '12.03.2020',
-        driveFrom: 'Саларская набережаная 35',
-        driveTo: 'Дом',
-        price: '12 500',
-        currency: 'сум',
-        tax: '2500',
-        paymentType: 'cash',
-    },
-    {
-        id: '4562455867',
-        date: '12.03.2020',
-        driveFrom: 'Саларская набережаная 35',
-        driveTo: 'Дом',
-        price: '12 500',
-        currency: 'сум',
-        tax: '2500',
-        paymentType: 'card',
-    },
-];
-
 interface IProps {
     onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
     animatedHeight: any;
+    orderList: any
 }
 
-const OrdersScreenView = ({onScroll, animatedHeight}: IProps) => {
+const OrdersScreenView = ({onScroll, orderList}: IProps) => {
 
     return (
         <>
@@ -56,7 +24,6 @@ const OrdersScreenView = ({onScroll, animatedHeight}: IProps) => {
                     marginBottom: 0,
                     borderBottomEndRadius: 0,
                     borderBottomStartRadius: 0,
-                    height: animatedHeight
                 }}
             />
             <View style={styles.plane}>
@@ -99,12 +66,12 @@ const OrdersScreenView = ({onScroll, animatedHeight}: IProps) => {
                         data={orderList}
                         onScroll={onScroll}
                         renderItem={({item}) => (
-                            <OrderCard item={item} navigation={{}}/>
+                            <OrderCard
+                                item={item}
+                            />
                         )}
                         keyExtractor={(item) => item.id}
-                    >
-                        <Text>sds</Text>
-                    </FlatList>
+                    />
                 </View>
             </View>
         </>

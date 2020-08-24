@@ -1,4 +1,5 @@
 import {put, takeLatest, call, all} from "redux-saga/effects";
+import {useSelector} from "react-redux";
 import io from "socket.io-client"
 import Echo from "laravel-echo";
 
@@ -18,7 +19,7 @@ function* SetDriverStatusOnline(action: any) {
         });
 
         echo
-            .channel('snaptaxi_database_car.105')
+            .channel(`snaptaxi_database_car.${action.payload.carId}`)
             .listen('.SearchEvent', ({booking}: any) => {
                 action.cb({...booking.id, ...booking.channel})
             });
@@ -141,6 +142,27 @@ function* ChangeOrderStatus(action: any) {
     }
 }
 
+function* GetOrderList(action: any) {
+    try {
+        const {data} = yield call(api.request.get, '/car-booking', action.payload);
+
+        yield put({
+            type: Booking.GetOrderList.SUCCESS,
+            payload: data.data,
+        });
+
+        yield call(action.cb, data);
+
+    } catch (error) {
+        yield put({
+            type: Booking.GetOrderList.FAILURE,
+            payload: error
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -149,6 +171,7 @@ export default function* root() {
         takeLatest(Booking.NewOrder.REQUEST, NewOrder),
         takeLatest(Booking.AcceptNewOrder.REQUEST, AcceptNewOrder),
         takeLatest(Booking.ChangeOrderStatus.REQUEST, ChangeOrderStatus),
+        takeLatest(Booking.GetOrderList.REQUEST, GetOrderList),
     ]);
 }
 
