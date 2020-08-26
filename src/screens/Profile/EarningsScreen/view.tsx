@@ -49,11 +49,7 @@ const EarningsScreenView = () => {
                             {id: '0', name: strings.ride, data: 34},
                             {id: '1', name: strings.cancels, data: 34},
                             {id: '2', name: strings.skipped, data: 34},
-                            {
-                                id: '3',
-                                name: strings.duration,
-                                data: '6ч  15 мин',
-                            },
+                            {id: '3', name: strings.duration, data: '6ч  15 мин'},
                         ]}
                         renderItem={({item}) => (
                             <View style={styles.bar}>

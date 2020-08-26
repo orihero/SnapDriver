@@ -6,7 +6,7 @@ import styles from "./styles";
 import TouchablePlatformSpecific from "../TouchablePlatformSpecific";
 
 interface IProps {
-    text?: string;
+    text: string;
     containerStyle?: ViewStyle;
     onPress: () => void,
     fontSize?: number;

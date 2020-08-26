@@ -27,12 +27,24 @@ const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: 
         Linking.openURL(url as string).then();
     };
 
+    const wait = () => {
+        const {data} = newOrder;
+        ChangeOrderStatus({
+            driver_id: data.driver.user_id,
+            orderId: data.id,
+            orderStatus: newOrder.data.status === OrderStatus.WAITING ? OrderStatus.PROCESSING : OrderStatus.WAITING
+        }, () => {
+            setIsLoading(false)
+        }, () => {
+            setIsLoading(false)
+        })
+    };
 
     const changeOrderStatus = () => {
         setIsLoading(true);
         const {data} = newOrder;
         ChangeOrderStatus({
-            driver_id: data.driver.id,
+            driver_id: data.driver.user_id,
             orderId: data.id,
             orderStatus: OrderStatus.DONE
         }, () => {
@@ -47,9 +59,11 @@ const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: 
             changeOrderStatus={changeOrderStatus}
             drivingTo={newOrder.data.routes[1].address}
             isLoading={isLoading}
+            isWaiting={newOrder.data.status === OrderStatus.WAITING}
             duration={destination.details.duration}
             distance={destination.details.distance}
             openGoogleMaps={openGoogleMaps}
+            wait={wait}
         />
 
     );

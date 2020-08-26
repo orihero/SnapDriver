@@ -21,9 +21,19 @@ interface IProps {
     onPhonePress: () => void;
     destination: any;
     waitingTime: string;
+    travelTime: string;
+    distanceToClient: any;
 }
 
-const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: IProps) => {
+const TripScreenView = (
+    {
+        orderStatus,
+        waitingTime,
+        onPhonePress,
+        destination,
+        distanceToClient,
+        travelTime
+    }: IProps) => {
 
     const renderPanel = () => {
         switch (orderStatus) {
@@ -32,6 +42,7 @@ const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: I
             case OrderStatus.ARRIVED:
                 return <DestinationDetailsPanel/>;
             case OrderStatus.PROCESSING:
+            case OrderStatus.WAITING:
                 return <CurrentTripPanel/>;
             case OrderStatus.DONE:
                 return <TripEndInfoPanel/>;
@@ -48,6 +59,12 @@ const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: I
                     title: strings.tillOrder,
                     data: destination.duration + ' мин'
                 };
+            case OrderStatus.WAITING:
+                return {
+                    headerTitle: strings.waiting,
+                    title: strings.waitingTime,
+                    data: waitingTime,
+                };
             case OrderStatus.ARRIVED:
                 return {
                     headerTitle: strings.acceptedOrder,
@@ -56,13 +73,19 @@ const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: I
                 };
             case OrderStatus.PROCESSING:
                 return {
-                    headerTitle: 'В пути',
+                    headerTitle: strings.onWay,
                     title: strings.tripTime,
-                    data: waitingTime,
+                    data: travelTime,
                 };
             case OrderStatus.DONE:
                 return {
-                    headerTitle: 'Завершение заказа',
+                    headerTitle: strings.finishOrder,
+                    title: strings.waitingTime,
+                    data: waitingTime,
+                };
+            case OrderStatus.RATING:
+                return {
+                    headerTitle: strings.ratePassenger,
                     title: strings.waitingTime,
                     data: waitingTime,
                 };
@@ -81,7 +104,7 @@ const TripScreenView = ({orderStatus, waitingTime, onPhonePress, destination}: I
                     topTitle={`${headerText().title}`}
                     topData={`${headerText().data} `}
                     bottomTitle={strings.distance}
-                    bottomData={`${destination.distance} км`}
+                    bottomData={`${distanceToClient} км`}
                     number={'orderInfo && orderInfo.user.phone'}
                     onPhonePress={onPhonePress}
                 />

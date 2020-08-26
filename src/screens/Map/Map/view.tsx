@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, View} from 'react-native';
-import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, Polyline, Overlay, PROVIDER_GOOGLE, Circle} from 'react-native-maps';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MapViewDirections from "react-native-maps-directions";
 import mapConfig from '../../../configs/mapConfig';
@@ -9,6 +9,7 @@ import Icon from '@assets/icons';
 import styles from "./styles";
 import images from "@assets/images";
 import API_KEY from "@constants/apiKey";
+import {getDistance} from 'geolib';
 
 
 interface IProps {
@@ -32,8 +33,9 @@ let Map = (
         mapRef,
         route,
         routeCoordinates,
-        distanceTravelled
     }: IProps) => {
+    const [ways, setWays] = useState([]);
+
     return (
         <View style={styles.container}>
             <MapView
@@ -47,14 +49,14 @@ let Map = (
                 provider={PROVIDER_GOOGLE}
                 // customMapStyle={mapConfig}
             >
-                <Marker coordinate={currentLocation}>
-                    <Image style={styles.marker} source={images.marker}/>
-                </Marker>
-                <Polyline
-                    coordinates={routeCoordinates}
-                    strokeColor={colors.blue}
-                    strokeWidth={6}
-                />
+                {/*<Marker coordinate={currentLocation}>*/}
+                {/*    <Image style={styles.marker} source={images.marker}/>*/}
+                {/*</Marker>*/}
+                {/*<Polyline*/}
+                {/*    coordinates={ways}*/}
+                {/*    strokeColor={colors.blue}*/}
+                {/*    strokeWidth={6}*/}
+                {/*/>*/}
                 {
                     Object.keys(route).length > 0 && !!route.from.longitude &&
                     <MapViewDirections
@@ -65,7 +67,9 @@ let Map = (
                         strokeWidth={6}
                         strokeColor={colors.blue}
                         onReady={(direction) => {
+                            setWays(direction.coordinates);
                             setDestinationDetails({
+                                coordinates: direction.coordinates,
                                 distance: Math.floor(direction.distance),
                                 duration: Math.floor(direction.duration)
                             });
@@ -81,13 +85,6 @@ let Map = (
                     />
                 }
             </MapView>
-            <View style={{
-                backgroundColor: '#fff',
-                position: 'absolute',
-                top: 400
-            }}>
-                <Text>{parseFloat(distanceTravelled).toFixed(2)} km</Text>
-            </View>
             <View style={styles.buttonWrapper}>
                 <TouchableOpacity onPress={getCurrentLocation}>
                     <View style={styles.currentLocationMarker}>

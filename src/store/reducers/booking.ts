@@ -62,6 +62,7 @@ export default (state = initialState, action: any) => {
         case SkipNewOrder.REQUEST: {
             return {
                 ...state,
+                waiting: initialState.waiting,
                 driver: {
                     ...state.driver,
                     isBusy: false,

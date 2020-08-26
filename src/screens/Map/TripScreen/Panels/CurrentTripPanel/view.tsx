@@ -7,6 +7,7 @@ import Icon from "@assets/icons";
 import styles from "./styles";
 import Button from "@components/common/Button";
 import strings from "@constants/strings";
+import PauseIcon from "@assets/icons/PauseIcon";
 
 interface IProps {
     changeOrderStatus: () => void;
@@ -15,6 +16,8 @@ interface IProps {
     duration: string;
     distance: string;
     openGoogleMaps: () => void;
+    wait: () => void;
+    isWaiting: boolean;
 }
 
 const CurrentTripPanelView = (
@@ -24,7 +27,9 @@ const CurrentTripPanelView = (
         drivingTo,
         distance,
         duration,
-        openGoogleMaps
+        openGoogleMaps,
+        isWaiting,
+        wait
     }: IProps) => {
     return (
         <View>
@@ -46,9 +51,18 @@ const CurrentTripPanelView = (
                             <Icon name="path" size={25} color={colors.black}/>
                         </View>
                     </TouchableWithoutFeedback>
-                    <View style={styles.bottomIconWrapper}>
-                        <Icon name="chat" size={25} color={colors.blue}/>
-                    </View>
+                    <TouchableWithoutFeedback onPress={wait}>
+                        <View style={styles.bottomIconWrapper}>
+                            <PauseIcon
+                                active={isWaiting}
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <View style={styles.bottomIconWrapper}>
+                            <Icon name="chat" size={25} color={colors.blue}/>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
                 <Button
                     onPress={changeOrderStatus}

@@ -13,7 +13,10 @@ interface IProps {
 
 const OrdersScreenController = ({navigation, orderList, GetOrderList}: IProps) => {
 
-        const animatedHeight = useRef(new Animated.Value(80)).current;
+        const scrollOffsetY = useRef(new Animated.Value(0)).current;
+
+        const HEADER_EXPANDED_HEIGHT = 80;
+        const HEADER_COLLAPSED_HEIGHT = 0;
 
         useEffect(() => {
             StatusBar.setBarStyle('light-content');
@@ -21,39 +24,19 @@ const OrdersScreenController = ({navigation, orderList, GetOrderList}: IProps) =
             GetOrderList()
         }, [navigation]);
 
-        const startAnimation = (value: number) => {
-            Animated.timing(
-                animatedHeight,
-                {
-                    duration: 0,
-                    toValue: calcHeight(value),
-                    useNativeDriver: false
-                }
-            ).start()
-        };
-
-        const calcHeight = (value: number) => {
-            if (value >= 80) {
-                return 0
-            } else {
-                return 80 - value
-            }
-        };
-
-
-        const onScroll = ({nativeEvent}: NativeSyntheticEvent<NativeScrollEvent>) => {
-            startAnimation(nativeEvent.contentOffset.y)
-        };
+        const headerHeight = scrollOffsetY.interpolate({
+            inputRange: [0, HEADER_EXPANDED_HEIGHT],
+            outputRange: [0, -HEADER_EXPANDED_HEIGHT],
+            extrapolate: 'clamp',
+        });
 
         return (
             <OrdersScreenView
-                onScroll={Animated.event([{nativeEvent: {contentOffset: {y: animatedHeight}}}])}
-                animatedHeight={animatedHeight.interpolate({
-                    inputRange: [0, 80],
-                    outputRange: [80, 0],
-                    extrapolate: 'clamp'
-                })}
+                onScroll={Animated.event([
+                    {nativeEvent: {contentOffset: {y: scrollOffsetY}}}
+                ], {useNativeDriver: true})}
                 orderList={orderList.data}
+                headerHeight={headerHeight}
             />
         );
     }

@@ -6,6 +6,7 @@ import constStyles from '@constants/constStyles';
 import TouchablePlatformSpecific from "@components/common/TouchablePlatformSpecific";
 import styles from "./styles";
 import MapHeader from "@components/navigation/MapHeader";
+import OrderStatus from "@constants/orderStatus";
 
 interface InnerHeaderProps {
     topTitle: any;
@@ -29,10 +30,15 @@ const TripHeader = (
         orderStatus,
     }: InnerHeaderProps
 ) => {
-    return (
-        <MapHeader title={headerTitle}>
-            {
-                orderStatus !== 'done' ? <View style={styles.container}>
+    const renderInnerHeader = () => {
+        switch (orderStatus) {
+            case OrderStatus.DONE:
+                return <></>;
+            case OrderStatus.RATING:
+                return <></>;
+            default:
+                return (
+                    <View style={styles.container}>
                         <View style={styles.dataWrapper}>
                             <View style={styles.topWrapper}>
                                 <Text style={[styles.topText, constStyles.bold]}>{topTitle}</Text>
@@ -50,9 +56,13 @@ const TripHeader = (
                                 </View>
                             </TouchablePlatformSpecific>
                         </View>
-                    </View>
-                    : <></>
-            }
+                    </View>)
+        }
+    };
+
+    return (
+        <MapHeader title={headerTitle}>
+            {renderInnerHeader()}
         </MapHeader>
     );
 };

@@ -57,7 +57,7 @@ const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps
         setIsLoading(true);
         const {data} = newOrder;
         ChangeOrderStatus({
-            driver_id: data.driver.id,
+            driver_id: data.driver.user_id,
             orderId: data.id,
             orderStatus: OrderStatus.PROCESSING
         }, () => {

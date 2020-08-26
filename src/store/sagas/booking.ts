@@ -94,6 +94,9 @@ function* AcceptNewOrder(action: any) {
         echo
             .channel(`snaptaxi_database_car_order.${orderId}`)
             .listen('.OrderStatusEvent', (orderInfo: any) => {
+                if (orderInfo.booking.status === 'canceled') {
+                    action.cb().socketCb()
+                }
             });
 
         yield put({
@@ -101,7 +104,7 @@ function* AcceptNewOrder(action: any) {
             payload: data.data
         });
 
-        yield call(action.cb);
+        yield call(action.cb().cb);
 
     } catch (error) {
 
@@ -163,6 +166,32 @@ function* GetOrderList(action: any) {
     }
 }
 
+function* RateOrder(action: any) {
+    try {
+
+        const {orderId} = action.payload;
+
+        const {data} = yield call(api.request.put, `/car-booking/review/${orderId}`, action.payload);
+
+        yield put({
+            type: Booking.RateOrder.SUCCESS,
+            payload: data.data
+        });
+
+        yield call(action.cb);
+
+
+    } catch (error) {
+
+        yield put({
+            type: Booking.RateOrder.FAILURE,
+            payload: error,
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
 
 export default function* root() {
     yield all([
@@ -172,6 +201,7 @@ export default function* root() {
         takeLatest(Booking.AcceptNewOrder.REQUEST, AcceptNewOrder),
         takeLatest(Booking.ChangeOrderStatus.REQUEST, ChangeOrderStatus),
         takeLatest(Booking.GetOrderList.REQUEST, GetOrderList),
+        takeLatest(Booking.RateOrder.REQUEST, RateOrder),
     ]);
 }
 

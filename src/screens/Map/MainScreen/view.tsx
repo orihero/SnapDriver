@@ -78,9 +78,10 @@ let MainScreenView = (
                             {
                                 rates.map((rate: any) => (
                                     <TariffCard
+                                        key={rate.id}
                                         name={rate.title}
                                         minPrice={rate.min_price}
-                                        active={false}
+                                        active={true}
                                     />
                                 ))
                             }
@@ -90,8 +91,14 @@ let MainScreenView = (
                             !isModalVisible &&
                             <Button
                                 disabled={!isNetConnected}
-                                containerStyle={buttonStyles}
-                                textStyles={styles.buttonText}
+                                containerStyle={{
+                                    ...buttonStyles,
+                                    backgroundColor: driverStatus ? colors.blue : colors.yellow
+                                }}
+                                textStyles={{
+                                    ...styles.buttonText,
+                                    color: driverStatus ? colors.white : colors.black
+                                }}
                                 onPress={changeDriverStatus}
                                 text={driverStatus ? strings.exitShift : strings.goShift}
                             />

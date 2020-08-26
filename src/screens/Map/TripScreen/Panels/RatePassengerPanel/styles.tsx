@@ -17,48 +17,39 @@ export default StyleSheet.create({
         borderBottomStartRadius: 15,
         borderBottomEndRadius: 15,
     },
-    innerWrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottomColor: colors.superPaleGray,
-        borderBottomWidth: 1,
-        paddingBottom: 10
-    },
     text: {
         ...constStyles.bold,
         fontSize: 15
     },
-    selectNavigatorText: {
-        color: colors.black,
+    topTextWrapper: {
+        alignItems: 'center'
+    },
+    howWasTrip: {
         fontSize: 18,
-        ...constStyles.light
+        ...constStyles.bold,
+        marginBottom: 10
     },
-    icon: {
-        padding: 10,
-        paddingHorizontal: 14,
-        backgroundColor: colors.white,
-    },
-    iconWrapper: {
-        ...constStyles.shadow,
-        borderRadius: 30,
-        overflow: 'hidden',
-    },
-    locationIconWrapper: {
-        paddingVertical: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    locationIcon: {
-        height: 20,
-        width: 14,
-        resizeMode: 'contain'
-    },
-    textWrapper: {
-        paddingLeft: 10,
-    },
-    drivingFrom: {
-        fontSize: 14,
+    rateTrip: {
         ...constStyles.light,
+        fontSize: 14,
+        color: '#646974',
+        textAlign: 'center',
+        marginBottom: 23.6
+    },
+    startContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        paddingBottom: 19.6,
+        marginBottom: 16,
+    },
+    textarea: {
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        borderRadius: 10,
+        elevation: 10,
+        backgroundColor: colors.grey,
+        height: 126,
+        marginBottom: 46
     },
 })

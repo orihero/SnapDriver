@@ -77,23 +77,22 @@ const MapController = (
         StatusBar.setBarStyle('dark-content');
         StatusBar.setBackgroundColor(colors.white);
 
-        Geolocation.watchPosition(
-            position => {
-                const {latitude, longitude} = position.coords;
-
-                const newCoordinate = {
-                    latitude,
-                    longitude
-                };
-                setDistanceTravelled(prevState => prevState + calcDistance(newCoordinate));
-                // @ts-ignore
-                setRouteCoordinates(prevState => [...prevState, newCoordinate]);
-                setPrevCoordinates(newCoordinate)
-            },
-            (error) => console.log(error),
-            {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
-        );
-
+        // Geolocation.watchPosition(
+        //     position => {
+        //         const {latitude, longitude} = position.coords;
+        //
+        //         const newCoordinate = {
+        //             latitude,
+        //             longitude
+        //         };
+        //         setDistanceTravelled(prevState => prevState + calcDistance(newCoordinate));
+        //         // @ts-ignore
+        //         setRouteCoordinates(prevState => [...prevState, newCoordinate]);
+        //         setPrevCoordinates(newCoordinate)
+        //     },
+        //     (error) => console.log(error),
+        //     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
+        // );
 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
@@ -163,7 +162,7 @@ const MapController = (
 
 
     return (
-        Object.keys(currentLocation).length > 0 && <Map
+        <Map
             getCurrentLocation={getCurrentLocation}
             setDestinationDetails={SetDestinationDetails}
             setMapRef={setMapRef}

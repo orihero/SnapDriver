@@ -77,10 +77,13 @@ const OrderCard = ({item}: OrderCardProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.white,
+        marginHorizontal: CONTAINER_PADDING,
+        backgroundColor: colors.grey,
         padding: CONTAINER_PADDING,
         marginBottom: 10,
         borderRadius: BORDER_RADIUS,
+        borderWidth: 2,
+        borderColor: colors.white
     },
     borderBottom: {
         borderBottomColor: colors.paleGray,

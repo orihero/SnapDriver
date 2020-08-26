@@ -5,10 +5,11 @@ import {CONTAINER_PADDING} from "@constants/values";
 export default StyleSheet.create({
     plane: {
         flex: 1,
-        backgroundColor: colors.white,
+        backgroundColor: colors.grey,
     },
     container: {
         flex: 1,
+        backgroundColor: colors.grey,
     },
     tabWrapper: {
         backgroundColor: colors.blue,
@@ -43,7 +44,6 @@ export default StyleSheet.create({
         color: colors.blue,
     },
     ordersWrapper: {
-        paddingTop: 10,
-        paddingHorizontal: CONTAINER_PADDING,
+        paddingTop: 80,
     },
 });

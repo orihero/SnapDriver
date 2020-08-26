@@ -2,6 +2,8 @@ import {GetCurrentLocation, SetDestination, SetDestinationDetails, SetNetConnect
 
 const initialState = {
     currentLocation: {
+        latitude: 41.3139328,
+        longitude: 69.2755859
     },
     destination: {
         details: {}

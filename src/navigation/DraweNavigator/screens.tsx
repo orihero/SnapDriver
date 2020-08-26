@@ -7,6 +7,7 @@ import SettingsStack from "../StackNavigators/SettingsStack";
 import BalanceStack from "../StackNavigators/BalanceStack";
 import EarningsStack from "../StackNavigators/EarningsStack";
 import OrdersStack from "../StackNavigators/OrdersStack";
+import SupportStack from "../StackNavigators/SupportStack";
 
 interface IScreenProps {
     label: any | null,
@@ -42,9 +43,10 @@ const screens: IScreenProps[] = [
     },
     {
         label: strings.supportService,
-        name: '',
-        component: null
+        name: SCREENS.SUPPORT_STACK,
+        component: SupportStack,
     },
+
 ];
 
 export {

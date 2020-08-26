@@ -1,7 +1,7 @@
 enum OrderStatus {
     ACCEPTED = 'accepted',
     ARRIVED = 'arrived',
-    RATING = 'RATING',
+    RATING = 'rating',
     WAITING = 'waiting',
     PROCESSING = 'processing',
     DONE = 'done',

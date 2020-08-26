@@ -29,7 +29,7 @@ const SelectNavigatorPanelController = ({ChangeOrderStatus, newOrder}: IProps) =
         setIsLoading(true);
         const {driver, id} = newOrder;
         ChangeOrderStatus({
-            driver_id: driver.id,
+            driver_id: driver.user_id,
             orderId: id,
             orderStatus: OrderStatus.ARRIVED
         }, () => {

@@ -1,47 +1,66 @@
 import React from 'react';
-import {Image, Text, View} from "react-native";
+import {Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
 
 import HatCutout from "@components/common/HatCutout";
-import colors from "@constants/colors";
 import strings from "@constants/strings";
-import TouchablePlatformSpecific from "@components/common/TouchablePlatformSpecific";
-import Icon from "@assets/icons";
-import images from "@assets/images";
 import styles from "./styles";
 import Button from "@components/common/Button";
+import StarIcon from "@assets/icons/StarIcon";
 
 interface IProps {
-    changeOrderStatus: () => void;
+    review: string;
+    setReview: (review: string) => void;
+    rateOrder: () => void;
+    rate: number;
+    setRate: (rate: number) => void;
     isLoading: boolean;
-    drivingFrom: string;
-    openGoogleMaps: () => void;
 }
 
-const RatePassengerPanelView = ({changeOrderStatus, isLoading, drivingFrom, openGoogleMaps}: IProps) => {
+const RatePassengerPanelView = (
+    {
+        rate,
+        rateOrder,
+        review,
+        setRate,
+        setReview,
+        isLoading
+    }: IProps) => {
+    const Rate = () => (
+        <View style={styles.startContainer}>
+            {
+                [...new Array(5)].map((item, index) => (
+                    <TouchableWithoutFeedback onPress={() => setRate(index + 1)}>
+                        <StarIcon
+                            active={index < rate}
+                            style={{marginRight: 10}}
+                            width={35.26}
+                            height={33.79}
+                        />
+                    </TouchableWithoutFeedback>
+                ))
+            }
+        </View>
+    );
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
             <View style={styles.wrapper}>
-                <View style={styles.innerWrapper}>
-                    <Text style={styles.selectNavigatorText}>{strings.selectNavigator}</Text>
-                    <View style={styles.iconWrapper}>
-                        <TouchablePlatformSpecific onPress={openGoogleMaps}>
-                            <View style={styles.icon}>
-                                <Icon name="locationFancy" size={20} color={colors.blue}/>
-                            </View>
-                        </TouchablePlatformSpecific>
-                    </View>
+                <View style={styles.topTextWrapper}>
+                    <Text style={styles.howWasTrip}>{strings.howWasTrip}</Text>
+                    <Text style={styles.rateTrip}>{strings.rateTrip}</Text>
                 </View>
-                <View style={styles.locationIconWrapper}>
-                    <Image style={styles.locationIcon} source={images.location}/>
-                    <View style={styles.textWrapper}>
-                        <Text style={styles.drivingFrom}>{strings.drivingFrom}</Text>
-                        <Text style={styles.text}>{drivingFrom}</Text>
-                    </View>
+                {Rate()}
+                <View style={styles.textarea}>
+                    <TextInput
+                        value={review}
+                        onChangeText={text => setReview(text)}
+                        multiline={true}
+                        placeholder={strings.leaveFeedBack}
+                    />
                 </View>
                 <Button
-                    onPress={changeOrderStatus}
-                    text={strings.atPoint}
+                    onPress={rateOrder}
+                    text={strings.finish}
                     isLoading={isLoading}
                 />
             </View>

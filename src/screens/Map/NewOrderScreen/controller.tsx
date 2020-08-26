@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Vibration} from "react-native";
+import {Alert, Vibration} from "react-native";
 import NewOrderScreenView from "./view";
 import IAction from "@store/types/IAction";
 import {useNavigation} from "@react-navigation/native";
@@ -18,11 +18,13 @@ const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IPro
     const navigation = useNavigation();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [sound, setSound] = useState(new Sound('new_order.mp3', Sound.MAIN_BUNDLE, () => {
-        if (sound) {
-            sound.play()
-        }
-    }));
+    const [sound, setSound] = useState(
+        new Sound('new_order.mp3', Sound.MAIN_BUNDLE, () => {
+            if (sound) {
+                sound.play()
+            }
+        }));
+
 
     useEffect(() => {
         const PATTERN = [
@@ -47,6 +49,14 @@ const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IPro
     };
 
 
+    const handleOrderCancel = () => {
+        SkipNewOrder();
+        navigation.reset({
+            index: 0,
+            routes: [{name: SCREENS.MAP}]
+        })
+    };
+
     const acceptNewOrder = () => {
         setIsLoading(true);
         stopNotify();
@@ -54,11 +64,28 @@ const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IPro
             orderId: newOrder.data.id,
             driverId: 28,
         }, () => {
-            setIsLoading(false);
-            navigation.reset({
-                index: 0,
-                routes: [{name: SCREENS.TRIP}]
-            })
+            return {
+                cb: () => {
+                    setIsLoading(false);
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: SCREENS.TRIP}]
+                    })
+                },
+                socketCb: () => {
+                    const cancelSound = new Sound('canceled_order.mp3', Sound.MAIN_BUNDLE, () => {
+                        cancelSound.play()
+                    });
+                    Alert.alert(
+                        'Отмена заказа',
+                        'Ваш заказ был отменён',
+                        [{
+                            text: 'Ок',
+                            onPress: handleOrderCancel
+                        }]
+                    )
+                }
+            }
         }, () => {
             setIsLoading(false);
         })

@@ -6,9 +6,9 @@ export const createActionTypes = (actionType: string) => ({
 
 export const createAction = (actionType: string) => (
     values: any,
-    cb = (data: any) => {
+    cb = (data?: any) => {
     },
-    errorCb = (error: any) => {
+    errorCb = (error?: any) => {
     }
 ) => ({type: actionType, payload: values, cb, errorCb});
 

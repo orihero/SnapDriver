@@ -1,50 +1,46 @@
 import React, {useState} from 'react';
-import SelectNavigatorPanelView from "./view";
+import {useNavigation} from "@react-navigation/native";
+import RatePassengerPanelView from "./view";
 import IAction from "@store/types/IAction";
-import OrderStatus from "@constants/orderStatus";
-import {Linking, Platform} from "react-native";
+import SCREENS from "@constants/screens";
 
 interface IProps {
-    ChangeOrderStatus: IAction;
+    RateOrder: IAction;
+    SkipNewOrder: IAction;
     newOrder: any;
 }
 
-const RatePassengerPanelController = ({ChangeOrderStatus, newOrder}: IProps) => {
+const RatePassengerPanelController = ({RateOrder, newOrder, SkipNewOrder}: IProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const openGoogleMaps = () => {
-        const {routes} = newOrder;
-        const scheme = Platform.select({ios: 'maps:0,0?q=', android: 'geo:0,0?q='});
-        const latLng = `${routes[0].lat},${routes[0].lng}`;
-        const url = Platform.select({
-            ios: `${scheme}@${latLng}`,
-            android: `${scheme}${latLng}`
-        });
 
-        Linking.openURL(url as string).then();
-    };
+    const navigation = useNavigation();
 
-    const changeOrderStatus = () => {
+    const [review, setReview] = useState('');
+    const [rate, setRate] = useState(0);
+
+    const rateOrder = () => {
         setIsLoading(true);
-        const {driver, id} = newOrder;
-        ChangeOrderStatus({
-            driver_id: driver.id,
-            orderId: id,
-            orderStatus: OrderStatus.ARRIVED
+        RateOrder({
+            orderId: newOrder.id,
+            comment: review,
+            rating: rate
         }, () => {
-            setIsLoading(false)
-        }, () => {
-            setIsLoading(false)
+            setIsLoading(false);
+            SkipNewOrder();
+            navigation.navigate(SCREENS.MAP);
         })
     };
 
     return (
-        <SelectNavigatorPanelView
-            changeOrderStatus={changeOrderStatus}
+        <RatePassengerPanelView
+            rateOrder={rateOrder}
             isLoading={isLoading}
-            drivingFrom={newOrder.routes[0].address}
-            openGoogleMaps={openGoogleMaps}
+            review={review}
+            setReview={setReview}
+            rate={rate}
+            setRate={setRate}
         />
 
     );

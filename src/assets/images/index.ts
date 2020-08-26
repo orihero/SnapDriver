@@ -9,6 +9,7 @@ const images = {
     location: require('./location.png'),
     locationBorder: require('./locationBorder.png'),
     marker: require('./marker.png'),
+    pause: require('./pause.png')
 };
 
 export default images;
