@@ -24,8 +24,10 @@ const TripScreenController = ({SetWaiting, newOrder, destination,}: IProps) => {
     const [travelTime, setTravelTime] = useState(0);
     const [normalizedTravelTime, setNormalizedTravelTime] = useState('00:00');
     const [intervalId, setIntervalId] = useState(null);
-    const [distanceToClient, setDistanceToClient] = useState(destination.distance);
+    const [distanceToClient, setDistanceToClient] = useState(destination.distance | 0);
     const [watchId, setWatchId] = useState();
+    const [distanceTravelled, setDistanceTravelled] = useState(0);
+    const [routeCoordinates, setRouteCoordinates] = useState([]);
 
     useEffect(() => {
         StatusBar.setBarStyle('dark-content');
@@ -71,7 +73,12 @@ const TripScreenController = ({SetWaiting, newOrder, destination,}: IProps) => {
                 time: 0,
                 status: true,
             });
-            setWatchId(calcDistance(1));
+            if (newOrder.data.routes[1]) {
+                setWatchId(calcDistance(1));
+            } else {
+                setDistanceToClient(0);
+                setWatchId(calcTraveledDistance())
+            }
             // @ts-ignore
             setIntervalId(setInterval(() => {
                 setWaitingTime(prevState => prevState + 1);
@@ -108,6 +115,25 @@ const TripScreenController = ({SetWaiting, newOrder, destination,}: IProps) => {
             )
         }, err => {
         })
+    };
+
+    const calcTraveledDistance = () => {
+        Geolocation.watchPosition(
+            position => {
+                const {latitude, longitude} = position.coords;
+
+                const newCoordinate = {
+                    latitude,
+                    longitude
+                };
+                setDistanceToClient(prevState => prevState + calcDistance(newCoordinate));
+                // @ts-ignore
+                setRouteCoordinates(prevState => [...prevState, newCoordinate]);
+                setPrevCoordinates(newCoordinate)
+            },
+            (error) => console.log(error),
+            {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
+        );
     };
 
     const onPhonePress = async () => {

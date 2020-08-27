@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import CurrentTripPanelView from "./view";
 import IAction from "@store/types/IAction";
 import OrderStatus from "@constants/orderStatus";
-import DestinationDetailsPanelView from "../DestinationDetailsPanel/view";
 import {Linking, Platform} from "react-native";
 
 interface IProps {
@@ -57,7 +56,7 @@ const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: 
     return (
         <CurrentTripPanelView
             changeOrderStatus={changeOrderStatus}
-            drivingTo={newOrder.data.routes[1].address}
+            drivingTo={newOrder.data.routes[1] ? newOrder.data.routes[1].address : 'Не указано'}
             isLoading={isLoading}
             isWaiting={newOrder.data.status === OrderStatus.WAITING}
             duration={destination.details.duration}

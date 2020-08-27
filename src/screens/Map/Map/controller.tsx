@@ -29,8 +29,7 @@ const MapController = (
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
     });
-    const [distanceTravelled, setDistanceTravelled] = useState(0);
-    const [routeCoordinates, setRouteCoordinates] = useState([]);
+
 
     useEffect(() => {
         if (Object.keys(newOrder).length > 0) {
@@ -45,7 +44,7 @@ const MapController = (
                         latitude: Number(newOrder.routes[0].lat)
                     }
                 })
-            } else {
+            } else if (newOrder.routes[1]) {
                 setRoute({
                     from: {
                         longitude: Number(newOrder.routes[0].lng),
@@ -76,23 +75,6 @@ const MapController = (
     useEffect(() => {
         StatusBar.setBarStyle('dark-content');
         StatusBar.setBackgroundColor(colors.white);
-
-        // Geolocation.watchPosition(
-        //     position => {
-        //         const {latitude, longitude} = position.coords;
-        //
-        //         const newCoordinate = {
-        //             latitude,
-        //             longitude
-        //         };
-        //         setDistanceTravelled(prevState => prevState + calcDistance(newCoordinate));
-        //         // @ts-ignore
-        //         setRouteCoordinates(prevState => [...prevState, newCoordinate]);
-        //         setPrevCoordinates(newCoordinate)
-        //     },
-        //     (error) => console.log(error),
-        //     {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
-        // );
 
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
@@ -168,10 +150,8 @@ const MapController = (
             setMapRef={setMapRef}
             currentLocation={currentLocation}
             mapRef={mapRef}
-            routeCoordinates={routeCoordinates}
             route={route}
             onUserLocationChange={onUserLocationChange}
-            distanceTravelled={distanceTravelled}
         />
     );
 };

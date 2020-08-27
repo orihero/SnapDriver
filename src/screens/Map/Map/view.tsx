@@ -29,10 +29,8 @@ let Map = (
         getCurrentLocation,
         setDestinationDetails,
         setMapRef,
-        currentLocation,
         mapRef,
         route,
-        routeCoordinates,
     }: IProps) => {
     const [ways, setWays] = useState([]);
 
