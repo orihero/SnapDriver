@@ -1,9 +1,10 @@
 import React, {useRef, useState} from 'react';
-import {Animated, Linking, Platform} from "react-native";
+import {Animated, Linking, PanResponder} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 import DestinationDetailsPanelView from "./view";
 import IAction from "@store/types/IAction";
 import OrderStatus from "@constants/orderStatus";
-import {PanResponder} from "react-native";
+import SCREENS from "@constants/screens";
 
 interface IProps {
     ChangeOrderStatus: IAction;
@@ -13,6 +14,8 @@ interface IProps {
 const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const navigation = useNavigation();
 
     const height = useRef(new Animated.Value(0)).current;
 
@@ -67,6 +70,10 @@ const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps
         })
     };
 
+    const goToChat = () => {
+        navigation.navigate(SCREENS.CHAT)
+    };
+
     return (
         <DestinationDetailsPanelView
             changeOrderStatus={changeOrderStatus}
@@ -76,6 +83,7 @@ const DestinationDetailsPanelController = ({ChangeOrderStatus, newOrder}: IProps
             panResPonder={panResPonder}
             collapse={collapse}
             onPhonePress={onPhonePress}
+            goToChat={goToChat}
         />
     );
 };

@@ -42,7 +42,8 @@ const OrderCard = ({item}: OrderCardProps) => {
                     </View>
                     <View style={[styles.location, styles.borderBottom]}>
                         <Text style={[styles.locationTitle, constStyles.light]}>{strings.drivingTo}</Text>
-                        <Text style={[styles.locationText, constStyles.bold]}>{item.routes[1].address}</Text>
+                        <Text
+                            style={[styles.locationText, constStyles.bold]}>{item.routes[1] ? item.routes[1].address : 'Не указано'}</Text>
                     </View>
                 </View>
             </View>

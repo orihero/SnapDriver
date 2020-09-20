@@ -1,3 +1,3 @@
-import EarningsScreen from "./view";
+import EarningsScreen from "./connect";
 
 export default EarningsScreen;

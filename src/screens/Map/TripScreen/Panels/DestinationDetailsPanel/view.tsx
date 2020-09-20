@@ -16,6 +16,7 @@ interface IProps {
     panResPonder: any;
     collapse: any;
     onPhonePress: () => void;
+    goToChat: () => void;
 }
 
 const DestinationDetailsPanelView = (
@@ -26,7 +27,8 @@ const DestinationDetailsPanelView = (
         drivingTo,
         panResPonder,
         collapse,
-        onPhonePress
+        onPhonePress,
+        goToChat
     }: IProps) => {
     return (
         <View>
@@ -61,9 +63,11 @@ const DestinationDetailsPanelView = (
                         </View>
                     </View>
                     <View style={styles.bottomWrapper}>
-                        <View style={styles.bottomIconWrapper}>
-                            <Icon name="chat" size={25} color={colors.blue}/>
-                        </View>
+                        <TouchableWithoutFeedback onPress={goToChat}>
+                            <View style={styles.bottomIconWrapper}>
+                                <Icon name="chat" size={25} color={colors.blue}/>
+                            </View>
+                        </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={onPhonePress}>
                             <View style={styles.bottomIconWrapper}>
                                 <Icon name="phone" size={25} color={colors.blue}/>
@@ -73,7 +77,7 @@ const DestinationDetailsPanelView = (
                 </Animated.View>
                 <Button
                     onPress={changeOrderStatus}
-                    text={strings.letsGo}
+                    text={strings.letsGo as string}
                     isLoading={isLoading}
                 />
             </View>

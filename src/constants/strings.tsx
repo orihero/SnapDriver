@@ -111,7 +111,7 @@ let strings = new LocalizedStrings({
         fillBalance: 'Пополнить баланс',
         soundGuide: 'Озвучивать заказы',
         done: 'Выполненным',
-        skipped: 'Пропущенным',
+        skipped: 'Завершенные',
         cancelled: 'Отмененным',
         sumTax: 'Сумма комиссии',
         newUser: 'Вы новый пользователь?',

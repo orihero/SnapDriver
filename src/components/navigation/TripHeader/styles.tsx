@@ -18,7 +18,7 @@ export default StyleSheet.create({
     },
     topText: {
         color: colors.black,
-        fontSize: 17,
+        fontSize: 19,
     },
     bottomText: {
         color: colors.blue,

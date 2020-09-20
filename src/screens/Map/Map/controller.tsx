@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, StatusBar, Platform, PermissionsAndroid} from "react-native";
+import { StatusBar, Platform, PermissionsAndroid} from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import haversine from 'haversine';
-// @ts-ignore
-import SystemSetting from "react-native-system-setting";
 
 import Map from "./view";
 import {colors} from "@constants/index";
@@ -79,7 +77,6 @@ const MapController = (
         // noinspection JSIgnoredPromiseFromCall
         requestPermission();
 
-        checkGPSStatus();
 
         getCurrentLocation()
 
@@ -89,17 +86,7 @@ const MapController = (
         return haversine(prevCoordinates, newLatLng) || 0;
     };
 
-    const checkGPSStatus = () => {
-        SystemSetting
-            .isLocationEnabled()
-            .then((enable: boolean) => {
-                if (!enable) {
-                    errorHandler()
-                } else {
-                    getCurrentLocation()
-                }
-            });
-    };
+
 
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition((data) => {
@@ -127,16 +114,7 @@ const MapController = (
         }
     };
 
-    const errorHandler = () => {
-        Alert.alert('Ошибка', 'Чтобы продолжить, включите на устройстве геолокацию Google.', [
-            {
-                text: 'OK', onPress: () => SystemSetting
-                    .switchLocation(() => {
-                        console.log('good job')
-                    })
-            }
-        ])
-    };
+
 
     const onUserLocationChange = (coordinates: any) => {
         GetCurrentLocation(coordinates)

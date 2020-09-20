@@ -42,7 +42,7 @@ let MainScreenView = (
         if (!isNetConnected) {
             setButtonStyles(prevState => ({
                 ...prevState,
-                backgroundColor: 'red'
+                backgroundColor: 'red',
             }))
         } else {
             setButtonStyles(styles.button)
@@ -68,8 +68,8 @@ let MainScreenView = (
                             title={strings.myTariff}
                         />
                         <MessageCard
+                            image={images.notification}
                             onPress={goToChat}
-                            image={images.chat}
                             title={strings.message}
                         />
                     </View>
@@ -92,15 +92,15 @@ let MainScreenView = (
                             <Button
                                 disabled={!isNetConnected}
                                 containerStyle={{
+                                    backgroundColor: driverStatus ? colors.blue : colors.yellow,
                                     ...buttonStyles,
-                                    backgroundColor: driverStatus ? colors.blue : colors.yellow
                                 }}
                                 textStyles={{
                                     ...styles.buttonText,
-                                    color: driverStatus ? colors.white : colors.black
+                                    color: driverStatus && isNetConnected ? colors.white : colors.black
                                 }}
                                 onPress={changeDriverStatus}
-                                text={driverStatus ? strings.exitShift : strings.goShift}
+                                text={(driverStatus ? strings.exitShift : strings.goShift) as string}
                             />
                         }
                     </View>

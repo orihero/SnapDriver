@@ -20,6 +20,7 @@ interface IProps {
     ResendCode: IAction;
     GetProfile: IAction;
     GetCar: IAction;
+    SendPush: any;
 }
 
 const EnterCodeScreenController = (
@@ -29,6 +30,7 @@ const EnterCodeScreenController = (
         ResendCode,
         GetProfile,
         GetCar,
+        SendPush
     }: IProps) => {
 
     const navigation = useNavigation();
@@ -54,7 +56,11 @@ const EnterCodeScreenController = (
             setFcmToken(data.token)
         },
         onNotification: (notification: any) => {
-            console.log("NOTIFICATION:", notification);
+            if (notification.data.title === "message") {
+                SendPush({
+                    message: notification.data.message
+                })
+            }
         },
         permissions: {
             alert: true,

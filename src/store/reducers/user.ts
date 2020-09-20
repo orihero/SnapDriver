@@ -1,12 +1,16 @@
 import {VerifyCode} from "../constants/auth";
-import {GetCar, GetProfile, UpdateProfile} from "../constants/user";
+import {GetCar, GetNotifications, GetProfile, UpdateProfile} from "../constants/user";
 
 const initialState = {
     token: null,
     isAuthenticated: false,
     data: [],
     isRegistered: false,
-    car: {}
+    car: {},
+    notifications: {
+        unread: 0,
+        data: [],
+    }
 };
 
 export default (state = initialState, action: any) => {
@@ -36,6 +40,14 @@ export default (state = initialState, action: any) => {
                 car: {
                     ...state.car,
                     ...action.payload,
+                }
+            };
+        case  GetNotifications.SUCCESS:
+            return {
+                ...state,
+                notifications: {
+                    ...state.notifications,
+                    data: action.payload
                 }
             };
         default:

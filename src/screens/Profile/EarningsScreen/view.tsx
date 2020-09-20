@@ -17,7 +17,7 @@ import ChooseCard from '@components/cards/ChooseCard';
 import styles from "./styles";
 
 
-const EarningsScreenView = () => {
+const EarningsScreenView = ({statistics, balance, changePeriod}: any) => {
 
     useEffect(() => {
         StatusBar.setBarStyle('light-content');
@@ -27,7 +27,7 @@ const EarningsScreenView = () => {
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
             <View style={styles.tabWrapper}>
-                <HeaderTab/>
+                <HeaderTab changePeriod={changePeriod}/>
             </View>
             <View style={styles.container}>
                 <View style={[styles.topWrapper, constStyles.wideShadow]}>
@@ -35,7 +35,7 @@ const EarningsScreenView = () => {
                         {strings.inDay}
                     </Text>
                     <View style={styles.earningWrapper}>
-                        <Text style={[styles.earningPrice, constStyles.bold]}>234 500</Text>
+                        <Text style={[styles.earningPrice, constStyles.bold]}>{statistics.price}</Text>
                         <Text style={[styles.earningCurrency, constStyles.medium]}>сум</Text>
                     </View>
                     <BubleCutout style={styles.buble}/>
@@ -46,10 +46,14 @@ const EarningsScreenView = () => {
                         columnWrapperStyle={styles.barWrapper}
                         numColumns={2}
                         data={[
-                            {id: '0', name: strings.ride, data: 34},
-                            {id: '1', name: strings.cancels, data: 34},
-                            {id: '2', name: strings.skipped, data: 34},
-                            {id: '3', name: strings.duration, data: '6ч  15 мин'},
+                            {
+                                id: '0',
+                                name: strings.ride,
+                                data: statistics.bookings_canceled_count + statistics.bookings_done_count
+                            },
+                            {id: '1', name: strings.cancels, data: statistics.bookings_canceled_count},
+                            {id: '2', name: strings.skipped, data: statistics.bookings_done_count},
+                            {id: '3', name: strings.duration, data: statistics.time_spend_in_min},
                         ]}
                         renderItem={({item}) => (
                             <View style={styles.bar}>
@@ -80,7 +84,7 @@ const EarningsScreenView = () => {
                             </Text>
                             <Text
                                 style={[styles.rowPrice, constStyles.bold]}>
-                                350 200{' '}
+                                {balance}{' '}
                             </Text>
                             <Text
                                 style={[
@@ -99,38 +103,6 @@ const EarningsScreenView = () => {
                             />
                             <Icon name="curveUp" size={9}/>
                         </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.rowLeft}>
-                            <Text
-                                style={[styles.rowTitle, constStyles.bold]}>
-                                {strings.bet}:
-                            </Text>
-                        </View>
-                        <View>
-                            <Text
-                                style={[styles.rowPrice, constStyles.bold]}>
-                                15%
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-                <View
-                    style={[
-                        styles.row,
-                        styles.wrapper,
-                        styles.borderBottom,
-                    ]}>
-                    <Text style={[styles.rowTitle, constStyles.bold]}>
-                        {strings.earningInWeek}
-                    </Text>
-                    <View style={styles.rowLeft}>
-                        <Text style={[styles.rowPrice, constStyles.bold]}>
-                            234 500{' '}
-                        </Text>
-                        <Text style={[styles.rowPrice, constStyles.light]}>
-                            сум
-                        </Text>
                     </View>
                 </View>
                 <ChooseCard/>

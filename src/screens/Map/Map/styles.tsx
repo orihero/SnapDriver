@@ -16,12 +16,10 @@ export default StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     marker: {
-        height: 80,
-        width: 80,
-        resizeMode: 'contain',
+        // resizeMode: 'contain',
     },
     buttonWrapper: {
-        bottom: 80,
+        bottom: 100,
         right: 10,
         position: 'absolute',
         zIndex: 1,

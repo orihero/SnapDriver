@@ -129,7 +129,7 @@ const TripScreenController = ({SetWaiting, newOrder, destination,}: IProps) => {
                 setDistanceToClient(prevState => prevState + calcDistance(newCoordinate));
                 // @ts-ignore
                 setRouteCoordinates(prevState => [...prevState, newCoordinate]);
-                setPrevCoordinates(newCoordinate)
+                // setPrevCoordinates(newCoordinate)
             },
             (error) => console.log(error),
             {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
@@ -163,6 +163,7 @@ const TripScreenController = ({SetWaiting, newOrder, destination,}: IProps) => {
             waitingTime={normalizedTime}
             travelTime={normalizedTravelTime}
             distanceToClient={(distanceToClient / 1000).toFixed(2)}
+            isPayedWaiting={waitingTime > 180}
         />
 
     );

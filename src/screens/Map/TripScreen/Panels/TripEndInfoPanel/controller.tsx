@@ -19,7 +19,7 @@ const TripEndInfoPanelPanelController = ({newOrder, ChangeOrderStatus}: IProps) 
     return (
         <TripEndInfoPanelView
             changeOrderStatus={changeOrderStatus}
-            price={newOrder.price}
+            newOrder={newOrder}
         />
 
     );

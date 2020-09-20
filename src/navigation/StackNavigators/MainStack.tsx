@@ -11,6 +11,7 @@ import ChatScreen from "../../screens/Map/ChatScreen";
 import TripScreen from "../../screens/Map/TripScreen";
 import Header from "@components/navigation/Header";
 import {strings} from "@constants/index";
+import NotificationsScreen from "../../screens/Map/NotificationsScreen";
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -38,6 +39,13 @@ const MainStack = () => (
         <Screen
             name={SCREENS.CHAT}
             component={ChatScreen}
+            options={{
+                header: () => <Header title={strings.message}/>
+            }}
+        />
+        <Screen
+            name={SCREENS.NOTIFICATIONS}
+            component={NotificationsScreen}
             options={{
                 header: () => <Header title={strings.message}/>
             }}

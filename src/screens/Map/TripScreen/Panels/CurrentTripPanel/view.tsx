@@ -18,6 +18,7 @@ interface IProps {
     openGoogleMaps: () => void;
     wait: () => void;
     isWaiting: boolean;
+    isVisible: boolean
 }
 
 const CurrentTripPanelView = (
@@ -29,28 +30,32 @@ const CurrentTripPanelView = (
         duration,
         openGoogleMaps,
         isWaiting,
-        wait
+        wait,
+        isVisible
     }: IProps) => {
     return (
         <View>
             <HatCutout style={styles.hatCutOut}/>
             <View style={styles.wrapper}>
-                <View style={styles.dragIcon}/>
                 <View style={styles.innerWrapper}>
+
                     <View style={styles.imgWrapper}>
                         <Image style={styles.img} source={images.location}/>
                         <View style={styles.infoWrapper}>
-                            <Text style={styles.info}>{distance} км - {duration} мин в пути</Text>
+                            {isVisible && <Text style={styles.info}>{distance} км - {duration} мин в пути</Text>}
                             <Text style={styles.text}>{drivingTo}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.bottomWrapper}>
-                    <TouchableWithoutFeedback onPress={openGoogleMaps}>
-                        <View style={styles.bottomIconWrapper}>
-                            <Icon name="path" size={25} color={colors.black}/>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    {
+                        isVisible &&
+                        <TouchableWithoutFeedback onPress={openGoogleMaps}>
+                            <View style={styles.bottomIconWrapper}>
+                                <Icon name="path" size={25} color={colors.black}/>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    }
                     <TouchableWithoutFeedback onPress={wait}>
                         <View style={styles.bottomIconWrapper}>
                             <PauseIcon
@@ -66,7 +71,7 @@ const CurrentTripPanelView = (
                 </View>
                 <Button
                     onPress={changeOrderStatus}
-                    text={strings.finish}
+                    text={strings.finish as string}
                     isLoading={isLoading}
                 />
             </View>

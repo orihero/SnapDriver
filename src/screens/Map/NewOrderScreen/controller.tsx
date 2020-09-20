@@ -11,9 +11,10 @@ interface IProps {
     newOrder: any;
     SkipNewOrder: IAction;
     AcceptNewOrder: IAction;
+    user: any;
 }
 
-const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IProps) => {
+const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder, user}: IProps) => {
 
     const navigation = useNavigation();
 
@@ -62,7 +63,7 @@ const NewOrderScreenController = ({newOrder, SkipNewOrder, AcceptNewOrder}: IPro
         stopNotify();
         AcceptNewOrder({
             orderId: newOrder.data.id,
-            driverId: 28,
+            driverId: user.data.user_id,
         }, () => {
             return {
                 cb: () => {

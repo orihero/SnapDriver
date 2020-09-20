@@ -6,6 +6,7 @@ import colors from "@constants/colors";
 import SCREENS from "@constants/screens";
 import IAction from "@store/types/IAction";
 import NetInfo from "@react-native-community/netinfo";
+import Geolocation from "@react-native-community/geolocation";
 
 interface IProps {
     navigation: StackNavigationProp<any>;
@@ -17,6 +18,8 @@ interface IProps {
     newOrder: any;
     isNetConnected: boolean;
     car: any;
+    UpdateLocation: IAction;
+    GetProfile: IAction;
 }
 
 const MainScreenController = (
@@ -30,6 +33,8 @@ const MainScreenController = (
         SetNetConnection,
         isNetConnected,
         car,
+        UpdateLocation,
+        GetProfile,
     }: IProps
 ) => {
     const [showTariff, setShowTariff] = useState(false);
@@ -38,11 +43,26 @@ const MainScreenController = (
         navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
             StatusBar.setBackgroundColor(colors.white);
+            GetProfile()
         });
 
         NetInfo.addEventListener(state => {
             SetNetConnection(state.isConnected && state.isInternetReachable)
         });
+
+
+        setInterval(() => {
+            if (!driver.isBusy) {
+                Geolocation.getCurrentPosition(position => {
+                    const {coords: {latitude, longitude}} = position;
+                    UpdateLocation({
+                        lat: `${latitude}`,
+                        lng: `${longitude}`
+                    })
+                })
+            }
+        }, 10000);
+
 
     }, []);
 
@@ -65,7 +85,7 @@ const MainScreenController = (
     return (
         <MainScreenView
             isNetConnected={isNetConnected}
-            goToChat={routeTo(SCREENS.CHAT)}
+            goToChat={routeTo(SCREENS.NOTIFICATIONS)}
             setShowTariff={setShowTariff}
             showTariff={showTariff}
             driverStatus={driver.status}

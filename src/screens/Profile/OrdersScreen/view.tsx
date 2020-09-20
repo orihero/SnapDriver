@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, FlatList, NativeSyntheticEvent, NativeScrollEvent, SectionList, Animated} from 'react-native';
+import {Text, View, NativeSyntheticEvent, NativeScrollEvent, Animated} from 'react-native';
 
 import strings from '@constants/strings';
 import HeaderTab from '@components/navigation/HeaderTab';
@@ -12,9 +12,10 @@ interface IProps {
     onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
     orderList: any;
     headerHeight: any;
+    changePeriod: () => void;
 }
 
-const OrdersScreenView = ({onScroll, orderList, headerHeight}: IProps) => {
+const OrdersScreenView = ({onScroll, orderList, headerHeight, changePeriod}: IProps) => {
 
     return (
         <View style={{flex: 1}}>
@@ -38,7 +39,7 @@ const OrdersScreenView = ({onScroll, orderList, headerHeight}: IProps) => {
                     renderSectionHeader={() =>
                         <>
                             <View style={styles.tabWrapper}>
-                                <HeaderTab/>
+                                <HeaderTab changePeriod={changePeriod}/>
                             </View>
                             <View style={styles.container}>
                                 <View style={styles.earningDetail}>

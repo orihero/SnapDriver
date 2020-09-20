@@ -13,7 +13,7 @@ function* SetDriverStatusOnline(action: any) {
     try {
 
         echo = new Echo({
-            host: 'http://snap.vroom.uz:6060',
+            host: 'https://snaptaxi.uz:6060',
             broadcaster: 'socket.io',
             client: io,
         });
@@ -192,6 +192,34 @@ function* RateOrder(action: any) {
     }
 }
 
+function* SendPush(action: any) {
+    try {
+
+        const {data} = yield call(api.request.post, '/car-booking/send-push', action.payload);
+
+        yield put({
+            type: Booking.SendPush.SUCCESS,
+            payload: {
+                ...action.payload,
+                type: 'send'
+            }
+        });
+
+        yield call(action.cb);
+
+
+    } catch (error) {
+
+        yield put({
+            type: Booking.SendPush.FAILURE,
+            payload: error,
+        });
+
+        yield call(action.errorCb, error);
+    }
+}
+
+
 
 export default function* root() {
     yield all([
@@ -202,6 +230,7 @@ export default function* root() {
         takeLatest(Booking.ChangeOrderStatus.REQUEST, ChangeOrderStatus),
         takeLatest(Booking.GetOrderList.REQUEST, GetOrderList),
         takeLatest(Booking.RateOrder.REQUEST, RateOrder),
+        takeLatest(Booking.SendPush.REQUEST, SendPush),
     ]);
 }
 

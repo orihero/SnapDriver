@@ -1,6 +1,6 @@
 import {
     AcceptNewOrder, ChangeOrderStatus, GetOrderList,
-    NewOrder,
+    NewOrder, SendPush,
     SetDriverStatusOffline,
     SetDriverStatusOnline, SetWaiting,
     SkipNewOrder
@@ -21,6 +21,9 @@ const initialState = {
     },
     list: {
         data: []
+    },
+    messages: {
+        data: [],
     }
 };
 
@@ -86,6 +89,19 @@ export default (state = initialState, action: any) => {
                 }
             }
         }
+        case AcceptNewOrder.FAILURE: {
+            return {
+                ...state,
+                driver: {
+                    isBusy: false,
+                    status: true,
+                },
+                newOrder: {
+                    isModalVisible: false,
+                    data: {},
+                },
+            }
+        }
         case ChangeOrderStatus.SUCCESS: {
             return {
                 ...state,
@@ -106,6 +122,14 @@ export default (state = initialState, action: any) => {
                 ...state,
                 list: {
                     data: action.payload
+                },
+            }
+        }
+        case SendPush.SUCCESS: {
+            return {
+                ...state,
+                messages: {
+                    data: [...state.messages.data, action.payload]
                 },
             }
         }

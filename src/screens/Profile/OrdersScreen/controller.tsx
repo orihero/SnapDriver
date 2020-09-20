@@ -1,9 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import OrdersScreenView from "./view";
-import {Animated, NativeScrollEvent, NativeSyntheticEvent, StatusBar} from "react-native";
+import {Animated, StatusBar} from "react-native";
 import colors from "@constants/colors";
 import {StackNavigationProp} from "@react-navigation/stack";
 import IAction from "@store/types/IAction";
+import moment from "moment";
 
 interface IProps {
     navigation: StackNavigationProp<any>;
@@ -16,7 +17,6 @@ const OrdersScreenController = ({navigation, orderList, GetOrderList}: IProps) =
         const scrollOffsetY = useRef(new Animated.Value(0)).current;
 
         const HEADER_EXPANDED_HEIGHT = 80;
-        const HEADER_COLLAPSED_HEIGHT = 0;
 
         useEffect(() => {
             StatusBar.setBarStyle('light-content');
@@ -30,6 +30,10 @@ const OrdersScreenController = ({navigation, orderList, GetOrderList}: IProps) =
             extrapolate: 'clamp',
         });
 
+        const changePeriod = () => {
+
+        };
+
         return (
             <OrdersScreenView
                 onScroll={Animated.event([
@@ -37,6 +41,7 @@ const OrdersScreenController = ({navigation, orderList, GetOrderList}: IProps) =
                 ], {useNativeDriver: true})}
                 orderList={orderList.data}
                 headerHeight={headerHeight}
+                changePeriod={changePeriod}
             />
         );
     }

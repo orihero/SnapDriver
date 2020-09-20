@@ -2,7 +2,7 @@ import {bindActionCreators, Dispatch} from "redux";
 import {connect,} from "react-redux";
 
 import booking from "@store/actions/booking";
-import LoginScreenController from "./controller";
+import OrdersScreenController from "./controller";
 
 const mapStateToProps = ({booking: {list}}: any) => ({
     orderList: list
@@ -17,4 +17,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(LoginScreenController);
+)(OrdersScreenController);

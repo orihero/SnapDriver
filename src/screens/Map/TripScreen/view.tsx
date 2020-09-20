@@ -23,6 +23,7 @@ interface IProps {
     waitingTime: string;
     travelTime: string;
     distanceToClient: any;
+    isPayedWaiting: boolean;
 }
 
 const TripScreenView = (
@@ -32,7 +33,8 @@ const TripScreenView = (
         onPhonePress,
         destination,
         distanceToClient,
-        travelTime
+        travelTime,
+        isPayedWaiting
     }: IProps) => {
 
     const renderPanel = () => {
@@ -57,19 +59,25 @@ const TripScreenView = (
                 return {
                     headerTitle: strings.acceptedOrder,
                     title: strings.tillOrder,
-                    data: destination.duration + ' мин'
+                    data: (destination.duration || 1) + ' мин'
                 };
             case OrderStatus.WAITING:
                 return {
                     headerTitle: strings.waiting,
                     title: strings.waitingTime,
                     data: waitingTime,
+                    styles: {
+                        color: isPayedWaiting ? 'red' : 'green'
+                    }
                 };
             case OrderStatus.ARRIVED:
                 return {
                     headerTitle: strings.acceptedOrder,
                     title: strings.waitingTime,
                     data: waitingTime,
+                    styles: {
+                        color: isPayedWaiting ? 'red' : 'green'
+                    }
                 };
             case OrderStatus.PROCESSING:
                 return {
@@ -100,6 +108,7 @@ const TripScreenView = (
             <View>
                 <TripHeader
                     headerTitle={headerText().headerTitle}
+                    headerStyles={headerText().styles}
                     orderStatus={orderStatus}
                     topTitle={`${headerText().title}`}
                     topData={`${headerText().data} `}

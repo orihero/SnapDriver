@@ -4,32 +4,33 @@ import colors from '../../constants/colors';
 import strings from '@constants/strings';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import constStyles from '../../constants/constStyles';
+import moment from "moment";
 
 
-
-const HeaderTab = () => {
+const HeaderTab = ({changePeriod}: any) => {
     let [activeTab, setActiveTab] = useState('day');
-    let [activeFilter, setActiveFilter] = useState('skipped');
 
     const onDayPress = () => {
         setActiveTab('day');
-    };
-    const onWeekPress = () => {
-        setActiveTab('week');
-    };
-    const onMonthPress = () => {
-        setActiveTab('month');
+        changePeriod(new Date())
     };
 
-    const onDonePress = () => {
-        setActiveFilter('done');
+    const onWeekPress = () => {
+        setActiveTab('week');
+        let arr = moment(new Date()).format('YYYY-MM-DD').split('-');
+        if (Number(arr[2]) - 7 >= 0) {
+            changePeriod(`${arr[0]}-${arr[1]}-${Number(arr[2]) - 7}`)
+        } else {
+            changePeriod(`${arr[0]}-${arr[1]}-${0}`)
+        }
     };
-    const onSkippedPress = () => {
-        setActiveFilter('skipped');
+
+    const onMonthPress = () => {
+        setActiveTab('month');
+        let arr = moment(new Date()).format('YYYY-MM-DD').split('-');
+        changePeriod(`${arr[0]}-${arr[1]}-${0}`)
     };
-    const onCancelledPress = () => {
-        setActiveFilter('cancelled');
-    };
+
     return (
         <>
             <View style={styles.container}>

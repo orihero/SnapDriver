@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {Image, Text, View} from 'react-native';
-import MapView, {Marker, Polyline, Overlay, PROVIDER_GOOGLE, Circle} from 'react-native-maps';
+import React, {useState} from 'react';
+import {Image, View} from 'react-native';
+import MapView, {Marker, Polyline, PROVIDER_GOOGLE,} from 'react-native-maps';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MapViewDirections from "react-native-maps-directions";
-import mapConfig from '../../../configs/mapConfig';
 import colors from '@constants/colors';
 import Icon from '@assets/icons';
 import styles from "./styles";
 import images from "@assets/images";
 import API_KEY from "@constants/apiKey";
-import {getDistance} from 'geolib';
 
 
 interface IProps {
@@ -31,6 +29,7 @@ let Map = (
         setMapRef,
         mapRef,
         route,
+        currentLocation,
     }: IProps) => {
     const [ways, setWays] = useState([]);
 
@@ -41,20 +40,19 @@ let Map = (
                 ref={ref => setMapRef(ref)}
                 style={styles.map}
                 showsBuildings
-                showsUserLocation
                 loadingEnabled
                 loadingIndicatorColor={colors.green}
                 provider={PROVIDER_GOOGLE}
                 // customMapStyle={mapConfig}
             >
-                {/*<Marker coordinate={currentLocation}>*/}
-                {/*    <Image style={styles.marker} source={images.marker}/>*/}
-                {/*</Marker>*/}
-                {/*<Polyline*/}
-                {/*    coordinates={ways}*/}
-                {/*    strokeColor={colors.blue}*/}
-                {/*    strokeWidth={6}*/}
-                {/*/>*/}
+                <Marker coordinate={currentLocation}>
+                    <Image style={styles.marker}  source={images.car}/>
+                </Marker>
+                <Polyline
+                    coordinates={ways}
+                    strokeColor={colors.blue}
+                    strokeWidth={6}
+                />
                 {
                     Object.keys(route).length > 0 && !!route.from.longitude &&
                     <MapViewDirections

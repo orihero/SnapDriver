@@ -11,6 +11,7 @@ const SetWaiting = createActionTypes('SET_WAITING');
 const SetNetConnection = createActionTypes('SET_NET_CONNECTION');
 const GetOrderList = createActionTypes('GET_ORDER_LIST');
 const RateOrder = createActionTypes('RATE_ORDER');
+const SendPush = createActionTypes('SEND_PUSH');
 
 
 export {
@@ -25,4 +26,5 @@ export {
     SetNetConnection,
     GetOrderList,
     RateOrder,
+    SendPush,
 }

@@ -17,6 +17,7 @@ interface InnerHeaderProps {
     onPhonePress: () => void;
     orderStatus: string;
     headerTitle?: string,
+    headerStyles?: any
 }
 
 const TripHeader = (
@@ -28,6 +29,7 @@ const TripHeader = (
         bottomTitle,
         onPhonePress,
         orderStatus,
+        headerStyles
     }: InnerHeaderProps
 ) => {
     const renderInnerHeader = () => {
@@ -41,8 +43,8 @@ const TripHeader = (
                     <View style={styles.container}>
                         <View style={styles.dataWrapper}>
                             <View style={styles.topWrapper}>
-                                <Text style={[styles.topText, constStyles.bold]}>{topTitle}</Text>
-                                <Text style={[styles.topText, constStyles.bold]}>{' '}{topData}</Text>
+                                <Text style={[styles.topText, constStyles.bold, headerStyles]}>{topTitle}</Text>
+                                <Text style={[styles.topText, constStyles.bold, headerStyles]}>{' '}{topData}</Text>
                             </View>
                             <View style={styles.bottomWrapper}>
                                 <Text style={[styles.bottomText, constStyles.bold]}>{bottomTitle}:</Text>

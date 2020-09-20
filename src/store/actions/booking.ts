@@ -11,6 +11,7 @@ const ChangeOrderStatus = createAction(Booking.ChangeOrderStatus.REQUEST);
 const SetWaiting = createAction(Booking.SetWaiting.SUCCESS);
 const GetOrderList = createAction(Booking.GetOrderList.REQUEST);
 const RateOrder = createAction(Booking.RateOrder.REQUEST);
+const SendPush = createAction(Booking.SendPush.REQUEST);
 
 export default {
     SetDriverStatusOnline,
@@ -23,4 +24,5 @@ export default {
     SetWaiting,
     GetOrderList,
     RateOrder,
+    SendPush,
 }

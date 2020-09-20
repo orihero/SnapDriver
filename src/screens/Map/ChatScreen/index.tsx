@@ -1,3 +1,3 @@
-import ChatScreen from "./view";
+import ChatScreen from "./connect";
 
 export default ChatScreen;

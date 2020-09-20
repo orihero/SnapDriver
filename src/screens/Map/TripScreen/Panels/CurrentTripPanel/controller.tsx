@@ -8,9 +8,10 @@ interface IProps {
     ChangeOrderStatus: IAction;
     newOrder: any;
     destination: any;
+    waiting: any;
 }
 
-const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: IProps) => {
+const CurrentTripPanelController = ({ChangeOrderStatus, waiting, newOrder, destination}: IProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -45,7 +46,8 @@ const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: 
         ChangeOrderStatus({
             driver_id: data.driver.user_id,
             orderId: data.id,
-            orderStatus: OrderStatus.DONE
+            orderStatus: OrderStatus.DONE,
+            waiting_time: waiting.time > 180 ? waiting.time - 180 : 0
         }, () => {
             setIsLoading(false)
         }, () => {
@@ -57,6 +59,7 @@ const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: 
         <CurrentTripPanelView
             changeOrderStatus={changeOrderStatus}
             drivingTo={newOrder.data.routes[1] ? newOrder.data.routes[1].address : 'Не указано'}
+            isVisible={newOrder.data.routes[1]}
             isLoading={isLoading}
             isWaiting={newOrder.data.status === OrderStatus.WAITING}
             duration={destination.details.duration}
@@ -64,7 +67,6 @@ const CurrentTripPanelController = ({ChangeOrderStatus, newOrder, destination}: 
             openGoogleMaps={openGoogleMaps}
             wait={wait}
         />
-
     );
 };
 
