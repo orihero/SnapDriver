@@ -12,23 +12,24 @@ const HeaderTab = ({changePeriod}: any) => {
 
     const onDayPress = () => {
         setActiveTab('day');
-        changePeriod(new Date())
+        const today = moment(Date.now()).format('YYYY-MM-DD');
+        changePeriod(today, today)
     };
 
     const onWeekPress = () => {
         setActiveTab('week');
-        let arr = moment(new Date()).format('YYYY-MM-DD').split('-');
+        let arr = moment(Date.now()).format('YYYY-MM-DD').split('-');
         if (Number(arr[2]) - 7 >= 0) {
-            changePeriod(`${arr[0]}-${arr[1]}-${Number(arr[2]) - 7}`)
+            changePeriod(`${arr[0]}-${arr[1]}-${Number(arr[2]) - 7} `, moment(Date.now()).format('YYYY-MM-DD'))
         } else {
-            changePeriod(`${arr[0]}-${arr[1]}-${0}`)
+            changePeriod(`${arr[0]}-${Number(arr[1]) - 1}-${Number(arr[2]) - 7}`, moment(Date.now()).format('YYYY-MM-DD'))
         }
     };
 
     const onMonthPress = () => {
         setActiveTab('month');
         let arr = moment(new Date()).format('YYYY-MM-DD').split('-');
-        changePeriod(`${arr[0]}-${arr[1]}-${0}`)
+        changePeriod(`${arr[0]}-${arr[1]}-${0}`, moment(Date.now()).format('YYYY-MM-DD'))
     };
 
     return (

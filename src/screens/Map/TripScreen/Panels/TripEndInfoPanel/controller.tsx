@@ -1,6 +1,7 @@
 import React from 'react';
 import TripEndInfoPanelView from "./view";
 import IAction from "@store/types/IAction";
+import SCREENS from "@constants/screens";
 
 interface IProps {
     ChangeOrderStatus: IAction;

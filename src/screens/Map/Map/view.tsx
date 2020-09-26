@@ -46,7 +46,7 @@ let Map = (
                 // customMapStyle={mapConfig}
             >
                 <Marker coordinate={currentLocation}>
-                    <Image style={styles.marker}  source={images.car}/>
+                    <Image  style={styles.marker} source={images.car}/>
                 </Marker>
                 <Polyline
                     coordinates={ways}

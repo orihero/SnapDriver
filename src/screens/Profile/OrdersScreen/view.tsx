@@ -11,11 +11,14 @@ import Header from "@components/navigation/Header";
 interface IProps {
     onScroll: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
     orderList: any;
+    profit: any;
+    commission: any;
     headerHeight: any;
-    changePeriod: () => void;
+    changePeriod: any;
 }
 
-const OrdersScreenView = ({onScroll, orderList, headerHeight, changePeriod}: IProps) => {
+const OrdersScreenView = ({onScroll, orderList, headerHeight, changePeriod, profit, commission}: IProps) => {
+
 
     return (
         <View style={{flex: 1}}>
@@ -45,14 +48,14 @@ const OrdersScreenView = ({onScroll, orderList, headerHeight, changePeriod}: IPr
                                 <View style={styles.earningDetail}>
                                     <Text style={[styles.titleText, constStyles.bold]}>{strings.allOrders}</Text>
                                     <View style={styles.rightText}>
-                                        <Text style={[styles.price, constStyles.bold]}>245500</Text>
+                                        <Text style={[styles.price, constStyles.bold]}>{profit - commission}</Text>
                                         <Text style={[styles.currency, constStyles.light]}>{' '}сум</Text>
                                     </View>
                                 </View>
                                 <View style={styles.earningDetail}>
                                     <Text style={[styles.titleText, constStyles.bold]}>{strings.sumTax}</Text>
                                     <View style={styles.rightText}>
-                                        <Text style={[styles.price, constStyles.bold]}>245500</Text>
+                                        <Text style={[styles.price, constStyles.bold]}>{commission}</Text>
                                         <Text style={[styles.currency, constStyles.light]}>{' '}сум</Text>
                                     </View>
                                 </View>

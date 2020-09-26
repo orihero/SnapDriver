@@ -9,17 +9,17 @@ const EarningsController = ({GetStatistics, navigation, user}: any) => {
     useEffect(() => {
         navigation.addListener('focus', () => {
             GetStatistics({
-                dateFrom: '2020-09-16',
-                dateTo: '2020-08-16',
+                dateFrom: moment(Date.now()).format('YYY-MM-DD'),
+                dateTo: moment(Date.now()).format('YYY-MM-DD'),
             }, (data: any) => {
                 setStatistics(data)
             })
         })
     }, []);
 
-    const changePeriod = (dateTo: any) => {
+    const changePeriod = (dateFrom: any, dateTo: any) => {
         GetStatistics({
-            dateFrom: moment(new Date()).format('YYYY-MM-DD'),
+            dateFrom: dateFrom,
             dateTo: dateTo,
         }, (data: any) => {
             setStatistics(data)

@@ -16,7 +16,9 @@ export default StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     marker: {
-        // resizeMode: 'contain',
+        resizeMode: 'contain',
+        width: 35,
+        height: 35,
     },
     buttonWrapper: {
         bottom: 100,

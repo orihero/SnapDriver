@@ -201,7 +201,8 @@ function* SendPush(action: any) {
             type: Booking.SendPush.SUCCESS,
             payload: {
                 ...action.payload,
-                type: 'send'
+                type: 'send',
+                id: Math.random(),
             }
         });
 

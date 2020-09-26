@@ -16,6 +16,7 @@ interface IProps {
     duration: string;
     distance: string;
     openGoogleMaps: () => void;
+    goToChat: () => void;
     wait: () => void;
     isWaiting: boolean;
     isVisible: boolean
@@ -31,7 +32,8 @@ const CurrentTripPanelView = (
         openGoogleMaps,
         isWaiting,
         wait,
-        isVisible
+        isVisible,
+        goToChat
     }: IProps) => {
     return (
         <View>
@@ -63,7 +65,7 @@ const CurrentTripPanelView = (
                             />
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={goToChat}>
                         <View style={styles.bottomIconWrapper}>
                             <Icon name="chat" size={25} color={colors.blue}/>
                         </View>

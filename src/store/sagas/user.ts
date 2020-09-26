@@ -24,11 +24,7 @@ function* GetProfile(action: any) {
 
 function* UpdateProfile(action: any) {
     try {
-        const {data} = yield call(api.request.post, '/profile/update', action.payload, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        const {data} = yield call(api.request.post, '/profile/update', action.payload);
 
         yield put({
             type: User.UpdateProfile.SUCCESS,
@@ -129,7 +125,6 @@ function* GetStatistics(action: any) {
         yield call(action.errorCb, error);
     }
 }
-
 
 
 export default function* root() {

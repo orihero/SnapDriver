@@ -51,6 +51,7 @@ let strings = new LocalizedStrings({
         selectCarColor: 'Выберите цвет вашего автомобиля',
         noAccess: 'Нет доступа',
         myTariff: 'Мои тарифы',
+        notifications: 'Уведоиление',
         message: 'Сообщения',
         goShift: 'Выйти на смену',
         exitShift: 'Выйти из смены',

@@ -26,11 +26,11 @@ const screens: IScreenProps[] = [
         name: SCREENS.EARNINGS_STACK,
         component: EarningsStack,
     },
-    {
-        label: strings.balance,
-        name: SCREENS.BALANCE_STACK,
-        component: BalanceStack,
-    },
+    // {
+    //     label: strings.balance,
+    //     name: SCREENS.BALANCE_STACK,
+    //     component: BalanceStack,
+    // },
     {
         label: strings.orders,
         name: SCREENS.ORDERS_STACK,

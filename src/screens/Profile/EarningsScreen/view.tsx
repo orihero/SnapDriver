@@ -105,7 +105,7 @@ const EarningsScreenView = ({statistics, balance, changePeriod}: any) => {
                         </View>
                     </View>
                 </View>
-                <ChooseCard/>
+                {/*<ChooseCard/>*/}
             </View>
         </ScrollView>
     );

@@ -3,6 +3,8 @@ import CurrentTripPanelView from "./view";
 import IAction from "@store/types/IAction";
 import OrderStatus from "@constants/orderStatus";
 import {Linking, Platform} from "react-native";
+import SCREENS from "@constants/screens";
+import {useNavigation} from "@react-navigation/native";
 
 interface IProps {
     ChangeOrderStatus: IAction;
@@ -14,7 +16,7 @@ interface IProps {
 const CurrentTripPanelController = ({ChangeOrderStatus, waiting, newOrder, destination}: IProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
-
+    const navigation = useNavigation();
     const openGoogleMaps = () => {
         const {routes} = newOrder.data;
         const scheme = Platform.select({ios: 'maps:0,0?q=', android: 'geo:0,0?q='});
@@ -55,8 +57,13 @@ const CurrentTripPanelController = ({ChangeOrderStatus, waiting, newOrder, desti
         })
     };
 
+    const goToChat = () => {
+        navigation.navigate(SCREENS.CHAT)
+    };
+
     return (
         <CurrentTripPanelView
+            goToChat={goToChat}
             changeOrderStatus={changeOrderStatus}
             drivingTo={newOrder.data.routes[1] ? newOrder.data.routes[1].address : 'Не указано'}
             isVisible={newOrder.data.routes[1]}

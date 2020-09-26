@@ -70,7 +70,7 @@ let MainScreenView = (
                         <MessageCard
                             image={images.notification}
                             onPress={goToChat}
-                            title={strings.message}
+                            title={strings.notifications}
                         />
                     </View>
                     <View style={styles.buttonWrapper}>

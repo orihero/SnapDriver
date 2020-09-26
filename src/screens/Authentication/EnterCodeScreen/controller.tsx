@@ -51,25 +51,28 @@ const EnterCodeScreenController = (
         StatusBar.setBackgroundColor(colors.blue);
     }, [navigation]);
 
-    PushNotification.configure({
-        onRegister: (data: any) => {
-            setFcmToken(data.token)
-        },
-        onNotification: (notification: any) => {
-            if (notification.data.title === "message") {
-                SendPush({
-                    message: notification.data.message
-                })
-            }
-        },
-        permissions: {
-            alert: true,
-            badge: true,
-            sound: true,
-        },
-        popInitialNotification: true,
-        requestPermissions: true,
-    });
+    useEffect(() => {
+        PushNotification.configure({
+            onRegister: (data: any) => {
+                setFcmToken(data.token)
+            },
+            onNotification: (notification: any) => {
+                if (notification.title === "message") {
+                    SendPush({
+                        id: notification.data.notification_id,
+                        message: notification.message
+                    })
+                }
+            },
+            permissions: {
+                alert: true,
+                badge: true,
+                sound: true,
+            },
+            popInitialNotification: true,
+            requestPermissions: true,
+        });
+    }, []);
 
 
     useEffect(() => {

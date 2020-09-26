@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
 import Icon from '../../assets/icons';
 import colors from '../../constants/colors';
 import constStyles from '../../constants/constStyles';
@@ -9,30 +9,36 @@ interface AvatarProps {
     setAvatar: (avatar: any) => void,
     avatar: object;
     style?: any;
+    handleSubmit: () => void;
+    initial: string;
 }
 
-const Avatar = ({avatar, setAvatar, style}: AvatarProps) => {
+const Avatar = ({avatar, setAvatar, style, handleSubmit, initial}: AvatarProps) => {
     const onAddPress = () => {
-        const options = {
-            noData: true,
-        };
+        const options = {};
         ImagePicker.launchImageLibrary(options, (response) => {
             if (response.uri) {
                 setAvatar(response);
+                Alert.alert(
+                    'Сохранить',
+                    'Вы дествительно хотите изменит фото профиля?',
+                    [
+                        {text: 'Да', onPress: handleSubmit},
+                        {text: 'Нет', onPress: () => setAvatar(initial)}
+                    ]
+                )
             }
         });
     };
     return (
-        <View style={[styles.container, style]}>
+        <TouchableOpacity onPress={onAddPress} style={[styles.container, style]}>
             <View style={styles.imageWrapper}>
-                <Image source={{uri: avatar.uri}} style={styles.image}/>
+                <Image source={{uri: avatar.uri || avatar}} style={styles.image}/>
             </View>
             <View style={[styles.iconWrapper, constStyles.shadow]}>
-                <TouchableOpacity onPress={onAddPress}>
-                    <Icon name="plus" size={20} color={colors.darkGray}/>
-                </TouchableOpacity>
+                <Icon name="plus" size={10} color={colors.darkGray}/>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -44,21 +50,21 @@ const styles = StyleSheet.create({
         borderColor: colors.darkTransparent,
         borderWidth: 5,
         borderRadius: 190,
-        width: 95,
-        height: 95,
+        width: 70,
+        height: 70,
         overflow: 'hidden',
     },
     image: {
-        height: 85,
-        width: 85,
+        height: 60,
+        width: 60,
         resizeMode: 'cover',
     },
     iconWrapper: {
         position: 'absolute',
-        top: 65,
+        top: 45,
         right: 0,
-        height: 35,
-        width: 35,
+        height: 25,
+        width: 25,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.white,

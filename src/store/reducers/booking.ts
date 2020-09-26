@@ -5,6 +5,7 @@ import {
     SetDriverStatusOnline, SetWaiting,
     SkipNewOrder
 } from "../constants/booking";
+import {uniqBy} from "lodash"
 
 const initialState = {
     driver: {
@@ -56,6 +57,9 @@ export default (state = initialState, action: any) => {
                     newOrder: {
                         isModalVisible: true,
                         data: action.payload,
+                    },
+                    messages: {
+                        data: []
                     }
                 }
             } else {
@@ -86,6 +90,9 @@ export default (state = initialState, action: any) => {
                 newOrder: {
                     data: action.payload,
                     isModalVisible: false,
+                },
+                messages: {
+                    data: []
                 }
             }
         }
@@ -100,6 +107,9 @@ export default (state = initialState, action: any) => {
                     isModalVisible: false,
                     data: {},
                 },
+                messages: {
+                    data: []
+                }
             }
         }
         case ChangeOrderStatus.SUCCESS: {
@@ -129,7 +139,7 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 messages: {
-                    data: [...state.messages.data, action.payload]
+                    data: uniqBy([...state.messages.data, action.payload], 'id')
                 },
             }
         }

@@ -23,7 +23,7 @@ const MapHeader = (
         gradientBack,
         notification,
         children,
-        isNetConnected =  true
+        isNetConnected = true
     }: HeaderProps) => {
 
     const navigation: DrawerNavigationProp<any> = useNavigation();
@@ -56,7 +56,7 @@ const MapHeader = (
                                     style={{
                                         padding: 10,
                                         backgroundColor: colors.white,
-                                    }}> 
+                                    }}>
                                     <Icon
                                         name="menu"
                                         color={colors.blue}
@@ -84,15 +84,9 @@ const MapHeader = (
     return (
         <>
             {!!gradientBack ? (
-                <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 0, y: 1}}
-                    colors={[gradientBack[0] || '', gradientBack[1] || '']}
-                >
-                    <View style={{height: 80, justifyContent: 'center'}}>
-                        <HeaderView/>
-                    </View>
-                </LinearGradient>
+                <View style={{height: 80, justifyContent: 'center'}}>
+                    <HeaderView/>
+                </View>
             ) : (
                 <HeaderView/>
             )}

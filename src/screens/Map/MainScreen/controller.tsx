@@ -8,6 +8,8 @@ import IAction from "@store/types/IAction";
 import NetInfo from "@react-native-community/netinfo";
 import Geolocation from "@react-native-community/geolocation";
 
+const PushNotification = require("react-native-push-notification");
+
 interface IProps {
     navigation: StackNavigationProp<any>;
     SetDriverStatusOnline: IAction;
@@ -20,6 +22,7 @@ interface IProps {
     car: any;
     UpdateLocation: IAction;
     GetProfile: IAction;
+    SendPush: any;
 }
 
 const MainScreenController = (
@@ -35,9 +38,11 @@ const MainScreenController = (
         car,
         UpdateLocation,
         GetProfile,
+        SendPush
     }: IProps
 ) => {
     const [showTariff, setShowTariff] = useState(false);
+    const [intervalId, setIntervalId] = useState<any>();
 
     useEffect(() => {
         navigation.addListener('focus', () => {
@@ -50,20 +55,38 @@ const MainScreenController = (
             SetNetConnection(state.isConnected && state.isInternetReachable)
         });
 
+        // setInterval(() => {
+        //     if (!driver.isBusy) {
+        //         Geolocation.getCurrentPosition(position => {
+        //             const {coords: {latitude, longitude}} = position;
+        //             UpdateLocation({
+        //                 lat: `${latitude}`,
+        //                 lng: `${longitude}`
+        //             })
+        //         })
+        //     }
+        // }, 10000)
+        setIntervalId(null);
 
-        setInterval(() => {
-            if (!driver.isBusy) {
-                Geolocation.getCurrentPosition(position => {
-                    const {coords: {latitude, longitude}} = position;
-                    UpdateLocation({
-                        lat: `${latitude}`,
-                        lng: `${longitude}`
+        PushNotification.configure({
+
+            onNotification: (notification: any) => {
+                if (notification.title === "message") {
+                    SendPush({
+                        id: notification.data.notification_id,
+                        message: notification.message
                     })
-                })
-            }
-        }, 10000);
-
-
+                }
+            },
+            permissions: {
+                alert: true,
+                badge: true,
+                sound: true,
+            },
+            popInitialNotification: true,
+            requestPermissions: true,
+        });
+        return clearInterval(intervalId);
     }, []);
 
     const routeTo = (screen: string) => () => {

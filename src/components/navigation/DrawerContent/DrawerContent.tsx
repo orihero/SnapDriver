@@ -1,11 +1,12 @@
-import React from 'react';
-import {Text, View, Image, FlatList, Alert} from 'react-native';
-import {useDispatch, useSelector} from "react-redux";
+import React, {useState} from 'react';
+import {Text, View, FlatList, Alert} from 'react-native';
+import {connect, useDispatch, useSelector} from "react-redux";
+// @ts-ignore
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {bindActionCreators} from "redux";
 
 import styles from "./styles";
-import images from '@assets/images';
 import colors from '@constants/colors';
 import constStyles from '@constants/constStyles';
 import strings from '@constants/strings';
@@ -13,6 +14,9 @@ import Icon from '@assets/icons';
 import DrawerItem from '../DrawerItem';
 import {screens} from "../../../navigation/DraweNavigator/screens";
 import TouchablePlatformSpecific from "@components/common/TouchablePlatformSpecific";
+import Avatar from "@components/common/Avatar";
+import user from "@store/actions/user";
+import {constructFileFromUri, formData} from "@store/utils";
 
 
 const DrawerContent = (props: any) => {
@@ -27,27 +31,45 @@ const DrawerContent = (props: any) => {
         ])
     };
 
+    const [avatar, setAvatar] = useState(user.avatar);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = () => {
+        setIsLoading(true);
+        const formData = new FormData();
+        formData.append('avatar', {
+            uri: avatar.uri,
+            type: avatar.type,
+            name: avatar.fileName,
+            data: avatar.data,
+        });
+        props.UpdateProfile(formData, () => {
+                setIsLoading(false);
+            }, () => {
+                setIsLoading(false);
+            }
+        )
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.profile}>
-                <TouchableOpacity onPress={() => null}>
-                    <View style={styles.avatarWithText}>
-                        <View style={[styles.avatarWrapper, constStyles.shadow]}>
-                            <Image
-                                source={{uri: user.avatar}}
-                                style={styles.avatar}
-                            />
-                        </View>
-                        <View style={styles.nameWrapper}>
-                            <Text style={[styles.name, constStyles.medium]}>
-                                {user.name}
-                            </Text>
-                            <Text style={[styles.number, constStyles.bold]}>
-                                +{phoneNumber.slice(0, 3)} {phoneNumber.slice(3, 5)} {phoneNumber.slice(5, 8)} {phoneNumber.slice(8, 10)} {phoneNumber.slice(10, 12)}
-                            </Text>
-                        </View>
+                <View style={styles.avatarWithText}>
+                    <Avatar
+                        avatar={avatar}
+                        setAvatar={setAvatar}
+                        handleSubmit={handleSubmit}
+                        initial={user.avatar}
+                    />
+                    <View style={styles.nameWrapper}>
+                        <Text style={[styles.name, constStyles.medium]}>
+                            ID: {user.user_id}
+                        </Text>
+                        <Text style={[styles.number, constStyles.bold]}>
+                            +{phoneNumber.slice(0, 3)} {phoneNumber.slice(3, 5)} {phoneNumber.slice(5, 8)} {phoneNumber.slice(8, 10)} {phoneNumber.slice(10, 12)}
+                        </Text>
                     </View>
-                </TouchableOpacity>
+                </View>
                 <View style={styles.earningWrapper}>
                     <View style={styles.summWrapper}>
                         <Text style={[styles.summTitle, constStyles.bold]}>
@@ -78,7 +100,7 @@ const DrawerContent = (props: any) => {
                         <Icon name="tick" color={colors.blue} size={15}/>
                     </View>
                     <Text style={[styles.percentage, constStyles.bold]}>
-                        95.5%
+                        0%
                     </Text>
                     <Text style={[styles.activityName, constStyles.light]}>
                         {strings.activeness}
@@ -89,7 +111,7 @@ const DrawerContent = (props: any) => {
                         <Icon name="star" color={colors.blue} size={20}/>
                     </View>
                     <Text style={[styles.percentage, constStyles.bold]}>
-                        4.5
+                        0
                     </Text>
                     <Text style={[styles.activityName, constStyles.light]}>
                         {strings.rate}
@@ -100,7 +122,7 @@ const DrawerContent = (props: any) => {
                         <Icon name="multiply" color={colors.blue} size={30}/>
                     </View>
                     <Text style={[styles.percentage, constStyles.bold]}>
-                        3.2%
+                        0%
                     </Text>
                     <Text style={[styles.activityName, constStyles.light]}>
                         {strings.cancels}
@@ -136,4 +158,13 @@ const DrawerContent = (props: any) => {
     );
 };
 
-export default DrawerContent;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    UpdateProfile: user.UpdateProfile,
+}, dispatch);
+
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(DrawerContent);
+

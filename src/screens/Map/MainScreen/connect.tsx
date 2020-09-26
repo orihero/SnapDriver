@@ -5,6 +5,7 @@ import MainScreenController from "./controller";
 import booking from "@store/actions/booking";
 import map from "@store/actions/map";
 import user from "@store/actions/user";
+import {SendPush} from "@store/constants/booking";
 
 const mapStateToProps = ({booking: {driver, newOrder}, map: {isNetConnected}, user: {car}}: any) => ({
     driver,
@@ -20,7 +21,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         NewOrder: booking.NewOrder,
         UpdateLocation: user.UpdateLocation,
         SetNetConnection: map.SetNetConnection,
-        GetProfile: user.GetProfile
+        GetProfile: user.GetProfile,
+        SendPush: (payload: any) => ({
+            type: SendPush.SUCCESS,
+            payload
+        })
     }, dispatch);
 };
 
