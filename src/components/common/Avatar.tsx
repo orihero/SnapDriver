@@ -9,21 +9,21 @@ interface AvatarProps {
     setAvatar: (avatar: any) => void,
     avatar: object;
     style?: any;
-    handleSubmit: () => void;
+    handleSubmit: any;
     initial: string;
 }
 
 const Avatar = ({avatar, setAvatar, style, handleSubmit, initial}: AvatarProps) => {
     const onAddPress = () => {
         const options = {};
-        ImagePicker.launchImageLibrary(options, (response) => {
+        ImagePicker.launchImageLibrary({noData: true}, (response) => {
             if (response.uri) {
                 setAvatar(response);
                 Alert.alert(
                     'Сохранить',
                     'Вы дествительно хотите изменит фото профиля?',
                     [
-                        {text: 'Да', onPress: handleSubmit},
+                        {text: 'Да', onPress: ()  => handleSubmit(response)},
                         {text: 'Нет', onPress: () => setAvatar(initial)}
                     ]
                 )

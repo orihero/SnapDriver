@@ -55,17 +55,18 @@ const MainScreenController = (
             SetNetConnection(state.isConnected && state.isInternetReachable)
         });
 
-        // setInterval(() => {
-        //     if (!driver.isBusy) {
-        //         Geolocation.getCurrentPosition(position => {
-        //             const {coords: {latitude, longitude}} = position;
-        //             UpdateLocation({
-        //                 lat: `${latitude}`,
-        //                 lng: `${longitude}`
-        //             })
-        //         })
-        //     }
-        // }, 10000)
+        setInterval(() => {
+            if (!driver.isBusy) {
+                Geolocation.getCurrentPosition(position => {
+                    const {coords: {latitude, longitude}} = position;
+                    UpdateLocation({
+                        lat: `${latitude}`,
+                        lng: `${longitude}`
+                    })
+                })
+            }
+        }, 10000);
+
         setIntervalId(null);
 
         PushNotification.configure({

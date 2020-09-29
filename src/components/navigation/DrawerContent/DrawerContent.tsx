@@ -34,14 +34,13 @@ const DrawerContent = (props: any) => {
     const [avatar, setAvatar] = useState(user.avatar);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = (ava: any) => {
         setIsLoading(true);
         const formData = new FormData();
         formData.append('avatar', {
-            uri: avatar.uri,
-            type: avatar.type,
-            name: avatar.fileName,
-            data: avatar.data,
+            uri: ava.uri,
+            type: ava.type,
+            name: ava.fileName,
         });
         props.UpdateProfile(formData, () => {
                 setIsLoading(false);
