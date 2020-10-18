@@ -1,21 +1,19 @@
+import colors from '@constants/colors';
+import {useNavigation} from '@react-navigation/native';
+import IAction from '@store/types/IAction';
 import React, {useEffect, useState} from 'react';
-import EnterCodeView from "./view";
-import {StatusBar} from "react-native";
-import {useNavigation} from "@react-navigation/native";
+import {Alert, AppState, StatusBar} from 'react-native';
 import {
     useBlurOnFulfill,
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import EnterCodeView from './view';
 
-const PushNotification = require("react-native-push-notification");
-
-import colors from "@constants/colors";
-import IAction from "@store/types/IAction";
-import SCREENS from "@constants/screens";
-
+// const PushNotification = require("react-native-push-notification");
+import PushNotification from 'react-native-push-notification';
 
 interface IProps {
-    route: any
+    route: any;
     VerifyCode: IAction;
     ResendCode: IAction;
     GetProfile: IAction;
@@ -23,16 +21,14 @@ interface IProps {
     SendPush: any;
 }
 
-const EnterCodeScreenController = (
-    {
-        route,
-        VerifyCode,
-        ResendCode,
-        GetProfile,
-        GetCar,
-        SendPush
-    }: IProps) => {
-
+const EnterCodeScreenController = ({
+    route,
+    VerifyCode,
+    ResendCode,
+    GetProfile,
+    GetCar,
+    SendPush,
+}: IProps) => {
     const navigation = useNavigation();
     const [error, setError] = useState(false);
     const [fcmToken, setFcmToken] = useState(null);
@@ -54,14 +50,19 @@ const EnterCodeScreenController = (
     useEffect(() => {
         PushNotification.configure({
             onRegister: (data: any) => {
-                setFcmToken(data.token)
+                setFcmToken(data.token);
             },
             onNotification: (notification: any) => {
-                if (notification.title === "message") {
+                console.log('Background ');
+                if (notification.title === 'message') {
                     SendPush({
                         id: notification.data.notification_id,
-                        message: notification.message
-                    })
+                        message: notification.message,
+                    });
+                }
+
+                if (notification.title === 'coming') {
+                    Alert.alert('Клиент', 'Клиент выходить');
                 }
             },
             permissions: {
@@ -74,48 +75,53 @@ const EnterCodeScreenController = (
         });
     }, []);
 
-
     useEffect(() => {
         if (!counter) return;
 
         const intervalId = setInterval(() => {
-            setCounter(prevState => prevState - 1);
+            setCounter((prevState) => prevState - 1);
         }, 1000);
 
         return () => clearInterval(intervalId);
     }, [counter]);
 
-
     const handleSubmit = () => {
         setIsLoading(true);
         const {id} = route.params;
-        VerifyCode({
-            id,
-            code: value,
-            fcm_token: fcmToken
-        }, () => {
-            GetCar(null, () => {
-                GetProfile(null, () => {
-                    setIsLoading(false);
+        VerifyCode(
+            {
+                id,
+                code: value,
+                fcm_token: fcmToken,
+            },
+            () => {
+                GetCar(null, () => {
+                    GetProfile(null, () => {
+                        setIsLoading(false);
+                    });
                 });
-            });
-        }, () => {
-            setError(true);
-            setIsLoading(false);
-        });
+            },
+            () => {
+                setError(true);
+                setIsLoading(false);
+            },
+        );
     };
 
     const resend = () => {
         const {id} = route.params;
         setCounter(30);
-        ResendCode(id, ({data}) => {
-            setIsLoading(false);
-            setValue('')
-        }, (error) => {
-            setIsLoading(false);
-        })
+        ResendCode(
+            id,
+            ({data}) => {
+                setIsLoading(false);
+                setValue('');
+            },
+            (error) => {
+                setIsLoading(false);
+            },
+        );
     };
-
 
     return (
         <EnterCodeView
@@ -126,7 +132,7 @@ const EnterCodeScreenController = (
             codeFieldValue={value}
             setCodeFieldValue={(text) => {
                 setValue(text);
-                error && setError(false)
+                error && setError(false);
             }}
             isButtonDisabled={value.length < 5}
             counter={counter}

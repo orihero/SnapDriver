@@ -1,14 +1,15 @@
+import colors from '@constants/colors';
+import SCREENS from '@constants/screens';
+import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
+import NetInfo from '@react-native-community/netinfo';
+import {StackNavigationProp} from '@react-navigation/stack';
+import IAction from '@store/types/IAction';
 import React, {useEffect, useState} from 'react';
-import MainScreenView from "./view";
-import {StatusBar} from "react-native";
-import {StackNavigationProp} from "@react-navigation/stack";
-import colors from "@constants/colors";
-import SCREENS from "@constants/screens";
-import IAction from "@store/types/IAction";
-import NetInfo from "@react-native-community/netinfo";
-import Geolocation from "@react-native-community/geolocation";
+import {Alert, Linking, StatusBar} from 'react-native';
+import LaunchApplication from 'react-native-bring-foreground';
+import MainScreenView from './view';
 
-const PushNotification = require("react-native-push-notification");
+const PushNotification = require('react-native-push-notification');
 
 interface IProps {
     navigation: StackNavigationProp<any>;
@@ -25,58 +26,203 @@ interface IProps {
     SendPush: any;
 }
 
-const MainScreenController = (
-    {
-        navigation,
-        driver,
-        SetDriverStatusOffline,
-        SetDriverStatusOnline,
-        NewOrder,
-        newOrder,
-        SetNetConnection,
-        isNetConnected,
-        car,
-        UpdateLocation,
-        GetProfile,
-        SendPush
-    }: IProps
-) => {
+const MainScreenController = ({
+    navigation,
+    driver,
+    SetDriverStatusOffline,
+    SetDriverStatusOnline,
+    NewOrder,
+    newOrder,
+    SetNetConnection,
+    isNetConnected,
+    car,
+    UpdateLocation,
+    GetProfile,
+    SendPush,
+}: IProps) => {
     const [showTariff, setShowTariff] = useState(false);
     const [intervalId, setIntervalId] = useState<any>();
+
+    let configureBackgroundGeolocation = () => {
+        BackgroundGeolocation.configure({
+            desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+            stationaryRadius: 50,
+            distanceFilter: 50,
+            notificationTitle: 'Background tracking',
+            notificationText: 'enabled',
+            debug: true,
+            startOnBoot: false,
+            stopOnTerminate: true,
+            locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+            interval: 10000,
+            fastestInterval: 5000,
+            activitiesInterval: 10000,
+            stopOnStillActivity: false,
+        });
+
+        BackgroundGeolocation.on('location', ({latitude, longitude}) => {
+            // handle your locations here
+            // to perform long running operation on iOS
+            // you need to create background task
+            UpdateLocation({
+                lat: `${latitude}`,
+                lng: `${longitude}`,
+            });
+            // setTimeout(() => {
+            //     Linking.openURL('snapDriver://booking');
+            // }, 2000);
+            console.log('GOT THE LOCATION');
+
+            BackgroundGeolocation.startTask((taskKey) => {
+                // execute long running task
+                // eg. ajax post location
+                // IMPORTANT: task has to be ended by endTask
+                BackgroundGeolocation.endTask(taskKey);
+            });
+        });
+
+        BackgroundGeolocation.on('stationary', (stationaryLocation) => {
+            // handle stationary locations here
+            // Actions.sendLocation(stationaryLocation);
+        });
+
+        BackgroundGeolocation.on('error', (error) => {
+            console.log('[ERROR] BackgroundGeolocation error:', error);
+        });
+
+        BackgroundGeolocation.on('start', () => {
+            console.log(
+                '[INFO] BackgroundGeolocation service has been started',
+            );
+        });
+
+        BackgroundGeolocation.on('stop', () => {
+            console.log(
+                '[INFO] BackgroundGeolocation service has been stopped',
+            );
+        });
+
+        BackgroundGeolocation.on('authorization', (status) => {
+            console.log(
+                '[INFO] BackgroundGeolocation authorization status: ' + status,
+            );
+            if (status !== BackgroundGeolocation.AUTHORIZED) {
+                // we need to set delay or otherwise alert may not be shown
+                setTimeout(
+                    () =>
+                        Alert.alert(
+                            'App requires location tracking permission',
+                            'Would you like to open app settings?',
+                            [
+                                {
+                                    text: 'Yes',
+                                    onPress: () =>
+                                        BackgroundGeolocation.showAppSettings(),
+                                },
+                                {
+                                    text: 'No',
+                                    onPress: () => console.log('No Pressed'),
+                                    style: 'cancel',
+                                },
+                            ],
+                        ),
+                    1000,
+                );
+            }
+        });
+
+        BackgroundGeolocation.on('background', () => {
+            console.log('[INFO] App is in background');
+            // Linking.canOpenURL('snapDriver://booking').then((e) => {
+
+            // });
+
+            LaunchApplication.open('com.snapdriver');
+
+            setTimeout(() => {
+                console.log('fuck');
+
+                // Linking.sendIntent('snapDriver://booking');
+            }, 5000);
+        });
+
+        BackgroundGeolocation.on('foreground', () => {
+            console.log('[INFO] App is in foreground');
+        });
+
+        BackgroundGeolocation.on('abort_requested', () => {
+            console.log(
+                '[INFO] Server responded with 285 Updates Not Required',
+            );
+
+            // Here we can decide whether we want stop the updates or not.
+            // If you've configured the server to return 285, then it means the server does not require further update.
+            // So the normal thing to do here would be to `BackgroundGeolocation.stop()`.
+            // But you might be counting on it to receive location updates in the UI, so you could just reconfigure and set `url` to null.
+        });
+
+        BackgroundGeolocation.on('http_authorization', () => {
+            console.log('[INFO] App needs to authorize the http requests');
+        });
+
+        BackgroundGeolocation.checkStatus((status) => {
+            console.log(
+                '[INFO] BackgroundGeolocation service is running',
+                status.isRunning,
+            );
+            console.log(
+                '[INFO] BackgroundGeolocation services enabled',
+                status.locationServicesEnabled,
+            );
+            console.log(
+                '[INFO] BackgroundGeolocation auth status: ' +
+                    status.authorization,
+            );
+
+            // you don't need to check status before start (this is just the example)
+            if (!status.isRunning) {
+                BackgroundGeolocation.start(); //triggers start on start event
+            }
+        });
+
+        // you can also just start without checking for status
+        // BackgroundGeolocation.start();
+    };
 
     useEffect(() => {
         navigation.addListener('focus', () => {
             StatusBar.setBarStyle('dark-content');
             StatusBar.setBackgroundColor(colors.white);
-            GetProfile()
+            GetProfile();
         });
 
-        NetInfo.addEventListener(state => {
-            SetNetConnection(state.isConnected && state.isInternetReachable)
+        NetInfo.addEventListener((state) => {
+            SetNetConnection(state.isConnected && state.isInternetReachable);
         });
 
-        setInterval(() => {
-            if (!driver.isBusy) {
-                Geolocation.getCurrentPosition(position => {
-                    const {coords: {latitude, longitude}} = position;
-                    UpdateLocation({
-                        lat: `${latitude}`,
-                        lng: `${longitude}`
-                    })
-                })
-            }
-        }, 10000);
+        // setInterval(() => {
+        //     if (!driver.isBusy) {
+        //         Geolocation.getCurrentPosition(position => {
+        //             const {coords: {latitude, longitude}} = position;
+        //             UpdateLocation({
+        //                 lat: `${latitude}`,
+        //                 lng: `${longitude}`
+        //             })
+        //         })
+        //     }
+        // }, 10000);
 
-        setIntervalId(null);
+        // setIntervalId(null);
+
+        configureBackgroundGeolocation();
 
         PushNotification.configure({
-
             onNotification: (notification: any) => {
-                if (notification.title === "message") {
+                if (notification.title === 'message') {
                     SendPush({
                         id: notification.data.notification_id,
-                        message: notification.message
-                    })
+                        message: notification.message,
+                    });
                 }
             },
             permissions: {
@@ -87,22 +233,25 @@ const MainScreenController = (
             popInitialNotification: true,
             requestPermissions: true,
         });
-        return clearInterval(intervalId);
+        // return () => clearInterval(intervalId);
     }, []);
 
     const routeTo = (screen: string) => () => {
-        navigation.navigate(screen)
+        navigation.navigate(screen);
     };
 
     const changeDriverStatus = () => {
         if (driver.status) {
-            SetDriverStatusOffline()
+            SetDriverStatusOffline();
         } else {
-            SetDriverStatusOnline({
-                carId: car.id,
-            }, (bookingInfo) => {
-                !driver.isBusy && NewOrder(bookingInfo)
-            })
+            SetDriverStatusOnline(
+                {
+                    carId: car.id,
+                },
+                (bookingInfo) => {
+                    !driver.isBusy && NewOrder(bookingInfo);
+                },
+            );
         }
     };
 
