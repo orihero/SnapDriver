@@ -42,11 +42,18 @@
             </intent-filter>
         </receiver>
 
+<!--        <service-->
+<!--                android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"-->
+<!--                android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
         <service
-                android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
-                android:exported="false">
+            android:name=".java.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
